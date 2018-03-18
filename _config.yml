@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: mcenter
+title: Dark-Lab
 subtitle:
 description: 某中二的黑科技研究中心
 author: HaoXi
@@ -78,7 +78,7 @@ theme: pure
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://git.coding.net/wanghaoxi3000/darklib-blog.git
+  repo: https://git.coding.net/wanghaoxi3000/darklab-blog.git
   branch: coding-pages
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
 
