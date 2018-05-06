@@ -82,12 +82,11 @@ search:
 # Donate
 donate:
   enable: true
+  # 微信打赏
   weipay:
-    image: images/donate/weipay.jpg
-    qrcode: images/donate/weipayimg.png
+    qrcode: images/donate/wechatpayimg.png
     title: 微信支付
   alipay: 
-    image: images/donate/alipay.jpg
     qrcode: images/donate/alipayimg.png 
     title: 支付宝
 
@@ -138,7 +137,7 @@ douban:
 # PV
 pv:
   busuanzi:
-    enable: true  # 不蒜子统计
+    enable: false  # 不蒜子统计
   leancloud:
     enable: false  # leancloud统计
     app_id: # leancloud <AppID>

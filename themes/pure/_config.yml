@@ -80,12 +80,10 @@ search:
 # Donate
 donate:
   enable: true
-  weipay:
-    image: images/donate/weipay.jpg
-    qrcode: images/donate/weipayimg.png
+  wechatpay:
+    qrcode: images/donate/wechatpayimg.png
     title: 微信支付
-  alipay: 
-    image: images/donate/alipay.jpg
+  alipay:
     qrcode: images/donate/alipayimg.png 
     title: 支付宝
 
