@@ -1,8 +1,24 @@
 # links
+博客园:
+  link: https://www.cnblogs.com/
+  avatar: /images/favatar/cnblogs.jpg
+  desc: 代码改变世界
+
+掘金:
+  link: https://juejin.im/
+  avatar: /images/favatar/juejin.png
+  desc: 一个帮助开发者成长的社区
+
+开源中国:
+  link: https://www.oschina.net/
+  avatar: /images/favatar/oschina.png
+  desc: 开源软件推进联盟指定的官方社区
+
 创造狮:
   link: http://chuangzaoshi.com/
   avatar: /images/favatar/chuangzaoshi-logo.png
   desc: 为创意工作者而设计
+
 Hello Github:
   link: https://hellogithub.com/
   avatar: /images/favatar/hellogithub.png

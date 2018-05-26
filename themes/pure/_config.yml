@@ -134,11 +134,11 @@ douban:
 # PV
 pv:
   busuanzi:
-    enable: true  # 不蒜子统计
+    enable: false  # 不蒜子统计
   leancloud:
-    enable: false  # leancloud统计
-    app_id: # leancloud <AppID>
-    app_key: # leancloud <AppKey>
+    enable: true  # leancloud统计
+    app_id: emMNJM4LlVoGXQlmNXSc7VsU-gzGzoHsz
+    app_key: FqOXTO6sJtoucpkAXPUNbRhC
         
 # wordcount
 postCount:
