@@ -136,9 +136,9 @@ pv:
   busuanzi:
     enable: false  # 不蒜子统计
   leancloud:
-    enable: true  # leancloud统计
-    app_id: emMNJM4LlVoGXQlmNXSc7VsU-gzGzoHsz
-    app_key: FqOXTO6sJtoucpkAXPUNbRhC
+    enable: false  # leancloud统计
+    app_id:
+    app_key:
         
 # wordcount
 postCount:
