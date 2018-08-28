@@ -6,6 +6,7 @@ menu:
   Repository: repository  # github repositories
   Books: books  # 豆瓣书单
   Links: links  # 友链
+  Resume: resume # 简历
   # About: about  # 关于
 
 # Enable/Disable menu icons
@@ -17,6 +18,7 @@ menu_icons:
   repository: icon-project
   books: icon-book-fill
   links: icon-friendship
+  resume: icon-cup-fill
   # about: icon-cup-fill
 
 # rss
