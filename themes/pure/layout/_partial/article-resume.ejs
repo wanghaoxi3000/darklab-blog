@@ -1,0 +1,69 @@
+<%- css('css/resume') %>
+<article class="container-resume">
+  <header>
+    <div class="img-header">
+      <div class="content">
+        <p>&lt;title&gt;<strong> ON THE WAY </strong>&lt;/title&gt;</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="information-all">
+      <div class="col-6-asb">
+        <div class="col-3 peasonal">
+          <img class="peasonal-image" src="<%- url_for('images/resume/peason.png') %>" alt="">
+        </div>
+        <div class="col-9 item">
+          <p class="title name">
+            <%= theme.resume.name %>
+          </p>
+          <div class="col-6">
+            <p class="phone">
+              <%= theme.resume.phone %>
+            </p>
+            <p class="education">
+              <%= theme.resume.education %>
+            </p>
+          </div>
+          <div class="col-6">
+            <p class="email">
+              <%= theme.resume.email %>
+            </p>
+            <p class="profession">
+              <%= theme.resume.profession %>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6-asb">
+        <div class="col-6 ensprience">
+          <div class="item">
+            <p class="title">
+              关于我
+            </p>
+            <ul>
+              <li>2年后台开发、前端实战经验</li>
+              <li>发展方向：全栈程序员</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-6 skill">
+          <div class="item">
+              <p class="title">
+                  熟练语言
+              </p>
+              <div class="lang">
+                  <lable>LINUX</lable>
+                  <lable>PYTHON</lable>
+                  <lable>JQUERY</lable>
+                  <lable>HTML</lable>
+                  <lable>PHP</lable>
+                  <lable>PHOTOSHOP</lable>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</article>

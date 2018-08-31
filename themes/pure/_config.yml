@@ -186,3 +186,11 @@ profile:
       # behance: /
       rss: atom.xml
     link_tooltip: true # enable the social link tooltip, options: true, false
+
+# resume
+resume:
+  name: 梁博奇 Alex
+  phone: 135 1111 8888
+  education: xxx 大学 | 本科
+  email: XXXXXX@sina.com
+  profession: 计算机科学与技术
