@@ -103,7 +103,6 @@ html p {
 }
 .lang {
     margin-top: -5px;
-    border: 1px solid red;
 }
 .item .title {
     margin: 15px 0; 
@@ -156,7 +155,7 @@ section .title::before {
     left: 90px;
 }
 section .title.project::after {
-    content: url(../image/icon1.png)
+    content: url(/images/resume/icon1.png)
 }
 section .title.work::after {
     content: url(../image/icon3.png)
@@ -169,7 +168,7 @@ section .title.about-me::after {
     left: 10px;
 }
 section .title.project::before {
-    content: url(../image/icon2.png)
+    content: url(/images/resume/icon2.png)
 }
 section .title.work::before {
     content: url(../image/icon4.png)
