@@ -1,7 +1,7 @@
 html p {
     margin: 0;
 }
-.col-3, .col-6, .col-9 {
+.col-3, .col-6, .col-7, .col-9 {
     display: inline-block;
     vertical-align: top;
     margin: 0;
@@ -21,6 +21,9 @@ html p {
 }
 .col-6 {
     width: 48.5%;
+}
+.col-7 {
+    width: 51.5%;
 }
 .col-9 {
     width: 65%;
@@ -92,6 +95,12 @@ html p {
 .information-all, main > section, footer > section {
     padding: 0 35px;
 }
+.profession {
+    padding-left: 20px;
+}
+.email {
+    font-size: 17px;
+}
 .peasonal, item {
     display: inline-block;
 }
@@ -102,8 +111,8 @@ html p {
     padding-left: 15px;
 }
 .lang {
-    margin-top: -5px;
-    padding-bottom: 5px;
+    margin-top: 10px;
+    padding-bottom: 20px;
 }
 .item .title {
     margin: 15px 0; 
@@ -166,7 +175,7 @@ section .title.enducation::after {
     content: url(../image/icon5.png)
 }
 section .title.about-me::after {
-    content: url(../image/icon7.png);
+    content: url(/images/resume/icon7.png);
     left: 10px;
 }
 section .title.project::before {
@@ -176,14 +185,18 @@ section .title.work::before {
     content: url(/images/resume/icon4.png)
 }
 section .title.enducation::before {
-    content: url(../image/icon6.png)
+    content: url(/images/resume/icon6.png)
 }
 section .title.about-me::before {
-    content: url(../image/icon8.png)
+    content: url(/images/resume/icon8.png)
 }
 
 .project-detail .col-3-abs {
     margin-top: 50px;
+    vertical-align: top;
+}
+.project-detail-img {
+    height: 66px;
 }
 .project-detail .col-3-abs:not(.endline) {
     margin-right: 20px;
@@ -228,6 +241,7 @@ section .title.about-me::before {
     z-index: 10;
 }
 .project-content p.project-title {
+    margin: 5px 0;
     font-size: 16px;
     font-weight: bold;
     color: #022643;
@@ -240,7 +254,8 @@ section .title.about-me::before {
     letter-spacing: 1px;
 }
 .project-content p.decription {
-    margin-top: 15px; 
+    height: 180px;
+    margin-top: 15px;
     text-align: initial;
     font-size: 14px;
     color: #022643;
@@ -256,6 +271,7 @@ section .title.about-me::before {
 }
 .w-experience-content .logo {
     width: 30%;
+    text-align: center;
 }
 .w-experience-content .work-content {
     width: 69%;
@@ -266,7 +282,7 @@ section .title.about-me::before {
 }
 .company-logo {
     margin: 20px 0 0 20px;
-    max-width: 250px;
+    height: 120px;
 }
 .work-content p.create-time {
     font-size: 14px;

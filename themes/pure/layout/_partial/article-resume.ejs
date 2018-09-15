@@ -1,8 +1,6 @@
 <%- css('css/resume') %>
 <article class="container-resume">
-  <header>
-
-  </header>
+  <header></header>
 
   <main>
     <div class="information-all">
@@ -12,22 +10,17 @@
         </div>
         <div class="col-9 item">
           <p class="title name">
-            <%= theme.resume.name %>
+            教育经历
           </p>
-          <div class="col-6">
-            <p class="phone">
-              <%= theme.resume.phone %>
-            </p>
-            <p class="education">
-              <%= theme.resume.education %>
-            </p>
+          <div class="col-7">
+            <% for(var i in theme.resume.education) { %>
+              <p class="education"><%= theme.resume.education[i].name %></p>
+            <% } %>
           </div>
           <div class="col-6">
-            <p class="email">
-              <%= theme.resume.email %>
-            </p>
-            <p class="profession">
-              <%= theme.resume.profession %>
+            <% for(var i in theme.resume.education) { %>
+              <p class="profession"><%= theme.resume.education[i].profession %></p>
+            <% } %>
             </p>
           </div>
         </div>
@@ -36,11 +29,13 @@
         <div class="col-6 ensprience">
           <div class="item">
             <p class="title">
-              关于我
+              发展方向
             </p>
             <ul>
-              <li>2年后台开发、前端实战经验</li>
-              <li>发展方向：全栈程序员</li>
+              <% var direction = theme.resume.direction.split(',') %>
+              <% for(var i in direction) { %>
+                <li><%- direction[i] %></li>
+              <% } %>
             </ul>
           </div>
         </div>
@@ -50,12 +45,10 @@
                   熟练语言
               </p>
               <div class="lang">
-                  <label>LINUX</label>
-                  <label>PYTHON</label>
-                  <label>JQUERY</label>
-                  <label>HTML</label>
-                  <label>PHP</label>
-                  <label>PHOTOSHOP</label>
+                <% var proficiency = theme.resume.proficiency.split(',') %>
+                <% for(var i in proficiency) { %>
+                  <label><%- proficiency[i] %></label>
+                <% } %>
               </div>
           </div>
         </div>
@@ -67,39 +60,17 @@
         <p>项目经验</p>
       </div>
       <div class="project-detail">
-        <div class="col-3-abs" id="project-0">
-          <div class="project-content"> <img src="<%- url_for('images/resume/LOGO1.png') %>" alt="">
-            <p class="project-title">Paxxal后台搭建</p>
-            <p class="create-time">2014.8 - 2014.9</p>
-            <p class="decription"> 该作品使用了MVC设计模式，SqlServer数据库，Servlet、jquery ajax的技术上制作的一个动态购物网站，实现了在数据库查询出商品显示在页面上，实现了购物车与购买功能，并对数据库进行相应操作。 </p>
+        <% var index = 0 %>
+        <% for(var i in theme.resume.project) { %>
+          <div class="col-3-abs" id="project-<%- index %>">
+            <div class="project-content"> <img class="project-detail-img" src="<%- url_for('images/resume/LOGO' + index + '.png') %>" alt="">
+              <p class="project-title"><%- theme.resume.project[i].title %></p>
+              <p class="create-time"><%- theme.resume.project[i].time %></p>
+              <p class="decription"><%- theme.resume.project[i].decription %></p>
+            </div>
           </div>
-          <div class="link-to">
-            <a href="https://www.baidu.com" class="button">查看DEMO</a>
-            <div class="shadow"></div>
-          </div>
-        </div>
-        <div class="col-3-abs" id="project-1">
-          <div class="project-content"> <img src="<%- url_for('images/resume/LOGO2.png') %>" alt="">
-            <p class="project-title">聊天应用开发</p>
-            <p class="create-time">2014.8 - 2014.9</p>
-            <p class="decription"> 该作品使用了MVC设计模式，SqlServer数据库，Servlet、jquery ajax的技术上制作的一个动态购物网站，实现了在数据库查询出商品显示在页面上，实现了购物车与购买功能，并对数据库进行相应操作。 </p>
-          </div>
-          <div class="link-to">
-            <a href="https://www.baidu.com" class="button">查看DEMO</a>
-            <div class="shadow"></div>
-          </div>
-        </div>
-        <div class="col-3-abs endline" id="project-2">
-          <div class="project-content"> <img src="<%- url_for('images/resume/LOGO3.png') %>" alt="">
-              <p class="project-title">购物商城前端搭建</p>
-              <p class="create-time">2014.8 - 2014.9</p>
-              <p class="decription"> 该作品使用了MVC设计模式，SqlServer数据库，Servlet、jquery ajax的技术上制作的一个动态购物网站，实现了在数据库查询出商品显示在页面上，实现了购物车与购买功能，并对数据库进行相应操作。 </p>
-          </div>
-          <div class="link-to">
-            <a href="https://www.baidu.com" class="button">查看DEMO</a>
-            <div class="shadow"></div>
-          </div>
-        </div>
+          <% index++ %>
+        <% } %>
       </div>
     </section>
 
@@ -113,29 +84,44 @@
             <img class="company-logo" src="<%- url_for('images/resume/LOGO4.png') %>" alt="">
           </div>
           <div class="work-content">
-            <p class="create-time">2014.10 - 2016.10</p>
-            <p class="job">产品经理 | 多桔子信息科技有限公司</p>
+            <p class="create-time">2017.8 - 至今</p>
+            <p class="job">Python 程序开发 | 成都一石数字有限公司</p>
             <ul>
-              <li>团队管理，电商产品管理，电子商务策划项目管理；</li>
-              <li>网站需求分析，产品设计，产品跟踪，及后续产品优化工作；</li>
-              <li>与研发、营销、客服配合，展开产品开发、销售、售后工作；</li>
-              <li>产品应用市场调研和分析；</li>
-              <li>公司品牌宣传，产品推广，负责公司网站策划和运营工作。</li>
+              <li>基于 Django 框架设计规划人脸识别安防监控产品后端整体架构，开发安防平台后端所需的人脸检索、监控告警、消息推送、权限管理等各个功能</li>
+              <li>搭建基于 Vue 后台管理的前端开发框架，完善权限路由、动态响应、ESlint 代码规范等前端基础功能</li>
+              <li>维护公司的Git版本管理系统，应用Docker技术搭建公司的持续集成系统，优化和完善了公司的代码管理及开发流程</li>
+              <li>协助公司算法开发人员解决人脸识别算法模块开发过程中遇到的相关问题</li>
             </ul>
           </div>
         </div>
+
+        <div class="item w-experience-content">
+          <div class="logo">
+            <img class="company-logo" src="<%- url_for('images/resume/LOGO4.png') %>" alt="">
+          </div>
+          <div class="work-content">
+            <p class="create-time">2016.4 - 2017.6</p>
+            <p class="job">Linux 程序开发 | 中软国际有限公司</p>
+            <ul>
+              <li>独立开发了华为 OceanStor 9000 海量存储系统中基于 Python webPy 的账户自动化回收系统，通过 Restful API 对系统中多个管控不同模块的账户进行自动化回收。</li>
+              <li>参与华为 OceanStor 9000 海量存储系统大数据模块的日常维护，设计和开发基于 Python 和 shell 的运维脚本</li>
+              <li>参与华为 OceanStor 9000 海量存储系统底层的 Linux C 程序开发和单元测试代码编写工作</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="item w-experience-content">
           <div class="logo">
             <img class="company-logo" src="<%- url_for('images/resume/LOGO5.png') %>" alt="">
           </div>
           <div class="work-content">
-            <p class="create-time">2014.10 - 2016.10</p>
-            <p class="job">软件开发工程师 | SINGU</p>
+            <p class="create-time">2014.9 - 2016.4</p>
+            <p class="job">Linux 嵌入式开发 | 四川金网通电子科技公司</p>
             <ul>
-              <li>负责公司内部业务系统的设计及改进，参与公司网上商城系统产品功能设计及实施工作；</li>
-              <li>负责客户调研、客户需求分析、方案写作等工作；</li>
+              <li>参与公司基于海思、博通等芯片的 Linux C 程序机顶盒的功能设计及软件编写工作</li>
+              <li>为机顶盒移植各个CA加密系统并通过CA厂商的认证，独立参与了永新视博CA系统的机顶盒移植和认证</li>
+              <li>协助各地的场测人员解决产品测试中出现各类机顶盒相关软件问题，直至通过当地的测试要求</li>
             </ul>
-            <p class="key-word">参与公司多个大型电子商务项目的策划工作，担任大商集团网上商城一期建设项目经理。</p>
           </div>
         </div>
       </div>
@@ -143,6 +129,14 @@
   </main>
 
   <footer>
+    <section>
+      <div class="title about-me">
+        <p>联系我</p>
+      </div>
+      <div class="peasonal-message">
+        <p class="email" ><i class="icon icon-email" ></i> &nbsp;&nbsp;<%= theme.resume.email %></p>
+      </div>
+    </section>
     <div class="img-header">
       <div class="content">
         <p>&lt;title&gt;<strong> ON THE WAY </strong>&lt;/title&gt;</p>
