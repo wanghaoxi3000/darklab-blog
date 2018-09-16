@@ -1,7 +1,7 @@
 html p {
     margin: 0;
 }
-.col-3, .col-6, .col-7, .col-9 {
+.col-3, .col-6, .col-9 {
     display: inline-block;
     vertical-align: top;
     margin: 0;
@@ -21,9 +21,6 @@ html p {
 }
 .col-6 {
     width: 48.5%;
-}
-.col-7 {
-    width: 51.5%;
 }
 .col-9 {
     width: 65%;
@@ -94,6 +91,9 @@ html p {
 }
 .information-all, main > section, footer > section {
     padding: 0 35px;
+}
+.education {
+    white-space: nowrap;
 }
 .profession {
     padding-left: 20px;
