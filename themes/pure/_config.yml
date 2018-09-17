@@ -34,14 +34,14 @@ site:
   title: Dark-Lab # 页面title
   favicon: /favicon.png
   board: <p>恭喜你发现了这个小站</p> # 站点公告
-  copyright: false # 底部版权信息
+  copyright: true # 底部版权信息
 
 # config
 config:
   skin: # 主题颜色 theme-black theme-blue theme-green theme-purple
   layout: main-center # 布局方式 main-left main-center main-right
   toc: true # 是否开启文章章节目录导航
-  menu_highlight: false # 是否开启当前菜单高亮显示
+  menu_highlight: true # 是否开启当前菜单高亮显示
   thumbnail: false # enable posts thumbnail, options: true, false
   excerpt_link: Read More
 
@@ -82,9 +82,11 @@ search:
 # Donate
 donate:
   enable: true
+  # 微信打赏
   wechatpay:
     qrcode: images/donate/wechatpayimg.png
     title: 微信支付
+  # 支付宝打赏
   alipay:
     qrcode: images/donate/alipayimg.png 
     title: 支付宝
@@ -107,7 +109,7 @@ comment:
   type: livere  # 启用哪种评论系统
   disqus:  # enter disqus shortname here
   youyan: 
-    uid:   # enter youyan uid 
+    uid: # enter youyan uid 
   livere:
     uid: MTAyMC8zNDkxOS8xMTQ1Ng==
   gitment:
@@ -116,6 +118,16 @@ comment:
     ClientID: 
     ClientSecret: 
     lazy: false
+  valine: # Valine. https://valine.js.org
+    appid:  # your leancloud application appid
+    appkey:  # your leancloud application appkey
+    notify: false # mail notifier , https://github.com/xCss/Valine/wiki
+    verify: false # Verification code
+    placeholder: Just go go # comment box placeholder
+    avatar: mm # gravatar style
+    meta: nick,mail,link # custom comment header
+    pageSize: 10 # pagination size
+    visitor: false # Article reading statistic https://valine.js.org/visitor.html
 
 # douban 豆瓣书单
 # Api：
@@ -139,8 +151,8 @@ pv:
     enable: false  # 不蒜子统计
   leancloud:
     enable: false  # leancloud统计
-    app_id:
-    app_key:
+    app_id: # leancloud <AppID>
+    app_key: # leancloud <AppKey>
         
 # wordcount
 postCount:
@@ -150,10 +162,10 @@ postCount:
 
 # Plugins
 plugins:
-  google_analytics: # enter the tracking ID for your Google Analytics
-  google_site_verification: # enter Google site verification code
+  # google_analytics: # enter the tracking ID for your Google Analytics
+  # google_site_verification: # enter Google site verification code
   baidu_analytics: 0f73d976ea657bf8613077af65e0b54a
-  tencent_analytics: 
+  # tencent_analytics: 
   
 # Miscellaneous
 twitter:
@@ -168,6 +180,7 @@ coding:
 # profile
 profile:
   enabled: true # Whether to show profile bar
+  article_show: false  # Whether to show on the bottom of article 
   avatar: images/avatar.png
   gravatar: # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
   author:

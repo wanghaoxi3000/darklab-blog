@@ -83,9 +83,10 @@ search:
 donate:
   enable: true
   # 微信打赏
-  weipay:
+  wechatpay:
     qrcode: images/donate/wechatpayimg.png
     title: 微信支付
+  # 支付宝打赏
   alipay: 
     qrcode: images/donate/alipayimg.png 
     title: 支付宝
