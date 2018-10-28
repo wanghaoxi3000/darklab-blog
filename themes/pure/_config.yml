@@ -74,7 +74,7 @@ archive_type: 'monthly'
 show_count: true
 
 # Fancybox
-fancybox: false
+fancybox: true
 
 # Search
 search:
@@ -108,12 +108,12 @@ github:
 # Gitment
 # Introduction: https://imsun.net/posts/gitment-introduction/
 comment:
-  type: livere  # 启用哪种评论系统
+  type: valine  # 启用哪种评论系统
   disqus:  # enter disqus shortname here
   youyan: 
     uid: # enter youyan uid 
   livere:
-    uid: MTAyMC8zNDkxOS8xMTQ1Ng==
+    uid:
   gitment:
     githubID: 
     repo: 
@@ -127,15 +127,15 @@ comment:
     ClientID:  #必须. GitHub Application Client ID.
     ClientSecret:  #必须. GitHub Application Client Secret.
   valine: # Valine. https://valine.js.org
-    appid:  # your leancloud application appid
-    appkey:  # your leancloud application appkey
+    appid: vdAxXlMSuDmYqzB0IGfFe5LD-gzGzoHsz
+    appkey: IweUMlmO2IDXOCePunb5V6yp
     notify: false # mail notifier , https://github.com/xCss/Valine/wiki
     verify: false # Verification code
     placeholder: Just go go # comment box placeholder
     avatar: mm # gravatar style
     meta: nick,mail,link # custom comment header
     pageSize: 10 # pagination size
-    visitor: false # Article reading statistic https://valine.js.org/visitor.html
+    visitor: true # Article reading statistic https://valine.js.org/visitor.html
 
 # douban 豆瓣书单
 # Api：

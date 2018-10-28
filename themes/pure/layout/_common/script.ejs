@@ -17,5 +17,7 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 <% if (!is_home() && !is_category() && !is_tag() && !is_archive() && post.comments) { %>
    <%- partial('_script/comment') %>
 <% } %>
-<%- partial('_script/fancybox') %>
+<% if (page.layout != 'resume') { %>
+   <%- partial('_script/fancybox') %>
+<% } %>
 <%- partial('_script/analytics') %>
