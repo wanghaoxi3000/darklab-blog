@@ -13,9 +13,6 @@ $(function() {
     });
   }
 
-  // 自动展开目录
-  $('a.toggle-btn').trigger('click');
-
   $('#collapseToc').on('shown.bs.collapse', function() {
     // do something…
     // slimscroll
