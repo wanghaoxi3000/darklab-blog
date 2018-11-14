@@ -39,3 +39,19 @@ TRUNCATE TABLE table1
 ```
 alter table users AUTO_INCREMENT=123456;
 ```
+
+### 无法远程登录
+在已经修改配置文件中的地址为 `0.0.0.0` 但仍然无法远程登录的情况下, 一般是需要对数据库中的账户信息进行修改
+
+#### 授权用户 (推荐)
+```
+mysql>GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+```
+
+#### 直接修改 `user` 表
+```
+mysql>use mysql;
+mysql>update user set host = '%' where user = 'root';
+```
+
+以上方法操作完成后还需执行 `FLUSH PRIVILEGES;` 刷新一遍权限
