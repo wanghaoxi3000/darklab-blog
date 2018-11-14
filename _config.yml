@@ -98,7 +98,7 @@ baidusitemap:
 # hexo-neat 自动压缩
 neat_enable: true
 neat_html:
-  enable: true
+  enable: false
   exclude:  
 neat_css:
   enable: true

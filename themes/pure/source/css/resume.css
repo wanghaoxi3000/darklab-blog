@@ -1,6 +1,3 @@
-html p {
-    margin: 0;
-}
 .col-3, .col-6, .col-9 {
     display: inline-block;
     vertical-align: top;
@@ -199,7 +196,7 @@ section .title.about-me::before {
     height: 66px;
 }
 .project-detail .col-3-abs:not(.endline) {
-    margin-right: 20px;
+    margin-right: 17px;
 }
 .project-detail .button {
     width: 225px;
