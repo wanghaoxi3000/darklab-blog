@@ -1,0 +1,3 @@
+[submodule "themes/pure"]
+	path = themes/pure
+	url = https://github.com/wanghaoxi3000/my-hexo-theme-pure.git
