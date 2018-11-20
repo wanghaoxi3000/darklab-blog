@@ -3,6 +3,8 @@ title: Linux常用命令
 date: 2017/12/29 01:09:00
 categories:
 - Linux管理
+tags:
+  - Linux命令
 toc: true
 ---
 
@@ -115,4 +117,14 @@ ps aux：以BSD的格式来显示java这个进程，包含的信息：
 ```
 nohup command > myout.file 2>&1 
 # 输出被重定向到myout.file文件中
+```
+
+## 实用命令
+### 系统测试
+```shell
+# 模拟高CPU利用率
+cat /dev/urandom | gzip -9 | gzip -d | gzip -9 | gzip -d > /dev/null
+
+# 使用 fio 测试系统 io 性能
+fio --filename={} -direct=1 --iodepth=64 --rw=randrw --rwmixwrite=70 --ioengine=psync --bs=4k --size=500M --numjobs=30 --runtime=600 --name=mytest
 ```
