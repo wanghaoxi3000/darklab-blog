@@ -78,7 +78,7 @@ theme: pure
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://git.coding.net/wanghaoxi3000/darklab-blog.git
+  repo: git@git.dev.tencent.com:wanghaoxi3000/darklab-blog.git
   branch: coding-pages
   message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
 
