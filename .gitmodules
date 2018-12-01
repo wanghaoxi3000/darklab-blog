@@ -1,7 +1,3 @@
 [submodule "themes/pure"]
 	path = themes/pure
 	url = https://github.com/wanghaoxi3000/my-hexo-theme-pure.git
-[submodule ".deploy_git"]
-	path = .deploy_git
-	url = https://git.dev.tencent.com/wanghaoxi3000/darklab-blog.git
-	branch = coding-pages
