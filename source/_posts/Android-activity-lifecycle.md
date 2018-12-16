@@ -49,7 +49,7 @@ Activity 类中定义了七个回调方法，覆盖了活动生命周期的每�
 
 Android 官方提供了一张活动生命周期的示意图:
 
-![image](http://ohyn8f189.bkt.clouddn.com/16-12-16/77772045-file_1481818432274_be76.png)
+![image](https://darkreunion-1256611153.file.myqcloud.com/16-12-16/77772045-file_1481818432274_be76.png)
 
 ### 活动的启动模式
 启动模式一共有四种，分别是standard、singleTop、singleTask和singleInstance，可以在AndroidManifest.xml中通过给<activity>标签指定android:launchMode属性来选择启动模式。

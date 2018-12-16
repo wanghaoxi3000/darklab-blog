@@ -179,13 +179,14 @@ ORDER BY cust name;
 - LTrim() 删除左侧多余的空格
 
 ### 日期及时间处理函数
-![image](http://ohyn8f189.bkt.clouddn.com/public/16-12-10/96449569.jpg)
+![image](https://darkreunion-1256611153.file.myqcloud.com/public/16-12-10/96449569.jpg)
 
 ### 数值处理函数
-![image](http://ohyn8f189.bkt.clouddn.com/public/16-12-10/2477595.jpg)
+![image](https://darkreunion-1256611153.file.myqcloud.com/public/16-12-10/2477595.jpg)
 
 ### 聚集函数
-![image](http://ohyn8f189.bkt.clouddn.com/16-12-13/59196763-file_1481558765463_6d4d.png)
+![image](https://darkreunion-1256611153.file.myqcloud.com/16-12-13/59196763-file_1481558765463_6d4d.png)
+
 可在函数中以DISTINCT来仅汇总不同的值
 ```
 SELECT AVG(DISTINCT prod_price) AS avg_price

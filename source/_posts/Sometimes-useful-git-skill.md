@@ -11,7 +11,7 @@ date: 2018-08-23 23:02:46
 ### Git 工作流
 一个不错的工作流图示
 
-![](https://darkreunion-1256611153.cos.ap-chengdu.myqcloud.com/img/gitworkflow.jpg)
+![](https://darkreunion-1256611153.file.myqcloud.com/img/gitworkflow.jpg)
 
 ### 创建一个空分支
 ```

@@ -8,7 +8,7 @@ toc: true
 
 ### Class对象相关知识导图：
 
-![Java Class对象](http://ohyn8f189.bkt.clouddn.com/17-5-16/79733900-file_1494947788433_83c2.png)
+![Java Class对象](https://darkreunion-1256611153.file.myqcloud.com/17-5-16/79733900-file_1494947788433_83c2.png)
 
 
 导图源文件保存地址：https://github.com/wanghaoxi3000/xmind
