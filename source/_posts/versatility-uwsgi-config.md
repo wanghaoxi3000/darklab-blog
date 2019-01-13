@@ -57,11 +57,11 @@ wsgi-file = backend/wsgi.py
 master = true
 processes = 2
 threads = 4
-touch-reload=/home/whx3000/dev/uwsgi/mcenter.reload
+touch-reload=/var/web/backend/mcenter.reload
 
 ; 静态文件和路由配置
-static-map = /static=/home/whx3000/dev/git/mcenter/backend/static
-route-uri = ^/$ redirect:https://www.darkreunion.me
+static-map = /static=/var/web/backend/static
+route-uri = ^/$ redirect:https://your.website.com
 
 ; 开启状态监控
 stats = 127.0.0.1:9191
