@@ -1,16 +1,17 @@
 ---
 title: leetcode 算法刷题记录
 categories:
-  - leetcode
+  - 算法
 tags:
   - Python
   - Go
-  - leetcode 算法
+  - leetcode
 toc: true
 date: 2018-11-30 00:30:13
 ---
 
 leetcode 算法刷题记录和总结, 主要使用Python和Go来作答.
+<!-- more -->
 
 ## 算法
 #### 从排序数组中删除重复项
@@ -233,5 +234,86 @@ func twoSum(nums []int, target int) []int {
 	}
 
 	return []int{}
+}
+```
+
+#### 有效的数独
+判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
+1. 数字 1-9 在每一行只能出现一次。
+2. 数字 1-9 在每一列只能出现一次。
+3. 数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
+
+##### 思路
+利用 `set` 和 `dict` 数据结构进行比对
+
+##### 代码
+Python:
+```
+def isValidSudoku(nums):
+    """
+    :type board: List[List[str]]
+    :rtype: bool
+    """
+    for index in range(9):
+        data_set = set(nums[index])
+        data_set.discard('.')
+        if len(data_set) + nums[index].count('.') != 9:
+            return False
+
+        if index % 3 == 0:
+            check_list = [{} for _ in range(3)]
+
+        data_set = set()
+        col_num = 0
+        for row_line, row in enumerate(nums):
+            if row[index] != '.':
+                col_num += 1
+                data_set.add(row[index])
+                if row[index] in check_list[int(row_line / 3)]:
+                    return False
+                else:
+                    check_list[int(row_line / 3)][row[index]] = True
+
+        if col_num != len(data_set):
+            return False
+
+    return True
+```
+
+#### 旋转数组
+给定一个 n × n 的二维矩阵表示一个图像。将图像顺时针旋转 90 度。你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。
+
+##### 示例
+```
+给定 matrix = 
+[
+  [1,2,3],
+  [4,5,6],
+  [7,8,9]
+],
+
+原地旋转输入矩阵，使其变为:
+[
+  [7,4,1],
+  [8,5,2],
+  [9,6,3]
+]
+```
+
+##### 思路
+将数据结构看做矩阵，先转置矩阵再颠倒每排数组。
+
+##### 代码
+Go:
+```go
+func rotate(matrix [][]int) {
+	for row := range matrix {
+		for col := row + 1; col < len(matrix[row]); col++ {
+			matrix[row][col], matrix[col][row] = matrix[col][row], matrix[row][col]
+		}
+		for left, right := 0, len(matrix[row])-1; left < right; left, right = left+1, right-1 {
+			matrix[row][left], matrix[row][right] = matrix[row][right], matrix[row][left]
+		}
+	}
 }
 ```

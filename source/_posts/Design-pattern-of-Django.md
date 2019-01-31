@@ -18,4 +18,4 @@ Django也是一个MVC框架，但在Django中，控制器接受用户输入的�
 - T 代表模板（Template），即表现层。该层处理与表现相关的决定：如何在页面和其他类型的文档中进行显示
 - V 代表视图（View），即业务逻辑层。该层包含存取模型及调取恰当模型的相关逻辑，可看作模板与模型之间的桥梁
 
-![](http://i1.piimg.com/567571/c3666dcb04bd7101.jpg)
+![](https://darkreunion-1256611153.file.myqcloud.com/img/20190131201838.png)
