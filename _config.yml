@@ -77,10 +77,12 @@ theme: pure
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: git@git.dev.tencent.com:wanghaoxi3000/darklab-blog.git
-  branch: coding-pages
-  message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+  type: cos
+  appId: 1256611153
+  secretId: AKIDJc0JXaOJsGxqdJDQjqxLoNpAOQPxtw89
+  secretKey: zwmV3Qcfesz03uZ2SkuvsfGi0vgIk6JL
+  bucket: blog-1256611153
+  region: ap-chengdu
 
 feed:
   type: atom
