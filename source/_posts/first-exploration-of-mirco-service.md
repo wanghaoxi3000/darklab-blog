@@ -21,7 +21,7 @@ date: 2019-06-19 18:10:32
 - vessel-service 货船服务：管理货轮信息
 - email-service 邮件服务：提供邮件通知服务
 
-![](https://static.darkreunion.tech/img/picgo/20190619174127.jpg)
+![](https://static.darkreunion.tech/img/picgo/20190620143102.jpg)
 
 
 ## 微服务系统组成
