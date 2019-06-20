@@ -1,0 +1,21 @@
+language: node_js
+node_js: stable
+cache:
+  directories:
+        - node_modules
+branches:
+  only:
+    - master
+before_install:
+  - export TZ='Asia/Shanghai'
+  - npm install hexo-cli -g
+install:
+    - npm install
+script:
+  - hexo g
+  - hexo d
+notifications:
+  email:
+    recipients:
+      - hx3000@foxmail.com
+    on_success: always
