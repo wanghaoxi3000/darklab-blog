@@ -120,6 +120,21 @@ nohup command > myout.file 2>&1
 ```
 
 ## 实用命令
+### 加速SCP传输
+```
+tar -c source/ | pv | lz4 -B4 | ssh username@ip "lz4 -d |tar -xC dist/"
+# pv 可显示压缩速度
+# lz -B4 使用lz4算法以B4(64KB块大小)压缩
+```
+
+需进一步提升速度，可采用指定的完整性校验完整性校验和弱加密算法
+```
+tar -c source/ | pv | lz4 -B4 | ssh -c arcfour128 -o "MACs umac-64@openssh.com" username@ip "lz4 -d |tar -xC dist/"
+```
+
+参考：
+[使用tar+lz4/pigz+ssh更快的数据传输](http://www.orczhou.com/index.php/2013/11/tranfer-data-faster-on-the-fly/)
+
 ### 系统测试
 ```shell
 # 模拟高CPU利用率
