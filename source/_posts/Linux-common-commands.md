@@ -119,6 +119,16 @@ nohup command > myout.file 2>&1
 # 输出被重定向到myout.file文件中
 ```
 
+
+## 软件管理
+### apt-cache
+apt-cache是一个apt软件包管理工具，它可查询apt的二进制软件包缓存文件。
+- show 显示软件的信息，包括版本号，安装状态和包依赖关系等
+- madison 显示软件可安装的版本
+- showpkg 搜索软件包，可用正则表达式
+- policy 显示软件包的安装状态和版本信息
+
+
 ## 实用命令
 ### 加速SCP传输
 ```
