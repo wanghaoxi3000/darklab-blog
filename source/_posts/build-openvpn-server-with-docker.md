@@ -10,11 +10,10 @@ toc: true
 
 原文链接：http://dockone.io/article/214
 
-## 介绍
 
 本教程将介绍如何使用[Docker](https://www.docker.com)来设置和运行[OpenVPN](http://openvpn.net/index.php/open-source)容器。
 
-OpenVPN提供了一种方法来创建TLS加密（SSL的演进）的虚拟专用网络（VPN）。它可以防止网络流量被窃取和中间人（MITM）攻击。专用网络可以用来安全地连接设备，例如，它可以把在不安全的WiFi环境下的笔记本电脑或移动电话连接到远程服务器，然后走Internet流量。它也可用于互联网设备之间的安全连接。
+提供了一种方法来创建TLS加密（SSL的演进）的虚拟专用网络（VPN）。它可以防止网络流量被窃取和中间人（MITM）攻击。专用网络可以用来安全地连接设备，例如，它可以把在不安全的WiFi环境下的笔记本电脑或移动电话连接到远程服务器，然后走Internet流量。它也可用于互联网设备之间的安全连接。
 <!-- more -->
 
 Docker提供了一种封装OpenVPN服务进程和配置数据的方式，以便更容易管理。Docker的OpenVPN镜像是预建的，它包含了在一个稳健环境中运行服务器所需的所有依赖。镜像中包含自动化构建标准案例的脚本，想要手动配置也可以。Docker卷容器可以保存配置以及 EasyRSA PKI证书数据。
