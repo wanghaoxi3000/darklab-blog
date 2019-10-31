@@ -5,7 +5,7 @@
 # Site
 title: 发现自在美趣时光
 subtitle:
-description: 某中二的黑科技研究中心
+description:
 author: HaoXi
 language: zh-CN
 timezone: Asia/Shanghai
@@ -42,7 +42,7 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -51,7 +51,7 @@ index_generator:
   path: ''
   per_page: 8
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -108,7 +108,7 @@ mermaid: ## mermaid url https://github.com/knsv/mermaid
 neat_enable: true
 neat_html:
   enable: false
-  exclude:  
+  exclude:
 neat_css:
   enable: true
   exclude:
