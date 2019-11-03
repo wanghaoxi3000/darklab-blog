@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 发现自在美趣时光
+title: 某中二的黑科技研究中心
 subtitle:
 description:
 author: HaoXi
@@ -77,12 +77,8 @@ theme: pure
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: cos
+  type: git
   appId: 1256611153
-  secretId: AKIDJc0JXaOJsGxqdJDQjqxLoNpAOQPxtw89
-  secretKey: zwmV3Qcfesz03uZ2SkuvsfGi0vgIk6JL
-  bucket: blog-1256611153
-  region: ap-chengdu
 
 feed:
   type: atom

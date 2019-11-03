@@ -1,21 +1,41 @@
 language: node_js
 node_js: stable
-cache:
-  directories:
-        - node_modules
+cache: npm
+
+env:
+  global:
+    - REF=git.dev.tencent.com/wanghaoxi3000/darklab.git
+    - REF_NAME=wanghaoxi3000
+
 branches:
   only:
     - master
+
 before_install:
   - export TZ='Asia/Shanghai'
-  - npm install hexo-cli -g
+
 install:
-    - npm install
+  - npm install hexo-cli -g
+  - npm install
+
 script:
   - hexo g
-  - hexo d
+
+after_script:
+  - cd public
+  - git init
+  - git remote add origin https://${REF}
+  - git add .
+  - git commit -m "Updated By Travis-CI With Build $TRAVIS_BUILD_NUMBER"
+  - git push --force --quiet "https://${REF_NAME}:${TOKEN}@${REF}" master
+
+branches:
+  only:
+    - master
+
 notifications:
   email:
     recipients:
       - hx3000@foxmail.com
-    on_success: always
+    on_success: change
+    on_failure: always
