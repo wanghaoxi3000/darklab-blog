@@ -37,5 +37,5 @@ notifications:
   email:
     recipients:
       - hx3000@foxmail.com
-    on_success: change
+    on_success: always
     on_failure: always
