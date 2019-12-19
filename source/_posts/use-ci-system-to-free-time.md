@@ -92,34 +92,34 @@ Jenkins 在安装时已附带了常用的插件，由于这需要接收 coding �
 #### 配置 Jenkins
 为了让 Jenkins 有权限拉取和推送代码，需要为 Jenkins 生成一个拉取代码的 ssh 密钥，并添加到代码项目中。生成 ssh 密钥的方法很多，一般可以在 Liunx 系统通过
 `ssh-keygen -t rsa` 来创建，创建好后添加到 `系统管理 -> 凭据 -> 系统 -> 全局凭据` 中，使每个项目都可以使用。之后还需将公钥添加到对应的 Git 项目中。
-![](https://static.darkreunion.tech/img/picgo/20190317014543.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317014543.png)
 
 为了可以编译 hexo 项目生成静态项目，还需要配置 NodeJS 插件生成 hexo 插件运行环境。可在 `系统管理 -> 全局工具配置` NodeJS 配置项中按如下配置添加 NodeJS 10.14.2 运行环境，并自动安装 hexo。
-![](https://static.darkreunion.tech/img/picgo/20190317014721.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317014721.png)
 
 #### 配置任务
 在完成一系列的准备工作后，可以创建执行具体流程的任务了。点击首页左侧的新任务，输入一个喜欢的任务名，选择构建一个自由风格的软件项目。在 General 选项页面，可以配置丢弃旧的构建节省空间。
-![](https://static.darkreunion.tech/img/picgo/20190317014941.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317014941.png)
 
 Source Code Management 选项页面需要配置托管代码的 Git 地址，这里因为我们想配置 Jenkins 自动推送代码到 Github，因而需要配置两个地址。
-![](https://static.darkreunion.tech/img/picgo/20190317014758.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317014758.png)
 
 Build Triggers 选项页面需要配置何时触发这个项目，这里我们配置为通过 coding webhook 来触发。每次推送代码后，coding 便会通过一个 webhook 来通知 Jenkins 开始执行任务。
-![](https://static.darkreunion.tech/img/picgo/20190317122536.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317122536.png)
 
 之后在 coding 项目的 `设置 -> webhook` 页面配置好项目触发地址和条件。
-![](https://static.darkreunion.tech/img/picgo/20190317015050.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317015050.png)
 
 
 Build Environment 选项页面配置任务所需的环境，这里由于由于 hexo deploy 时需要 push 静态页面到 coding，也需要之前 git 仓库认证的密钥文件，可以勾选 `Use secret text(s) or file(s)`，将密钥文件提取出来以备接下来使用。同时在这里配置 nodeJS 运行环境，并且勾选了在控制台打印信息中添加时间戳以便调试。
-![](https://static.darkreunion.tech/img/picgo/20190317015119.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317015119.png)
 
 Build 选项页面配置任务需要执行的命令，这里配置好 hexo 生成静态页面和部署所需各项命令。
-![](https://static.darkreunion.tech/img/picgo/20190317015216.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317015216.png)
 
 Post-build Actions 选项页面可配置任务执行前后需要执行的动作，这里我们便可以通过 Git Publisher 推送代码到 Github 中，并通过发送邮件告知任务执行结果。
-![](https://static.darkreunion.tech/img/picgo/20190317015240.png)
-![](https://static.darkreunion.tech/img/picgo/20190317015309.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317015240.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190317015309.png)
 
 
 ## 后记

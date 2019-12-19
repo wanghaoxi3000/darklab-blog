@@ -32,7 +32,7 @@ date: 2019-09-01 23:29:39
 
 系统架构图如下：
 
-![framework](https://static.darkreunion.tech/img/picgo/20190901012210.png)
+![framework](https://static-1256611153.file.myqcloud.com/img/picgo/20190901012210.png)
 
 
 ## 准备工作
@@ -90,7 +90,7 @@ GRANT ALL PRIVILEGES ON DATABASE secbuy to dev;
 ```
 .
 ├── basic.go            // basic 模块入口, 提供初始化接口
-├── config              
+├── config
 │   ├── config.go       // 读取config配置文件
 │   ├── postgres.go     // postgres配置数据结构
 │   └── profiles.go     // 配置文件属性数据结构
@@ -266,7 +266,7 @@ order服务是秒杀中的承上启下的服务，通过提供`CreateOrder`的�
 ```
 CREATE TABLE orders (
     id SERIAL NOT NULL PRIMARY KEY,
-    sid INTEGER NOT NULL, 
+    sid INTEGER NOT NULL,
     name VARCHAR(50) NOT NULL DEFAULT '',
     create_time TIMESTAMP NOT NULL DEFAULT now()
 );
@@ -338,22 +338,22 @@ payment服务提供PayOrder接口，通过payment-web服务的web接口，用户
 ```
 
 可以看到数据库中多了一条商品信息
-![](https://static.darkreunion.tech/img/picgo/20190901010240.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190901010240.png)
 
 ### 模拟秒杀
 将测试程序的config.json配置文件配置count项目配置为500，同时创建500个协程来模拟秒杀过程，执行完毕后，测试程序报告500个协程中有10个成功完成了秒杀过程，其余则失败了。
-![](https://static.darkreunion.tech/img/picgo/20190901010805.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190901010805.png)
 
 此时orders和payments表中也正好多了10条订单记录：
-![](https://static.darkreunion.tech/img/picgo/20190901011135.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190901011135.png)
 
-![](https://static.darkreunion.tech/img/picgo/20190901011359.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190901011359.png)
 
 ### 模拟支付
 此时通过postman向`/payment/payorder`接口发送一条`{"id":2}`的数据，模拟支付此条订单，根据结果代表已成功支付此订单，payments表中对应ID的state字段也已改变。
-![](https://static.darkreunion.tech/img/picgo/20190901011840.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190901011840.png)
 
-![](https://static.darkreunion.tech/img/picgo/20190901011336.png)
+![](https://static-1256611153.file.myqcloud.com/img/picgo/20190901011336.png)
 
 
 ## 完整秒杀系统还应具备的功能
