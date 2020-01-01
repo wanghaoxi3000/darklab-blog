@@ -1,9 +1,9 @@
 ---
 title: Go 基础知识点
 categories:
-  - Go
+  - Golang
 tags:
-  - Go
+  - Golang 基础知识
 toc: true
 date: 2019-01-31 19:24:33
 ---
@@ -15,7 +15,7 @@ date: 2019-01-31 19:24:33
 ### 数组常量
 如果数组值已经提前知道了，那么可以通过 **数组常量** 的方法来初始化数组。
 ```go
-var arrInt0 [5]int   // 正常声明  
+var arrInt0 [5]int   // 正常声明
 var arrInt1 = [5]int{18, 20, 15, 22}     // 在声明时定义数组, 若元素数量不匹配, 可以忽略后面的元素
 var arrInt2 = [...]int{5, 6, 7, 8, 22}   // 使用切片的方式来定义数组, ... 可省略
 var arrKeyValue = [5]string{3: "Chris", 4: "Ron"}   // key: value 方式, 只有索引 3 和 4 被赋予实际的值, 其他元素都被设置为空的字符串
