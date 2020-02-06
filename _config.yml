@@ -116,3 +116,100 @@ neat_js:
   compress:
   exclude:
     - '*.min.js'
+
+about:
+  intro:
+    title: Python|Go 开发 / 略懂前端的全栈工程师
+    email: hx3000@foxmail.com
+    description:
+      - 一个兴趣使然的程序员，软硬件均有所涉猎，希望不断开发出有趣的项目，欢迎一起交流学习。
+  skills:
+    Python: 90
+    Go: 80
+    SQL: 60
+    JavaScript: 70
+    HTML + CSS: 60
+    SHELL: 60
+    kubernetes: 40
+
+  projects:
+    -
+      name: 门禁管理系统
+      company: 成都一石数字技术有限公司
+      tag: 后台,Web界面
+      time: 2018.10 - 至今
+      description: 基于 Django 框架搭建人脸识别的智能门禁系统，为客户提供设备状态，人员注册和通行记录等管理功能，为公司的运营提供全局设备状态监控，广告推送，运营数据等功能。使用Go语言开发视频管理服务，提供视频直播及回放功能。使用 Vue.js 框架和 Element UI 库，搭建平台前端系统整体开发框架。
+    -
+      name: 人脸识别安防监控平台
+      company: 成都一石数字技术有限公司
+      tag: 后台,Web界面
+      time: 2017.8 - 至今
+      description: 基于 Django 框架，配合 Django rest framework、 Channels 等主要模块，开发基于人脸识别的安防监控后台。使用 Vue.js 框架和 Element UI 库，搭建平台前端系统整体开发框架。实现人脸检索、监控报警、设备状态监控、分区域推送等安防平台必备的功能。
+    -
+      name: Linux机顶盒软件开发
+      company: 四川金网通电子科技公司
+      tag: Linux C 嵌入式开发
+      time: 2014.9 - 2016.4
+      description: 使用C语言对 Linux 系统机顶盒产品设计和编写符合要求的功能和软件，针对各地广电系统的不同需求对机顶盒的界面、EPG、广告系统进行定制化开发。
+
+  works:
+    -
+      company: 成都一石数字技术有限公司
+      title: Python|Go 后端开发
+      time: 2017.8 - 至今
+      details:
+        - 基于 Django 和 Gin 框架设计规划人脸识别安防监控产品后端整体架构，开发安防平台后端所需的人脸检索、监控告警、消息推送、权限管理等各个功能
+        - 搭建基于 Vue 后台管理的前端开发框架，完善权限路由、动态响应、ESlint 代码规范等前端基础功能
+        - 维护公司的Git版本管理系统，应用Docker技术搭建公司的持续集成系统，优化和完善了公司的代码管理及开发流程
+        - 协助公司算法开发人员解决人脸识别算法模块开发过程中遇到的相关问题
+    -
+      company: 中软国际有限公司
+      title: Linux 程序开发
+      time: 2016.4 - 2017.6
+      details:
+        - 独立开发了华为 OceanStor 9000 海量存储系统中基于 webPy 的账户自动化回收系统，通过 Restful API 对系统中多个管控不同模块的账户进行自动化回收
+        - 参与华为 OceanStor 9000 海量存储系统大数据模块的日常维护，设计和开发基于 Python 和 shell 的运维脚本
+        - 参与华为 OceanStor 9000 海量存储系统底层的 Linux C 程序开发和单元测试代码编写工作
+    -
+      company: 四川金网通电子科技公司
+      title: Linux 嵌入式开发
+      time: 2014.9 - 2016.4
+      details:
+        - 参与公司基于海思、博通等芯片的 Linux C 程序机顶盒的功能设计及软件编写工作
+        - 为机顶盒移植各个CA加密系统并通过CA厂商的认证，独立参与了永新视博CA系统的机顶盒移植和认证
+        - 协助各地的场测人员解决产品测试中出现各类机顶盒相关软件问题，直至通过当地的测试要求
+
+  openprojects:
+    -
+      name: gin-rtsp
+      link: https://github.com/wanghaoxi3000/gin-rtsp
+      description: 基于Gin + WebSocket + JSMpeg，在HTML页面上实现无插件直接播放RTSP视频流。
+    -
+      name: 今天刷啥好
+      link: https://github.com/wanghaoxi3000/payback-howlong-weiapp
+      description: 今天刷啥好小程序，基于小程序云开发平台开发，通过录入信用卡基本信息，方便有多张信用卡时，快速选择距离还款期最长的信用卡，适合在消费时习惯选择距离还款期最长的信用卡的人群使用。
+    -
+      name: go-secbuy-micro
+      link: https://github.com/wanghaoxi3000/go-secbuy-micro
+      description: 基于Go-micro微服务的秒杀系统
+    -
+      name: mcenter
+      link: https://github.com/wanghaoxi3000/mcenter
+      description: 一个基于 Django 和 Vue 开发的前后端分离的个人博客系统。支持博客文章分类、归档，Markdown 书写文章等基本博客功能。
+
+  educations:
+    -
+      name: 四川理工学院
+      major: 电子信息工程
+      degree: 本科
+      time: 2010 - 2014
+      details:
+        - 在校期间担任班级学习委员、电子设计部干事等职务
+        - 获得奖项：2012-2013学年度优秀学生干部
+    -
+      name: 电子科技大学
+      major: 计算机技术及应用
+      degree: 本科
+      time: 第二学位
+      details:
+        - 大学期间通过全国自学统一考试，完成电子科技大学的计算机技术及应用专业本科自学考试，取得双学士学位。
