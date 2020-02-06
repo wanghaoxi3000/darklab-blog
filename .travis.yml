@@ -5,7 +5,6 @@ cache: npm
 env:
   global:
     - REF=e.coding.net/wanghaoxi3000/darklab.git
-    - REF_NAME=wanghaoxi3000
 
 branches:
   only:
@@ -27,7 +26,7 @@ after_script:
   - git remote add origin https://${REF}
   - git add .
   - git commit -m "Updated By Travis-CI With Build $TRAVIS_BUILD_NUMBER"
-  - git push --force --quiet "https://${REF_NAME}:${TOKEN}@${REF}" master
+  - git push --force --quiet "https://${TOKEN_NAME}:${TOKEN}@${REF}" master
 
 branches:
   only:
