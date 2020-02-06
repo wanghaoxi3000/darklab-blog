@@ -4,7 +4,7 @@ cache: npm
 
 env:
   global:
-    - REF=git.dev.tencent.com/wanghaoxi3000/darklab.git
+    - REF=e.coding.net/wanghaoxi3000/darklab.git
     - REF_NAME=wanghaoxi3000
 
 branches:
