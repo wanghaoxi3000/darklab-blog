@@ -160,7 +160,7 @@ about:
       details:
         - 基于 Django 和 Gin 框架设计规划人脸识别安防监控产品后端整体架构，开发安防平台后端所需的人脸检索、监控告警、消息推送、权限管理等各个功能
         - 搭建基于 Vue 后台管理的前端开发框架，完善权限路由、动态响应、ESlint 代码规范等前端基础功能
-        - 维护公司的Git版本管理系统，应用Docker技术搭建公司的持续集成系统，优化和完善了公司的代码管理及开发流程
+        - 维护公司的Git版本管理系统、接口管理系统、Jenkins持续集成系统等开发环境，优化和完善了公司的代码管理及开发流程
         - 协助公司算法开发人员解决人脸识别算法模块开发过程中遇到的相关问题
     -
       company: 中软国际有限公司
@@ -177,25 +177,33 @@ about:
       details:
         - 参与公司基于海思、博通等芯片的 Linux C 程序机顶盒的功能设计及软件编写工作
         - 为机顶盒移植各个CA加密系统并通过CA厂商的认证，独立参与了永新视博CA系统的机顶盒移植和认证
-        - 协助各地的场测人员解决产品测试中出现各类机顶盒相关软件问题，直至通过当地的测试要求
 
   openprojects:
     -
       name: gin-rtsp
       link: https://github.com/wanghaoxi3000/gin-rtsp
       description: 基于Gin + WebSocket + JSMpeg，在HTML页面上实现无插件直接播放RTSP视频流。
+      logo: /images/about/go-project.png
+    -
+      name: advproject
+      link: https://github.com/wanghaoxi3000/gin-rtsp
+      description: 以DevOps的开发模式，通过一个Gin的后台示例项目，包含了DevOps工程当中应当具备的持续集成、持续交付、基础设施即代码的设计思想。
+      logo: /images/about/devops.png
     -
       name: 今天刷啥好
       link: https://github.com/wanghaoxi3000/payback-howlong-weiapp
       description: 今天刷啥好小程序，基于小程序云开发平台开发，通过录入信用卡基本信息，方便有多张信用卡时，快速选择距离还款期最长的信用卡，适合在消费时习惯选择距离还款期最长的信用卡的人群使用。
+      logo: /images/about/weapp.png
     -
       name: go-secbuy-micro
       link: https://github.com/wanghaoxi3000/go-secbuy-micro
       description: 基于Go-micro微服务的秒杀系统
+      logo: /images/about/go-project.png
     -
       name: mcenter
       link: https://github.com/wanghaoxi3000/mcenter
       description: 一个基于 Django 和 Vue 开发的前后端分离的个人博客系统。支持博客文章分类、归档，Markdown 书写文章等基本博客功能。
+      logo: /images/about/django-vue.png
 
   educations:
     -
