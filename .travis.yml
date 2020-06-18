@@ -28,10 +28,6 @@ after_script:
   - git commit -m "Updated By Travis-CI With Build $TRAVIS_BUILD_NUMBER"
   - git push --force --quiet "https://${TOKEN_NAME}:${TOKEN}@${REF}" master
 
-branches:
-  only:
-    - master
-
 notifications:
   email:
     recipients:
