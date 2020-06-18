@@ -27,10 +27,10 @@ after_script:
   - git add .
   - git commit -m "Updated By Travis-CI With Build $TRAVIS_BUILD_NUMBER"
   - git push --force --quiet "https://${TOKEN_NAME}:${TOKEN}@${REF}" master
-
-notifications:
-  email:
-    recipients:
-      - hx3000@foxmail.com
-    on_success: always
-    on_failure: always
+  - cat index.html
+# notifications:
+#   email:
+#     recipients:
+#       - hx3000@foxmail.com
+#     on_success: always
+#     on_failure: always
