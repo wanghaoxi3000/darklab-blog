@@ -30,6 +30,5 @@ jobs:
       run: npm ci
       
     - name: Hexo generate
-      run: |
-          npm install hexo-cli -g
+      run:
           hexo generate
