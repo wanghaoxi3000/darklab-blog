@@ -8,13 +8,13 @@ jobs:
   build:
     name: A job to deploy blog.
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
       with:
         submodules: true # Checkout private submodules(themes or something else).
-    
+
     # Caching dependencies to speed up workflows. (GitHub will remove any cache entries that have not been accessed in over 7 days.)
     - name: Cache node modules
       uses: actions/cache@v2.0.0
@@ -28,7 +28,28 @@ jobs:
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm ci
-      
-    - name: Hexo generate
-      run:
-          hexo generate
+
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    - name: Generate
+      run: |
+        npm install hexo-cli -g
+        hexo generate
+
+    - name: Push
+      env:
+        REF: e.coding.net/wanghaoxi3000/darklab.git
+        TOKEN_NAME: ${{ secrets.CODING_TOKEN_NAME }}
+        TOKEN: ${{ secrets.CODING_TOKEN }}
+      run: |
+        cd public
+        git config --global user.name "${GITHUB_ACTOR}"
+        git config --global user.email "${GITHUB_ACTOR}@github.com"
+        git init
+        git remote add origin "https://${REF}"
+        git add .
+        git commit -m "Updated By Github Action With Build ${GITHUB_RUN_NUMBER}"
+        git push --force --quiet "https://${TOKEN_NAME}:${TOKEN}@${REF}" master
