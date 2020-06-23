@@ -3,7 +3,7 @@ title: Go 基础知识点
 categories:
   - Golang
 tags:
-  - Golang 基础知识
+  - Golang 基础
 toc: true
 date: 2019-01-31 19:24:33
 ---
