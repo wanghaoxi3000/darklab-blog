@@ -8,6 +8,39 @@ tags:
 toc: true
 ---
 
+## 代理配置
+### Bash代理配置
+```
+PROXY_ADDR='http://127.0.0.1:1080'
+# socks5 代理格式
+# PROXY_ADDR='socks5://bj-proxy.easystack.cn:8899'
+
+export http_proxy=$PROXY_ADDR
+export https_proxy=$PROXY_ADDR
+
+# 全部协议均通过代理
+# export all_proxy=$PROXY_ADDR
+```
+
+**取消代理**
+```
+unset http_proxy
+unset https_proxy
+```
+
+### git 代理配置
+```
+git config --global https.proxy $PROXY_ADDR
+git config --global https.proxy $PROXY_ADDR
+```
+
+**取消代理**
+```
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+
 ## 账户管理
 
 ### visudo
