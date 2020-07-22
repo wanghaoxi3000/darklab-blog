@@ -8,7 +8,7 @@ tags:
 toc: true
 ---
 
-## 代理配置
+## 网络管理
 ### Bash代理配置
 ```
 PROXY_ADDR='http://127.0.0.1:1080'
@@ -39,6 +39,21 @@ git config --global https.proxy $PROXY_ADDR
 git config --global --unset http.proxy
 git config --global --unset https.proxy
 ```
+
+### nc
+nc是netcat工具的命令，可以用来实现端口扫描，文件传输等网络功能。
+- nc {ip} {port} 连接指定 IP 的端口，可以实现检查指定 IP 的端口是否打开
+- -v 输出交互或出错信息，调试时尤为有用
+- -w 超时秒数，后面跟数字
+- -s 指定发送数据的源IP地址，适用于多网卡机
+- -u 指定nc使用UDP协议，默认为TCP
+
+### curl
+一个利用URL语法在命令行下工作的网络数据传输工具
+
+**检查外网 IP**
+- curl ip.sb / curl ifconfig.io / curl cip.cc
+
 
 
 ## 账户管理
