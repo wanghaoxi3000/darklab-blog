@@ -2,7 +2,7 @@
 title: 使用coding自动同步和部署Github项目
 date: 2020/12/08 19:40:00
 categories:
-  - Linux管理
+  - 软件工具
 tags:
   - github
   - coding
