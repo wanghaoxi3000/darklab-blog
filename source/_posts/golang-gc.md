@@ -3,7 +3,7 @@ title: Golang GC 原理
 categories:
   - Golang
 tags:
-  - Golang 底层
+  - Golang 原理
   - Golang GC
 toc: true
 date: 2020-07-02 19:51:25
