@@ -1,11 +1,11 @@
 ---
-title: '[转载]Go 内存分配器的设计与实现'
+title: 'Go 内存分配器的设计与实现[转载]'
 categories:
   - Golang
 tags:
   - Golang 原理
 toc: true
-date: 2020-12-25 11:20:00
+date: 2022-02-27 16:38:00
 ---
 
 
@@ -203,9 +203,7 @@ Go 语言团队在 1.11 版本中通过以下几个提交将线性内存变成�
 | --- | --- |
 | `None` | 内存没有被保留或者映射，是地址空间的默认状态 |
 | `Reserved` | 运行时持有该地址空间，但是访问该内存会导致错误 |
-| `Prepared` | 内存被保留，一般没有对应的物理内存
-访问该片内存的行为是未定义的
-可以快速转换到 `Ready` 状态 |
+| `Prepared` | 内存被保留，一般没有对应的物理内存访问该片内存的行为是未定义的可以快速转换到 `Ready` 状态 |
 | `Ready` | 可以被安全访问 |
 
 **表 7\-2 地址空间的状态**
@@ -1081,15 +1079,3 @@ func largeAlloc(size uintptr, needzero bool, noscan bool) *mspan {
 内存分配是 Go 语言运行时内存管理的核心逻辑，运行时的内存分配器使用类似 TCMalloc 的分配策略将对象根据大小分类，并设计多层级的组件提高内存分配器的性能。本节不仅介绍了 Go 语言内存分配器的设计与实现原理，同时也介绍了内存分配器的常见设计，帮助我们理解不同编程语言在设计内存分配器时做出的不同选择。
 
 内存分配器虽然非常重要，但是它只解决了如何分配内存的问题，我们在本节中省略了很多与垃圾回收相关的代码，没有分析运行时垃圾回收的实现原理，在下一节中我们将详细分析 Go 语言垃圾回收的设计与实现原理。
-
-## 延伸阅读
-
-*   The Go Memory Model
-
-*   A visual guide to Go Memory Allocator from scratch (Golang)
-
-*   TCMalloc : Thread-Caching Malloc
-
-*   Getting to Go: The Journey of Go's Garbage Collecton
-
-*   Go: Memory Management and Allocation
