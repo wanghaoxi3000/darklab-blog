@@ -1,11 +1,8 @@
-name: Deploy blog
+name: Deploy Blog
 
 on:
   push:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 jobs:
   build:
@@ -20,7 +17,7 @@ jobs:
       - name: Hugo setup
         uses: peaceiris/actions-hugo@v2.4.13
         with:
-          hugo-version: 0.92.1
+          hugo-version: latest
           extended: true
 
       - name: Run hugo build
