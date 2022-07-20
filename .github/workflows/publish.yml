@@ -1,0 +1,39 @@
+name: Deploy blog
+
+on:
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true # Checkout private submodules(themes or something else).
+
+      - name: Hugo setup
+        uses: peaceiris/actions-hugo@v2.4.13
+        with:
+          hugo-version: 0.92.1
+          extended: true
+
+      - name: Run hugo build
+        run: hugo
+
+      - name: Upload website
+        uses: saltbo/uptoc@v1.4.3
+        with:
+          driver: cos
+          region: ap-hongkong
+          bucket: ${{ secrets.TCLOUD_BUCKET_ID }}
+          exclude: .cache,test
+          dist: public
+        env:
+          UPTOC_UPLOADER_AK: ${{ secrets.TCLOUD_SECRET_ID }}
+          UPTOC_UPLOADER_SK: ${{ secrets.TCLOUD_SECRET_KEY }}
