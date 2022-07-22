@@ -34,11 +34,11 @@ jobs:
         env:
           UPTOC_UPLOADER_AK: ${{ secrets.TCLOUD_SECRET_ID }}
           UPTOC_UPLOADER_SK: ${{ secrets.TCLOUD_SECRET_KEY }}
-          
+
       - name: Refresh CDN
         env:
           TENCENTCLOUD_SECRET_ID: ${{ secrets.TCLOUD_SECRET_ID }}
           TENCENTCLOUD_SECRET_KEY: ${{ secrets.TCLOUD_SECRET_KEY }}
         run: |
           pip install tccli
-          tccli cdn PurgeUrlsCache --cli-unfold-argument --Urls https://darkreunion.tech/
+          tccli cdn PurgePathCache --cli-unfold-argument --Paths https://darkreunion.tech/ --FlushType flush
