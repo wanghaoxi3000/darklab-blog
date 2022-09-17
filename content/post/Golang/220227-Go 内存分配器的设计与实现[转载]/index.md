@@ -728,15 +728,11 @@ func (h *mheap) allocSpan(npages uintptr, manual bool, spanclass spanClass, sysS
 
 上述方法会通过处理器的页缓存 `runtime.pageCache` 或者全局的页分配器 `runtime.pageAlloc` 两种途径从堆中申请内存：
 
-1.  如果申请的内存比较小，获取申请内存的处理器并尝试调用 `runtime.pageCache.alloc` 获取内存区域的基地址和大小；
-
-2.  如果申请的内存比较大或者线程的页缓存中内存不足，会通过 `runtime.pageAlloc.alloc` 在页堆上申请内存；
-
-3.  如果发现页堆上的内存不足，会尝试通过 `runtime.mheap.grow` 进行扩容并重新调用 `runtime.pageAlloc.alloc` 申请内存；
-
-1.  如果申请到内存，意味着扩容成功；
-
-2.  如果没有申请到内存，意味着扩容失败，宿主机可能不存在空闲内存，运行时会直接中止当前程序；
+1. 如果申请的内存比较小，获取申请内存的处理器并尝试调用 `runtime.pageCache.alloc` 获取内存区域的基地址和大小；
+2. 如果申请的内存比较大或者线程的页缓存中内存不足，会通过 `runtime.pageAlloc.alloc` 在页堆上申请内存；
+3. 如果发现页堆上的内存不足，会尝试通过 `runtime.mheap.grow` 进行扩容并重新调用 `runtime.pageAlloc.alloc` 申请内存；
+4. 如果申请到内存，意味着扩容成功；
+5. 如果没有申请到内存，意味着扩容失败，宿主机可能不存在空闲内存，运行时会直接中止当前程序；
 
 无论通过哪种方式获得内存页，我们都会在该函数中分配新的 `runtime.mspan` 结构体；该方法的剩余部分会通过页数、内存空间以及跨度类等参数初始化它的多个字段：
 
