@@ -21,7 +21,7 @@ jobs:
           extended: true
 
       - name: Run hugo build
-        run: hugo
+        run: hugo -F
 
       - name: Upload website
         uses: saltbo/uptoc@v1.4.3
