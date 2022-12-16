@@ -1,7 +1,7 @@
 ---
 title: Linux常用命令
 date: "2017-12-29"
-lastmod: "2022-12-06"
+lastmod: "2022-12-16"
 categories:
   - Linux管理
 tags:
@@ -9,6 +9,47 @@ tags:
 toc: true
 slug: Linux-common-commands
 ---
+
+
+## 进程管理
+
+### ps
+
+显示当前的进程的快照信息
+
+- -e：显示所有进程。
+- -f：全格式。
+- -h：不显示标题。
+- -l：长格式。
+- -w：宽输出。
+- a：显示终端上的所有进程，包括其他用户的进程。
+- r：只显示正在运行的进程。
+- u：以用户为主的格式来显示程序状况。
+- x：显示所有程序，不以终端机来区分。
+
+常用的两种使用方式：
+
+ps -ef：以标准格式显示进程的信息，包含的信息：
+
+> UID PID PPID C STIME TTY TIME CMD
+
+ps aux：以 BSD 的格式来显示 java 这个进程，包含的信息：
+
+> USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND
+
+### nohup
+
+不挂断地运行命令，忽略所有挂断（SIGHUP）信号。在终端上执行任务后即使断掉终端后也会继续执行，一般配合&使用。那么在缺省情况下该作业的所有输出都被重定向到一个名为 nohup.out 的文件中，除非另外指定了输出文件。
+
+```
+nohup command > myout.file 2>&1
+# 输出被重定向到myout.file文件中
+```
+
+### journalctl 查询 systemd 日志
+
+> https://documentation.suse.com/zh-cn/sled/15-SP3/html/SLED-all/cha-journalctl.html
+
 
 ## 网络管理
 ### Bash代理配置
@@ -188,41 +229,6 @@ uniq 命令可以去除排序过的文件中的重复行, 因此 uniq 经常和 
 - -D 或--dereference-args: 显示指定符号链接的源文件大小
 - -H 或--si: 与-h 参数相同，但是 K，M，G 是以 1000 为换算单位
 - -l 或--count-links: 重复计算硬件链接的文件
-
-## 任务管理
-
-### ps
-
-显示当前的进程的快照信息
-
-- -e：显示所有进程。
-- -f：全格式。
-- -h：不显示标题。
-- -l：长格式。
-- -w：宽输出。
-- a：显示终端上的所有进程，包括其他用户的进程。
-- r：只显示正在运行的进程。
-- u：以用户为主的格式来显示程序状况。
-- x：显示所有程序，不以终端机来区分。
-
-常用的两种使用方式：
-
-ps -ef：以标准格式显示进程的信息，包含的信息：
-
-> UID PID PPID C STIME TTY TIME CMD
-
-ps aux：以 BSD 的格式来显示 java 这个进程，包含的信息：
-
-> USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND
-
-### nohup
-
-不挂断地运行命令，忽略所有挂断（SIGHUP）信号。在终端上执行任务后即使断掉终端后也会继续执行，一般配合&使用。那么在缺省情况下该作业的所有输出都被重定向到一个名为 nohup.out 的文件中，除非另外指定了输出文件。
-
-```
-nohup command > myout.file 2>&1
-# 输出被重定向到myout.file文件中
-```
 
 ## 软件管理
 
