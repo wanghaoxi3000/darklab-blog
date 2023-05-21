@@ -1,0 +1,81 @@
+---
+title: 生活实验2305-W1
+categories:
+  - 随笔
+tags:
+  - 技术见闻
+  - 效率提升
+toc: true
+date: 2023-05-22T01:53:00+08:00
+slug: life-experiment-2305-W1
+description: 小城的热闹
+image: https://static-1256611153.file.myqcloud.com/img/picgo/202305080014419.webp
+---
+
+## 小城的热闹
+
+![](https://static-1256611153.file.myqcloud.com/img/picgo/202305080014419.webp)
+
+五一没出去旅游，回了趟家乡，位于四川南门的小城攀枝花。去年通了高铁，相比于之前动辄12小时的普通火车，现在只需要4个多小时既能回家一趟了。非常喜欢这座位于亚热带的城市气候，目前月份已是天天晴朗的阳光，光亮亮的但不会闷热，相比于时长阴沉沉的成都，心情会好上不少，走在商业区，灯光跟人气都还不错，烟火气息很足，一种安心的回家感。
+
+
+
+## 技术见闻
+
+### nginx-proxy-manager
+
+> [https://github.com/NginxProxyManager/nginx-proxy-manager](https://github.com/NginxProxyManager/nginx-proxy-manager "https://github.com/NginxProxyManager/nginx-proxy-manager")
+> FROM: [https://www.cnblogs.com/xueweihan/p/17301666.html](https://www.cnblogs.com/xueweihan/p/17301666.html "https://www.cnblogs.com/xueweihan/p/17301666.html")
+
+nginx 是后端开发常用的服务器，工作和个人的一些小项目都在使用，性能强大但是配置还是比较麻烦，需要手动编辑配置文件，此项目可以让用户通过 Web 界面在线配置、管理 Nginx 服务，方便了不少。
+
+### 加密货币入门指南
+
+> [https://helpthisbook.com/sunny/the-newbies-guide-to-crypto/b881f28b-b86a-41d1-9d5e-98ef00a38b11](https://helpthisbook.com/sunny/the-newbies-guide-to-crypto/b881f28b-b86a-41d1-9d5e-98ef00a38b11 "https://helpthisbook.com/sunny/the-newbies-guide-to-crypto/b881f28b-b86a-41d1-9d5e-98ef00a38b11")
+
+一个英文版本的加密货币新手指南，相比目前最火的AI领域，感觉加密货币对于后端程序员更好上手一些，准备好好读读，顺便也提升下英文阅读能力。搭配B站的这个[区块链技术与应用](https://www.bilibili.com/video/BV1Vt411X7JF/ "区块链技术与应用")可以获得更好的效果。
+
+### 静态博客管理器
+
+> [https://www.oplog.cn/qexo/](https://www.oplog.cn/qexo/ "https://www.oplog.cn/qexo/")
+
+一个快速、强大、漂亮的在线 Hexo 编辑器，目前我也在用Hexo来发布的我的个人博客，这个在线编辑器可以更方便的管理静态博客，准备试试。
+
+### PicList 图床管理和图片上传工具
+
+> [https://github.com/Kuingsmile/PicList](https://github.com/Kuingsmile/PicList?spm=wolai.workspace.0.0.2362e623yubf9c "https://github.com/Kuingsmile/PicList")
+
+著名的图片上传工具PicGo加强版本，加入了云盘管理功能，配置也可以从PicGo中直接导入，更顺手更方便。
+
+### ChatGPT小红书运营速成指南
+
+> [https://nw44dv3wqt.feishu.cn/docx/MoTWdukyToCjk9xqqLkcOZrEnxg](https://nw44dv3wqt.feishu.cn/docx/MoTWdukyToCjk9xqqLkcOZrEnxg "https://nw44dv3wqt.feishu.cn/docx/MoTWdukyToCjk9xqqLkcOZrEnxg")
+
+虽然不是运营，但对于技术人员来说，不论AI工具的使用，还是运营推广的能力，都还是可以从这个系列中学习一下的
+
+### 裸辞后激情开发300天，不摸鱼的话能做出什么东西
+
+> [https://www.bilibili.com/video/BV1ST411R7rK/](https://www.bilibili.com/video/BV1ST411R7rK/ "https://www.bilibili.com/video/BV1ST411R7rK/")
+
+一名IOS独立开发者的经历描述，也作为他这款独立APP《转山》的发布会，形式很新颖，一直想成为独立开发者的我看的还是很膜拜的。
+
+
+
+## 效率提升
+
+### 9个最可能影响你一生的因素
+
+> [https://t.me/https1024/11856](https://t.me/https1024/11856 "https://t.me/https1024/11856")
+
+据哈佛大学的一项长期跟踪研究数据：列举出了9个最可能影响你一生的因素。
+
+挺像网文鸡汤的，不过很多条都还是感觉讲到自己短处了，可以对照着反思一下。
+
+
+
+### 英语学习参考
+
+英语的学习对于自己来说是个持续的过程，感觉自己处于某个初级水平很久了，收集了两篇资料，准备参考着突破一下
+
+-   [让语言学习更简单的 WordFlow](https://sspai.com/post/79241 "让语言学习更简单的 WordFlow")
+-   [旋元佑进阶文法](https://grammar.codeyu.com/ "旋元佑进阶文法")
