@@ -25,7 +25,7 @@ DefaultContentLanguage: zh-cn
 hasCJKLanguage: true
 
 permalinks:
-    post: /p/:slug/
+    posts: /article/:slug/
     page: /:slug/
 
 params:
