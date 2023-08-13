@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "darklab-blog"
+version = "0.1.0"
+description = ""
+authors = ["wanghaoxi3000 <wanghaoxi3000@163.com>"]
+readme = "README.md"
+packages = [{include = "darklab_blog"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyyaml = "^6.0"
+python-dateutil = "^2.8.2"
+notion = "^0.0.28"
+md2notion = "^2.4.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pycodestyle = "^2.10.0"
+
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
