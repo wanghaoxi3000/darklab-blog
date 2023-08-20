@@ -5,17 +5,15 @@ on:
     types:
       - backup
 
-env:
-  TZ: Asia/Shanghai
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Set timezone
-        run: |
-          ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
+        uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Asia/Shanghai"
 
       - name: Checkout
         uses: actions/checkout@v3
