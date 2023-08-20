@@ -4,7 +4,7 @@ module.exports = {
     notion: {
       token: process.env.NOTION_TOKEN,
       databaseId: process.env.NOTION_DATABASE_ID,
-      limit: 1,
+      limit: 3,
       filter: {
         and: [
           {
