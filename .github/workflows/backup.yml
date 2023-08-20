@@ -1,0 +1,45 @@
+name: Backup notion
+
+on:
+  repository_dispatch:
+    types:
+      - backup
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: notion
+
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Sync
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          REQUEST_TIMEOUT: 900000
+        run: |
+          npm run sync
+
+      - name: Config git
+        run: |
+          git config --global user.name "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions[bot]"
+          git add .
+          git commit -m "Backup articles at $(date +"%Y-%m-%d %H:%M:%S")" -a
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: notion

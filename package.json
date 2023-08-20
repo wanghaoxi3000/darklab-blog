@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "sync:local": "elog sync -e .elog.env",
+    "sync": "elog sync",
+    "clean": "elog clean"
+  },
+  "dependencies": {
+    "@elog/cli": "^0.7.1",
+    "@elog/plugin-adapter": "^0.7.1"
+  }
+}
