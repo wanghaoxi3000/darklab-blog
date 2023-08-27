@@ -2086,6 +2086,36 @@
       "body": "",
       "realName": "一周随笔20230313",
       "relativePath": "/2023-03-13/一周随笔20230313.md"
+    },
+    {
+      "id": "22562976-5d02-440f-bca6-042e5cb93a10",
+      "doc_id": "22562976-5d02-440f-bca6-042e5cb93a10",
+      "title": "22562976-5d02-440f-bca6-042e5cb93a10",
+      "updated": 1693144200000,
+      "body_original": "\n在开始使用 Notion 编写文档并通过 [NextNotion](https://github.com/tangly1024/NotionNext) 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。\n\n\n抱着这样的想法，我开始寻找是否有解决方案，期望的需求：\n\n- 导出 Notion 中 Database 文档为 markdown\n- 可以同时备份图片，并且修改文档中的图片链接为备份链接\n- 能尽可能的自动化\n\n在 Github 上搜索了一下，还行，已经有了不少的 Notion 备份方案。一些较早方案是需要手动 Notion 网页版Cookie 中的 token_v2，调用 web 的导出接口来生成 Markdown。\n\n\n| 项目名            | 地址                                                                                         | star | 最后更新时间     |\n| -------------- | ------------------------------------------------------------------------------------------ | ---- | ---------- |\n| notion-down    | [https://github.com/kaedea/notion-down](https://github.com/kaedea/notion-down)             | 111  | 2021-11-17 |\n| notion-docsify | [https://github.com/qumuchegi/notion-docsify](https://github.com/qumuchegi/notion-docsify) | 32   | 2022-04-18 |\n| notion-up      | [https://github.com/kaedea/notion-up](https://github.com/kaedea/notion-up)                 | 108  | 2021-11-22 |\n| notion-backup  | [https://github.com/darobin/notion-backup](https://github.com/darobin/notion-backup)       | 312  | 2023-03-28 |\n|                | 数据记录时间：2023-08-26                                                                          |      |            |\n\n\n这一类方案好处是使用官方的 markdown 导出接口，文档转换出来的效果很好，不过 token_v2 存在一年的有效期，过期后需要手动重新获取，而且使用 web 接口毕竟是未公开的接口，随时有变动的可能，不是很推荐了。\n\n\nNotion 如今已经推出了官方的 API，能通过官方 API 来备份文档的话那是最好不过了，还好，找到了这两个方案：\n\n\n| 项目名           | 地址                                                                                       | star | 最后更新时间     |\n| ------------- | ---------------------------------------------------------------------------------------- | ---- | ---------- |\n| notion-md-gen | [https://github.com/bonaysoft/notion-md-gen](https://github.com/bonaysoft/notion-md-gen) | 79   | 2023-07-02 |\n| elog          | [https://github.com/LetTTGACO/elog](https://github.com/LetTTGACO/elog)                   | 114  | 2023-08-18 |\n|               | 数据记录时间：2023-08-26                                                                        |      |            |\n\n\n这两个方案中，elog 的生态更好，有专门的团队维护，并且支持更多的平台，完全可以使用这个工具在其支持的平台中写作，然后统一发布到各其他平台。用来备个份当然也是措措有余了，跟着文档进行了下配置：\n\n1. 为 Notion 建立一个 Integration Token，并连接到要备份的 Database，可以参见 elog 的[官网文档](https://elog.1874.cool/notion/gvnxobqogetukays#notion)\n2. 在 GitHub 中建立一个仓库，用于保存备份数据\n3. 新建一个 **elog.config.js，**用于配置导出数据所需的 token、ID，以及导出时是否过滤，保存方式、是否导出图片等选项\n4. 如有特殊需求，可以创建一个 **formatext.js** 来自定义处理数据，我使用这个文件来处理了下 front matter 信息\n5. 为了实现自动化，创建了 `.github/workflows/backup.yml` 方便此后通过 GitHub Action 来自动备份 Notion 数据\n\n具体可以参考我的仓库地址：[https://github.com/wanghaoxi3000/darklab-blog](https://github.com/wanghaoxi3000/darklab-blog)\n\n\n完成这些步骤后，我会在写完文章后，在终端调用下 GitHub Action 的触发接口：\n\n\n```bash\ncurl -L -X POST \\\n  -H \"Accept: application/vnd.github+json\" \\\n\t-H \"Authorization: Bearer ${GITHUB_TOKEN}\" \\\n\t-d '{\"event_type\": \"backup\"}' \\\n\thttps://api.github.com/repos/wanghaoxi3000/darklab-blog/dispatches\n```\n\n\nGitHub Action 便会开始下载 Notion 的数据，转换为 Markdown 格式，生成 front matter 信息，并按日期归档后推送到指定的仓库中了。\n\n",
+      "properties": {
+        "date": "2023-08-27",
+        "type": "Post",
+        "category": "博客记录",
+        "slug": "backup-notion-to-github",
+        "tags": [
+          "notion"
+        ],
+        "summary": "在开始使用 Notion 编写文档并通过 NextNotion 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。",
+        "title": "备份 Notion 文档到 Github",
+        "status": "Published",
+        "urlname": "22562976-5d02-440f-bca6-042e5cb93a10",
+        "updated": "2023-08-27 21:50:00"
+      },
+      "catalog": [
+        {
+          "title": "2023-08-27",
+          "doc_id": "22562976-5d02-440f-bca6-042e5cb93a10"
+        }
+      ],
+      "body": "",
+      "realName": "备份 Notion 文档到 Github",
+      "relativePath": "/2023-08-27/备份 Notion 文档到 Github.md"
     }
   ],
   "catalog": [
@@ -2105,8 +2135,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T103028Z&X-Amz-Expires=3600&X-Amz-Signature=c5305f5da92d921763f0b00da335914cbe2f331c3927aa54399af93287019624&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-08-20T11:30:28.343Z"
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230827%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230827T135020Z&X-Amz-Expires=3600&X-Amz-Signature=b741535c40c789728f1ae566a91764b510eed9a74a4308ed65051179e3beed95&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-08-27T14:50:20.831Z"
         }
       },
       "icon": null,
@@ -2134,6 +2164,43 @@
     },
     {
       "object": "page",
+      "id": "22562976-5d02-440f-bca6-042e5cb93a10",
+      "created_time": "2023-08-03T15:24:00.000Z",
+      "last_edited_time": "2023-08-27T13:50:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "ae3c8c9f-d2e7-490c-b298-0f96e33fe57e"
+      },
+      "archived": false,
+      "properties": {
+        "date": "2023-08-27",
+        "type": "Post",
+        "category": "博客记录",
+        "slug": "backup-notion-to-github",
+        "tags": [
+          "notion"
+        ],
+        "summary": "在开始使用 Notion 编写文档并通过 NextNotion 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。",
+        "title": "备份 Notion 文档到 Github",
+        "status": "Published",
+        "urlname": "22562976-5d02-440f-bca6-042e5cb93a10",
+        "updated": "2023-08-27 21:50:00"
+      },
+      "url": "https://www.notion.so/Notion-Github-225629765d02440fbca6042e5cb93a10",
+      "public_url": "https://military-albatross-7a9.notion.site/Notion-Github-225629765d02440fbca6042e5cb93a10"
+    },
+    {
+      "object": "page",
       "id": "a239adaa-a272-4a0f-ab61-7fad7e79f0e5",
       "created_time": "2023-07-30T11:19:00.000Z",
       "last_edited_time": "2023-07-30T16:16:00.000Z",
@@ -2148,8 +2215,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T103028Z&X-Amz-Expires=3600&X-Amz-Signature=d27c4fdca94cbd333331f676e12b0999908c36c936102adcfdce4c720673fc86&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-08-20T11:30:28.350Z"
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230827%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230827T135020Z&X-Amz-Expires=3600&X-Amz-Signature=eaf5f13354360b6959a08434ebe781b7d573620e49544248143dadb04c987ec7&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-08-27T14:50:20.842Z"
         }
       },
       "icon": null,
