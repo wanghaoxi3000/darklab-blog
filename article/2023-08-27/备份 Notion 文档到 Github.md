@@ -9,7 +9,7 @@ summary: 在开始使用 Notion 编写文档并通过 NextNotion 来发布博客
 title: 备份 Notion 文档到 Github
 status: Published
 urlname: 22562976-5d02-440f-bca6-042e5cb93a10
-updated: "2023-08-27 21:50:00"
+updated: "2023-08-27 21:57:00"
 ---
 
 在开始使用 Notion 编写文档并通过 [NextNotion](https://github.com/tangly1024/NotionNext) 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。
@@ -55,9 +55,9 @@ Notion 如今已经推出了官方的 API，能通过官方 API 来备份文档�
 ```bash
 curl -L -X POST \
   -H "Accept: application/vnd.github+json" \
-	-H "Authorization: Bearer ${GITHUB_TOKEN}" \
-	-d '{"event_type": "backup"}' \
-	https://api.github.com/repos/wanghaoxi3000/darklab-blog/dispatches
+  -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+  -d '{"event_type": "backup"}' \
+  https://api.github.com/repos/wanghaoxi3000/darklab-blog/dispatches
 ```
 
 GitHub Action 便会开始下载 Notion 的数据，转换为 Markdown 格式，生成 front matter 信息，并按日期归档后推送到指定的仓库中了。

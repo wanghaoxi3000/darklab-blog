@@ -4,19 +4,19 @@
       "id": "b658d5ed-817b-44f3-9443-839161b38ad3",
       "doc_id": "b658d5ed-817b-44f3-9443-839161b38ad3",
       "title": "b658d5ed-817b-44f3-9443-839161b38ad3",
-      "updated": 1691947020000,
-      "body_original": "\n# 峨眉禅道\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T080929Z&X-Amz-Expires=3600&X-Amz-Signature=9992ccb198c49808648989fe7a2a7b1e1aa78460b44260a42c3ba78de5c40558&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n周末和亲戚朋友们去了峨眉的七里坪禅道，也许正是成都最热的时候，普通的周末也有很多人，不过和亲近的人一起游玩下还是很愉悦的。这里离峨眉索道不远，不过知道的人应该还不多，想避开攀登峨眉的大部队在附近登山打卡一下的话可以在这里试试。\n\n\n# 技术见闻\n\n\n## Protobuf 编码&避坑指南\n\n\n> [https://www.luozhiyun.com/archives/800](https://www.luozhiyun.com/archives/800)\n\n\nProtobuf 是 Google 开源的一种数据序列化协议，相比于 Json、xml 这些协议，采用了二进制的格式存储数据，可以获得更好的性能。在需要高性能的服务间通信等场景大量应用，我的工作中也有使用到的场景，这篇文章详细介绍了 Protobuf 的特性和开发中的注意事项，值得一读。\n\n\n## MetaGPT：使用 GPTs 组成软件公司\n\n\n> [https://github.com/geekan/MetaGPT](https://github.com/geekan/MetaGPT)\n\n\n给 AI 输入一句话的老板需求，自动输出用户故事 / 竞品分析 / 需求 / 数据结构 / APIs / 文件等信息。MetaGPT 内部包括产品经理 / 架构师 / 项目经理 / 工程师，帮你组建了一个软件公司来完成你的需求。不知道以后会不会有帮这样的 AI 打工成功商业化的例子，到时是生产力的大爆发还是离 AI 取代人类更近了一步呢。 \n\n\n## **一人公司方法论**\n\n\n> [https://github.com/easychen/one-person-businesses-methodology](https://github.com/easychen/one-person-businesses-methodology)\n\n\nServerChan 作者 easychen 编写的一人公司方法论，easychen 应该算是国内小有成就的个人开发者了，他的 Sever 酱，pushdeer 推送方案用户应该不少，这里的思路可以学习下，配合上面的 MetaGPT 效果更佳。\n\n\n## languagetool：语法校对\n\n\n> [https://github.com/languagetool-org/languagetool](https://github.com/languagetool-org/languagetool)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2e44d5af-b5cb-463f-8e8d-43150b1399de/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T080929Z&X-Amz-Expires=3600&X-Amz-Signature=9c4191eaadb21b73ba98d234a5f3e7dd5a60aee87d4ccfbca8e551a19035aff8&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个开源的词法校对器，它会自动校对你输入文字的语法以及拼写，能有效地检测出拼写错误，以及语法问题。有点像之前 [grammarly](https://www.grammarly.com/) 这款语法检查工具的开源替代，说起 grammarly 这款软件，前几年它几乎是我电脑上的必备软件，但是 AI 功能火了之后，一下有了很多的替代，我也没有再用过这款软件了。\n\n\n来源：[数据处理的那些事「GitHub 热点速览」](https://www.cnblogs.com/xueweihan/p/17592529.html)\n\n\n## **DocHub：分享优质文档**\n\n\n> [https://www.ftium4.com/ux-weekly-153.html](https://www.ftium4.com/ux-weekly-153.html)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5fe29929-f93f-4241-a696-ccdd0af6336a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T080929Z&X-Amz-Expires=3600&X-Amz-Signature=974c996e1c9c679c18541a75761bb92c66321b13cc9681ed0be168d07003a8d6&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个搜罗了腾讯文档、飞书文档、Notion等众多平台的公开分享的优质资料的文档网站。涵盖了技术、商业、艺术、学术等各个领域，构建了一座广博而深厚的知识库。\n\n\n来源：[体验碎周报第 153 期（2023.7.31）](https://www.ftium4.com/ux-weekly-153.html)\n\n\n## 同步微信读书笔记\n\n\n> [https://notepal.randynamic.org/](https://notepal.randynamic.org/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6c95eb81-ba52-4ed6-8359-66acd87bdda0/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T080929Z&X-Amz-Expires=3600&X-Amz-Signature=2a59b128b829680b4bbfd1d985c86444709c97d7c30014db5ffe6c6d6d765cf3&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一款 chrome 浏览器插件，可以将微信读书的读书笔记一键同步笔记到各个笔记软件。对我这个微信读书的用户还是挺有用的。作者也介绍了这款插件的开发过程，并且表示三天就获得 1000 元的收益。[https://lutaonan.com/blog/my-extension-sold-1k-yuan/](https://lutaonan.com/blog/my-extension-sold-1k-yuan/)\n\n\n来源：[体验碎周报第 154 期（2023.8.7）](https://www.ftium4.com/ux-weekly-154.html)\n\n\n## 很酷的网络检查工具\n\n\n> [https://web-check.xyz/](https://web-check.xyz/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/411c7fa6-fcdf-42ae-b0e8-d5250d9e6d03/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T080929Z&X-Amz-Expires=3600&X-Amz-Signature=6d076c3201bcb040215f90a61531bbf93d78a820822984fb73f55f37fbc82850&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个超级酷的网络检查工具「Web-Check」，可以用很 Hacker 的方式查看到一个网站几乎所有信息，如 IP 信息、SSL、DNS记录、Cookies、域名信息、搜索爬行规则、服务器位置、重定向记录、开放端口、路由跟踪、DNS安全扩展、网站性能、关联主机名等。\n\n\n## 吵架对线培练员\n\n\n> [https://aibang.run/chat/sb](https://aibang.run/chat/sb)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7d7875ef-9550-4223-9ce7-9b0cf49ec050/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230820%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230820T080929Z&X-Amz-Expires=3600&X-Amz-Signature=e14cbd660841ca8579989e599fda7a32c9b35d659f30de30427c7cc635ed11ff&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n如果你是一个性格温的人，遇到不快的事情了想学习学习如何成为一个祖安选手，这个 AI 可以帮帮你，火力强劲，慎用…\n\n\n# 生活杂谈\n\n\n## 如何用英语思维思考\n\n\n> [https://www.youtube.com/watch?v=SJOnhWiJArM](https://www.youtube.com/watch?v=SJOnhWiJArM)\n\n\n学习英语的过程中一般会有一层翻译思维，也即先将自己想到的中文在脑袋里先翻译成英文再去思考，而非直接用英语去思考。Youtube 这个视频「如何用英语思考|不再需要翻译」讲述了6 个转变思维，使用英文思考的思路。B 站链接：[https://www.bilibili.com/video/BV1mu411V7y8](https://www.bilibili.com/video/BV1mu411V7y8)\n\n- Name objects around. 用英语描述周围，需要注意发音。\n- Thinking in simple sentences. 用简单的句子表达自己，I'm ..\n- Have small conversiontions with yourself in English. 与自己进行英语对话，每天坚持几分钟。30天可以见证进步\n- Change one of your everyday life things to English. 将每天日常的一项事务变成英文。日记、微博、英文新闻，晨思\n- Keep track so you're doing it every day. 保持跟踪，确保每天在做\n- Recap your day in English. 用英语回顾每一天\n",
+      "updated": 1693159860000,
+      "body_original": "\n# 峨眉禅道\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=db3a8ff4f5298280bbe71bf94afef1ced4d179e68aab47df3b8648f713e3ba20&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n周末和亲戚朋友们去了峨眉的七里坪禅道，也许正是成都最热的时候，普通的周末也有很多人，不过和亲近的人一起游玩下还是很愉悦的。这里离峨眉索道不远，不过知道的人应该还不多，想避开攀登峨眉的大部队在附近登山打卡一下的话可以在这里试试。\n\n\n# 技术见闻\n\n\n## Protobuf 编码&避坑指南\n\n\n> [https://www.luozhiyun.com/archives/800](https://www.luozhiyun.com/archives/800)\n\n\nProtobuf 是 Google 开源的一种数据序列化协议，相比于 Json、xml 这些协议，采用了二进制的格式存储数据，可以获得更好的性能。在需要高性能的服务间通信等场景大量应用，我的工作中也有使用到的场景，这篇文章详细介绍了 Protobuf 的特性和开发中的注意事项，值得一读。\n\n\n## MetaGPT：使用 GPTs 组成软件公司\n\n\n> [https://github.com/geekan/MetaGPT](https://github.com/geekan/MetaGPT)\n\n\n给 AI 输入一句话的老板需求，自动输出用户故事 / 竞品分析 / 需求 / 数据结构 / APIs / 文件等信息。MetaGPT 内部包括产品经理 / 架构师 / 项目经理 / 工程师，帮你组建了一个软件公司来完成你的需求。不知道以后会不会有帮这样的 AI 打工成功商业化的例子，到时是生产力的大爆发还是离 AI 取代人类更近了一步呢。 \n\n\n## **一人公司方法论**\n\n\n> [https://github.com/easychen/one-person-businesses-methodology](https://github.com/easychen/one-person-businesses-methodology)\n\n\nServerChan 作者 easychen 编写的一人公司方法论，easychen 应该算是国内小有成就的个人开发者了，他的 Sever 酱，pushdeer 推送方案用户应该不少，这里的思路可以学习下，配合上面的 MetaGPT 效果更佳。\n\n\n## languagetool：语法校对\n\n\n> [https://github.com/languagetool-org/languagetool](https://github.com/languagetool-org/languagetool)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2e44d5af-b5cb-463f-8e8d-43150b1399de/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=7c24ec0ad1586010ec306a902cabc44841f17875c7d3476e53f1a41bf0340a94&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个开源的词法校对器，它会自动校对你输入文字的语法以及拼写，能有效地检测出拼写错误，以及语法问题。有点像之前 [grammarly](https://www.grammarly.com/) 这款语法检查工具的开源替代，说起 grammarly 这款软件，前几年它几乎是我电脑上的必备软件，但是 AI 功能火了之后，一下有了很多的替代，我也没有再用过这款软件了。\n\n\n来源：[数据处理的那些事「GitHub 热点速览」](https://www.cnblogs.com/xueweihan/p/17592529.html)\n\n\n## **DocHub：分享优质文档**\n\n\n> [https://www.ftium4.com/ux-weekly-153.html](https://www.ftium4.com/ux-weekly-153.html)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5fe29929-f93f-4241-a696-ccdd0af6336a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=b6611ba0f3fb754b8505cc6f641b47ce18b11cb6b74a2b5355227d84943b03df&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个搜罗了腾讯文档、飞书文档、Notion等众多平台的公开分享的优质资料的文档网站。涵盖了技术、商业、艺术、学术等各个领域，构建了一座广博而深厚的知识库。\n\n\n来源：[体验碎周报第 153 期（2023.7.31）](https://www.ftium4.com/ux-weekly-153.html)\n\n\n## 同步微信读书笔记\n\n\n> [https://notepal.randynamic.org/](https://notepal.randynamic.org/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6c95eb81-ba52-4ed6-8359-66acd87bdda0/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=288c1871a62bad8c677967d95a01e0094f94f891a7e2fcb86e6bb17d89393b0a&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一款 chrome 浏览器插件，可以将微信读书的读书笔记一键同步笔记到各个笔记软件。对我这个微信读书的用户还是挺有用的。作者也介绍了这款插件的开发过程，并且表示三天就获得 1000 元的收益。[https://lutaonan.com/blog/my-extension-sold-1k-yuan/](https://lutaonan.com/blog/my-extension-sold-1k-yuan/)\n\n\n来源：[体验碎周报第 154 期（2023.8.7）](https://www.ftium4.com/ux-weekly-154.html)\n\n\n## 很酷的网络检查工具\n\n\n> [https://web-check.xyz/](https://web-check.xyz/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/411c7fa6-fcdf-42ae-b0e8-d5250d9e6d03/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=a9db9a03994dd48233ead6a1b939c6d62f0b425270979d6cca8e77f44e2acb1b&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个超级酷的网络检查工具「Web-Check」，可以用很 Hacker 的方式查看到一个网站几乎所有信息，如 IP 信息、SSL、DNS记录、Cookies、域名信息、搜索爬行规则、服务器位置、重定向记录、开放端口、路由跟踪、DNS安全扩展、网站性能、关联主机名等。\n\n\n## 吵架对线培练员\n\n\n> [https://aibang.run/chat/sb](https://aibang.run/chat/sb)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7d7875ef-9550-4223-9ce7-9b0cf49ec050/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=bb2e6663e8e26095a0497dcf380c3d946210aad521d31823a58b97f269cb3d6e&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n如果你是一个性格温的人，遇到不快的事情了想学习学习如何成为一个祖安选手，这个 AI 可以帮帮你，火力强劲，慎用…\n\n\n# 生活杂谈\n\n\n## 如何用英语思维思考\n\n\n> [https://www.youtube.com/watch?v=SJOnhWiJArM](https://www.youtube.com/watch?v=SJOnhWiJArM)\n\n\n学习英语的过程中一般会有一层翻译思维，也即先将自己想到的中文在脑袋里先翻译成英文再去思考，而非直接用英语去思考。Youtube 这个视频「如何用英语思考|不再需要翻译」讲述了6 个转变思维，使用英文思考的思路。B 站链接：[https://www.bilibili.com/video/BV1mu411V7y8](https://www.bilibili.com/video/BV1mu411V7y8)\n\n- Name objects around. 用英语描述周围，需要注意发音。\n- Thinking in simple sentences. 用简单的句子表达自己，I'm ..\n- Have small conversiontions with yourself in English. 与自己进行英语对话，每天坚持几分钟。30天可以见证进步\n- Change one of your everyday life things to English. 将每天日常的一项事务变成英文。日记、微博、英文新闻，晨思\n- Keep track so you're doing it every day. 保持跟踪，确保每天在做\n- Recap your day in English. 用英语回顾每一天\n",
       "properties": {
         "date": "2023-08-13",
         "type": "Post",
         "category": "数字溪流",
-        "slug": "life-stream-2308-W2",
+        "slug": "life-stream-2308-w2",
         "tags": [],
         "summary": "周末和亲戚朋友们去了峨眉的七里坪禅道，也许正是成都最热的时候，普通的周末也有很多人，不过和亲近的人一起游玩下还是很愉悦的。这里离峨眉索道不远，不过知道的人应该还不多，想避开攀登峨眉的大部队在附近登山打卡一下的话可以在这里试试。",
         "title": "数字溪流2308-W2",
         "status": "Published",
         "urlname": "b658d5ed-817b-44f3-9443-839161b38ad3",
-        "updated": "2023-08-14 01:17:00"
+        "updated": "2023-08-28 02:11:00"
       },
       "catalog": [
         {
@@ -1976,13 +1976,13 @@
       "id": "d8a704d7-d453-48c7-b249-a5e7ec0150b6",
       "doc_id": "d8a704d7-d453-48c7-b249-a5e7ec0150b6",
       "title": "d8a704d7-d453-48c7-b249-a5e7ec0150b6",
-      "updated": 1688554800000,
+      "updated": 1693159860000,
       "body_original": "\n## 小城的热闹\n\n\n![](https://static-1256611153.file.myqcloud.com/img/picgo/202305080014419.webp)\n\n\n五一没出去旅游，回了趟家乡，位于四川南门的小城攀枝花。去年通了高铁，相比于之前动辄12小时的普通火车，现在只需要4个多小时既能回家一趟了。非常喜欢这座位于亚热带的城市气候，目前月份已是天天晴朗的阳光，光亮亮的但不会闷热，相比于时长阴沉沉的成都，心情会好上不少，走在商业区，灯光跟人气都还不错，烟火气息很足，一种安心的回家感。\n\n\n## 技术见闻\n\n\n### nginx-proxy-manager\n\n\n> https://github.com/NginxProxyManager/nginx-proxy-manager FROM: https://www.cnblogs.com/xueweihan/p/17301666.html\n\n\nnginx 是后端开发常用的服务器，工作和个人的一些小项目都在使用，性能强大但是配置还是比较麻烦，需要手动编辑配置文件，此项目可以让用户通过 Web 界面在线配置、管理 Nginx 服务，方便了不少。\n\n\n### 加密货币入门指南\n\n\n> https://helpthisbook.com/sunny/the-newbies-guide-to-crypto/b881f28b-b86a-41d1-9d5e-98ef00a38b11\n\n\n一个英文版本的加密货币新手指南，相比目前最火的AI领域，感觉加密货币对于后端程序员更好上手一些，准备好好读读，顺便也提升下英文阅读能力。搭配B站的这个[区块链技术与应用](https://www.bilibili.com/video/BV1Vt411X7JF/)可以获得更好的效果。\n\n\n### 静态博客管理器\n\n\n> https://www.oplog.cn/qexo/\n\n\n一个快速、强大、漂亮的在线静态博客编辑器，目前我也在用Hugo来发布的我的个人博客，这个在线编辑器可以更方便的管理静态博客，准备试试。\n\n\n### PicList 图床管理和图片上传工具\n\n\n> https://github.com/Kuingsmile/PicList\n\n\n著名的图片上传工具PicGo加强版本，加入了云盘管理功能，配置也可以从PicGo中直接导入，更顺手更方便。\n\n\n### ChatGPT小红书运营速成指南\n\n\n> https://nw44dv3wqt.feishu.cn/docx/MoTWdukyToCjk9xqqLkcOZrEnxg\n\n\n虽然不是运营，但对于技术人员来说，不论AI工具的使用，还是运营推广的能力，都还是可以从这个系列中学习一下的\n\n\n### 裸辞后激情开发300天，不摸鱼的话能做出什么东西\n\n\n> https://www.bilibili.com/video/BV1ST411R7rK/\n\n\n一名IOS独立开发者的经历描述，也作为他这款独立APP《转山》的发布会，形式很新颖，一直想成为独立开发者的我看的还是很膜拜的。\n\n\n## 效率提升\n\n\n### 9个最可能影响你一生的因素\n\n\n> https://t.me/https1024/11856\n\n\n据哈佛大学的一项长期跟踪研究数据：列举出了9个最可能影响你一生的因素。\n\n\n挺像网文鸡汤的，不过很多条都还是感觉讲到自己短处了，可以对照着反思一下。\n\n\n### 英语学习参考\n\n\n英语的学习对于自己来说是个持续的过程，感觉自己处于某个初级水平很久了，收集了两篇资料，准备参考着突破一下\n\n- [让语言学习更简单的 WordFlow](https://sspai.com/post/79241)\n- [旋元佑进阶文法](https://grammar.codeyu.com/)\n",
       "properties": {
         "date": "2023-05-22",
         "type": "Post",
         "category": "数字溪流",
-        "slug": "life-stream-2305-W1",
+        "slug": "life-stream-2305-w1",
         "tags": [
           "技术见闻",
           "效率提升"
@@ -1991,7 +1991,7 @@
         "title": "数字溪流2305-W1",
         "status": "Published",
         "urlname": "d8a704d7-d453-48c7-b249-a5e7ec0150b6",
-        "updated": "2023-07-05 19:00:00"
+        "updated": "2023-08-28 02:11:00"
       },
       "catalog": [
         {
@@ -2091,8 +2091,8 @@
       "id": "22562976-5d02-440f-bca6-042e5cb93a10",
       "doc_id": "22562976-5d02-440f-bca6-042e5cb93a10",
       "title": "22562976-5d02-440f-bca6-042e5cb93a10",
-      "updated": 1693144200000,
-      "body_original": "\n在开始使用 Notion 编写文档并通过 [NextNotion](https://github.com/tangly1024/NotionNext) 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。\n\n\n抱着这样的想法，我开始寻找是否有解决方案，期望的需求：\n\n- 导出 Notion 中 Database 文档为 markdown\n- 可以同时备份图片，并且修改文档中的图片链接为备份链接\n- 能尽可能的自动化\n\n在 Github 上搜索了一下，还行，已经有了不少的 Notion 备份方案。一些较早方案是需要手动 Notion 网页版Cookie 中的 token_v2，调用 web 的导出接口来生成 Markdown。\n\n\n| 项目名            | 地址                                                                                         | star | 最后更新时间     |\n| -------------- | ------------------------------------------------------------------------------------------ | ---- | ---------- |\n| notion-down    | [https://github.com/kaedea/notion-down](https://github.com/kaedea/notion-down)             | 111  | 2021-11-17 |\n| notion-docsify | [https://github.com/qumuchegi/notion-docsify](https://github.com/qumuchegi/notion-docsify) | 32   | 2022-04-18 |\n| notion-up      | [https://github.com/kaedea/notion-up](https://github.com/kaedea/notion-up)                 | 108  | 2021-11-22 |\n| notion-backup  | [https://github.com/darobin/notion-backup](https://github.com/darobin/notion-backup)       | 312  | 2023-03-28 |\n|                | 数据记录时间：2023-08-26                                                                          |      |            |\n\n\n这一类方案好处是使用官方的 markdown 导出接口，文档转换出来的效果很好，不过 token_v2 存在一年的有效期，过期后需要手动重新获取，而且使用 web 接口毕竟是未公开的接口，随时有变动的可能，不是很推荐了。\n\n\nNotion 如今已经推出了官方的 API，能通过官方 API 来备份文档的话那是最好不过了，还好，找到了这两个方案：\n\n\n| 项目名           | 地址                                                                                       | star | 最后更新时间     |\n| ------------- | ---------------------------------------------------------------------------------------- | ---- | ---------- |\n| notion-md-gen | [https://github.com/bonaysoft/notion-md-gen](https://github.com/bonaysoft/notion-md-gen) | 79   | 2023-07-02 |\n| elog          | [https://github.com/LetTTGACO/elog](https://github.com/LetTTGACO/elog)                   | 114  | 2023-08-18 |\n|               | 数据记录时间：2023-08-26                                                                        |      |            |\n\n\n这两个方案中，elog 的生态更好，有专门的团队维护，并且支持更多的平台，完全可以使用这个工具在其支持的平台中写作，然后统一发布到各其他平台。用来备个份当然也是措措有余了，跟着文档进行了下配置：\n\n1. 为 Notion 建立一个 Integration Token，并连接到要备份的 Database，可以参见 elog 的[官网文档](https://elog.1874.cool/notion/gvnxobqogetukays#notion)\n2. 在 GitHub 中建立一个仓库，用于保存备份数据\n3. 新建一个 **elog.config.js，**用于配置导出数据所需的 token、ID，以及导出时是否过滤，保存方式、是否导出图片等选项\n4. 如有特殊需求，可以创建一个 **formatext.js** 来自定义处理数据，我使用这个文件来处理了下 front matter 信息\n5. 为了实现自动化，创建了 `.github/workflows/backup.yml` 方便此后通过 GitHub Action 来自动备份 Notion 数据\n\n具体可以参考我的仓库地址：[https://github.com/wanghaoxi3000/darklab-blog](https://github.com/wanghaoxi3000/darklab-blog)\n\n\n完成这些步骤后，我会在写完文章后，在终端调用下 GitHub Action 的触发接口：\n\n\n```bash\ncurl -L -X POST \\\n  -H \"Accept: application/vnd.github+json\" \\\n\t-H \"Authorization: Bearer ${GITHUB_TOKEN}\" \\\n\t-d '{\"event_type\": \"backup\"}' \\\n\thttps://api.github.com/repos/wanghaoxi3000/darklab-blog/dispatches\n```\n\n\nGitHub Action 便会开始下载 Notion 的数据，转换为 Markdown 格式，生成 front matter 信息，并按日期归档后推送到指定的仓库中了。\n\n",
+      "updated": 1693144620000,
+      "body_original": "\n在开始使用 Notion 编写文档并通过 [NextNotion](https://github.com/tangly1024/NotionNext) 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。\n\n\n抱着这样的想法，我开始寻找是否有解决方案，期望的需求：\n\n- 导出 Notion 中 Database 文档为 markdown\n- 可以同时备份图片，并且修改文档中的图片链接为备份链接\n- 能尽可能的自动化\n\n在 Github 上搜索了一下，还行，已经有了不少的 Notion 备份方案。一些较早方案是需要手动 Notion 网页版Cookie 中的 token_v2，调用 web 的导出接口来生成 Markdown。\n\n\n| 项目名            | 地址                                                                                         | star | 最后更新时间     |\n| -------------- | ------------------------------------------------------------------------------------------ | ---- | ---------- |\n| notion-down    | [https://github.com/kaedea/notion-down](https://github.com/kaedea/notion-down)             | 111  | 2021-11-17 |\n| notion-docsify | [https://github.com/qumuchegi/notion-docsify](https://github.com/qumuchegi/notion-docsify) | 32   | 2022-04-18 |\n| notion-up      | [https://github.com/kaedea/notion-up](https://github.com/kaedea/notion-up)                 | 108  | 2021-11-22 |\n| notion-backup  | [https://github.com/darobin/notion-backup](https://github.com/darobin/notion-backup)       | 312  | 2023-03-28 |\n|                | 数据记录时间：2023-08-26                                                                          |      |            |\n\n\n这一类方案好处是使用官方的 markdown 导出接口，文档转换出来的效果很好，不过 token_v2 存在一年的有效期，过期后需要手动重新获取，而且使用 web 接口毕竟是未公开的接口，随时有变动的可能，不是很推荐了。\n\n\nNotion 如今已经推出了官方的 API，能通过官方 API 来备份文档的话那是最好不过了，还好，找到了这两个方案：\n\n\n| 项目名           | 地址                                                                                       | star | 最后更新时间     |\n| ------------- | ---------------------------------------------------------------------------------------- | ---- | ---------- |\n| notion-md-gen | [https://github.com/bonaysoft/notion-md-gen](https://github.com/bonaysoft/notion-md-gen) | 79   | 2023-07-02 |\n| elog          | [https://github.com/LetTTGACO/elog](https://github.com/LetTTGACO/elog)                   | 114  | 2023-08-18 |\n|               | 数据记录时间：2023-08-26                                                                        |      |            |\n\n\n这两个方案中，elog 的生态更好，有专门的团队维护，并且支持更多的平台，完全可以使用这个工具在其支持的平台中写作，然后统一发布到各其他平台。用来备个份当然也是措措有余了，跟着文档进行了下配置：\n\n1. 为 Notion 建立一个 Integration Token，并连接到要备份的 Database，可以参见 elog 的[官网文档](https://elog.1874.cool/notion/gvnxobqogetukays#notion)\n2. 在 GitHub 中建立一个仓库，用于保存备份数据\n3. 新建一个 **elog.config.js，**用于配置导出数据所需的 token、ID，以及导出时是否过滤，保存方式、是否导出图片等选项\n4. 如有特殊需求，可以创建一个 **formatext.js** 来自定义处理数据，我使用这个文件来处理了下 front matter 信息\n5. 为了实现自动化，创建了 `.github/workflows/backup.yml` 方便此后通过 GitHub Action 来自动备份 Notion 数据\n\n具体可以参考我的仓库地址：[https://github.com/wanghaoxi3000/darklab-blog](https://github.com/wanghaoxi3000/darklab-blog)\n\n\n完成这些步骤后，我会在写完文章后，在终端调用下 GitHub Action 的触发接口：\n\n\n```bash\ncurl -L -X POST \\\n  -H \"Accept: application/vnd.github+json\" \\\n  -H \"Authorization: Bearer ${GITHUB_TOKEN}\" \\\n  -d '{\"event_type\": \"backup\"}' \\\n  https://api.github.com/repos/wanghaoxi3000/darklab-blog/dispatches\n```\n\n\nGitHub Action 便会开始下载 Notion 的数据，转换为 Markdown 格式，生成 front matter 信息，并按日期归档后推送到指定的仓库中了。\n\n",
       "properties": {
         "date": "2023-08-27",
         "type": "Post",
@@ -2105,7 +2105,7 @@
         "title": "备份 Notion 文档到 Github",
         "status": "Published",
         "urlname": "22562976-5d02-440f-bca6-042e5cb93a10",
-        "updated": "2023-08-27 21:50:00"
+        "updated": "2023-08-27 21:57:00"
       },
       "catalog": [
         {
@@ -2116,14 +2116,42 @@
       "body": "",
       "realName": "备份 Notion 文档到 Github",
       "relativePath": "/2023-08-27/备份 Notion 文档到 Github.md"
+    },
+    {
+      "id": "cf75d99b-267a-47b1-a9e6-170495b8a355",
+      "doc_id": "cf75d99b-267a-47b1-a9e6-170495b8a355",
+      "title": "cf75d99b-267a-47b1-a9e6-170495b8a355",
+      "updated": 1693189380000,
+      "body_original": "\n# 卡丁赛道\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=74b9227f08e5b90f853ca4c6dac3499a342839596074ed0acaa8eba690855da2&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n周末去附近的一个场地开了下卡丁车，这家公司最近应该是在抖音上打了不少广告，刷到了好几次，不过我本身还挺有兴趣，价格也不算贵，几十块钱可以跑四圈，跑道一圈有一公里多的样子，就来体验了一下。总体还算不错，赛道挺大，就是人有点多，排了一个多小时。卡丁车极速有个四五十码，安全防护措施挺到位的，可以小小的发泄一下速度与激情。\n\n\n# 技术见闻\n\n\n## 阮一峰的 TypeScript 教程\n\n\n> [http://www.ruanyifeng.com/blog/2023/08/typescript-tutorial.html](http://www.ruanyifeng.com/blog/2023/08/typescript-tutorial.html)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4dff8a9-b78e-48be-babc-94426f8aac85/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=eee97b6e8c73e2266b47d0e0ee385642a6e2b4e45aa64f080a0a1935a14cf9cc&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\nJavaScript 是一门很万能的语言，特别是在 web 前端开发和各种跨平台客户端开发中都有广泛的应用，之前入门时看过阮一峰的《JavaScript 教程》，质量还不错，一直也想继续进阶下 TypeScript来体验下带类型的 JavaScript，这次看到阮一峰老师新出了 TypeScript 教程，准备跟着学习一下。\n\n\n## **简洁的 TypeScript 之书**\n\n\n> [https://github.com/gibbok/typescript-book](https://github.com/gibbok/typescript-book)\n\n\n虽然标题是简洁的 TypeScript，不过内容很丰富，涵盖了最新版本中的方方面面。完全可以单独当一本 ts 的参考手册来用，可以配合上面教程来一起使用，查漏补缺。\n\n\n## **Nologin 提供保密的电子邮箱**\n\n\n> [https://nlogin.me/](https://nlogin.me/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0d93684d-ba0f-4299-be18-15e9b0bb8079/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=10835c35026e577cfcbb3e3456b72ddfe06ae1b6320b34b229085a7fe5f488cf&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\nNologin 使用专用中继电子邮件地址隐藏您的电子邮件地址。可以理解成是一个中继邮箱，当我们使用这个中继邮箱注册各种服务账号时，验证码会先发送到这个中继邮箱，中继邮箱再发给你，很好的避免了泄露我们的真实邮箱。\n\n\n来源：[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)\n\n\n## 神器集 发现最酷的互联网神器和工具\n\n\n> [https://hao.logosc.cn/](https://hao.logosc.cn/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/4917ecd3-faba-4889-aad4-df6681af538c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=40ecff575975fce099982d0b06ec01eea7f30e76751e2891e829a50e15faca1b&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个发现分享有趣在线工具的地方。我是一个挺喜欢关注各类互联网工具的人，在这个生产力大爆发的时代，一个好的互联网工具可以提升不少的效率。看了下这个网站的内容还是很对我的胃口，丰富了不少我的工具库，如果你和有我一样此类的关注点的话可以看看这个网站。\n\n\n[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)中介绍此网站时，也分析了下此类网站的痛点和国内环境面对此类需求时真正需要的解决方案，很在理，也推荐去原文看看。\n\n\n来源：[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)\n\n\n# 生活杂谈\n\n\n## 数字游民\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0d0b38a1-f3cc-4809-808a-d7f1ec752d3a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=648628236ed2f15e5fc33f86fc42b3ade3ad6340b88cbd61c34839f5eca998ce&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n这周看了自己关注的博主一篇有关他远程工作的体验：[https://catcoding.me/p/remote-work/](https://catcoding.me/p/remote-work/)，想起了数字游民这个概念。第一次听说到数字游民这个词，是在微信公众号中偶然看到了一个《[数字游民空间Dali Hub2.0 重新开业](https://mp.weixin.qq.com/s/I4CeWlWbsip_6RJViD8wWw)》的广告， 这个大理的办公空间聚集了一批可以一边远程工作赚钱一边周游旅行的人，在这个数字时代过着游牧搬的生活。可以一边旅行一边工作的生活真的是挺羡慕的，感觉这才是互联网工作者的理想形态，希望以后也能有这样的体验，姑且再给人生添加一个缥缈的小目标吧。\n\n\n有关数字游民的详细讲解，推荐看看这篇《[什么是数字游民? - DN终极扫盲贴](https://mp.weixin.qq.com/s?__biz=MzIyMjAwNzAzNg%3D%3D&mid=2650207755&idx=1&sn=2fc60aa69b13ae1b4d55fefbba72da75&chksm=f0364d98c741c48eff59cebdd9fcb1e416bea1369ca32191356413daf647e3ef39a0d8bcc670&scene=21#wechat_redirect)》文章，从概念到实现途径以及将要面临的困难都讲得很详细，感兴趣的小伙伴可以看看。\n\n",
+      "properties": {
+        "date": "2023-08-28",
+        "type": "Post",
+        "category": "数字溪流",
+        "slug": "life-stream-2308-w4",
+        "tags": [],
+        "summary": "周末去附近的一个场地开了下卡丁车，这家公司最近应该是在抖音上打了不少广告，刷到了好几次，不过我本身还挺有兴趣，价格也不算贵，几十块钱可以跑四圈，跑道一圈有一公里多的样子，就来体验了一下。总体还算不错，赛道挺大，就是人有点多，排了一个多小时。卡丁车极速有个四五十码，安全防护措施挺到位的，可以小小的发泄一下速度与激情。",
+        "title": "数字溪流2308-W4",
+        "status": "Published",
+        "urlname": "cf75d99b-267a-47b1-a9e6-170495b8a355",
+        "updated": "2023-08-28 10:23:00"
+      },
+      "catalog": [
+        {
+          "title": "2023-08-28",
+          "doc_id": "cf75d99b-267a-47b1-a9e6-170495b8a355"
+        }
+      ],
+      "body": "",
+      "realName": "数字溪流2308-W4",
+      "relativePath": "/2023-08-28/数字溪流2308-W4.md"
     }
   ],
   "catalog": [
     {
       "object": "page",
-      "id": "b658d5ed-817b-44f3-9443-839161b38ad3",
-      "created_time": "2023-08-13T13:14:00.000Z",
-      "last_edited_time": "2023-08-13T17:17:00.000Z",
+      "id": "cf75d99b-267a-47b1-a9e6-170495b8a355",
+      "created_time": "2023-08-27T15:11:00.000Z",
+      "last_edited_time": "2023-08-28T02:23:00.000Z",
       "created_by": {
         "object": "user",
         "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
@@ -2135,8 +2163,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230827%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230827T135020Z&X-Amz-Expires=3600&X-Amz-Signature=b741535c40c789728f1ae566a91764b510eed9a74a4308ed65051179e3beed95&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-08-27T14:50:20.831Z"
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=74b9227f08e5b90f853ca4c6dac3499a342839596074ed0acaa8eba690855da2&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-08-28T03:26:57.199Z"
         }
       },
       "icon": null,
@@ -2146,18 +2174,57 @@
       },
       "archived": false,
       "properties": {
-        "password": "",
-        "icon": "",
+        "date": "2023-08-28",
+        "type": "Post",
+        "category": "数字溪流",
+        "slug": "life-stream-2308-w4",
+        "tags": [],
+        "summary": "周末去附近的一个场地开了下卡丁车，这家公司最近应该是在抖音上打了不少广告，刷到了好几次，不过我本身还挺有兴趣，价格也不算贵，几十块钱可以跑四圈，跑道一圈有一公里多的样子，就来体验了一下。总体还算不错，赛道挺大，就是人有点多，排了一个多小时。卡丁车极速有个四五十码，安全防护措施挺到位的，可以小小的发泄一下速度与激情。",
+        "title": "数字溪流2308-W4",
+        "status": "Published",
+        "urlname": "cf75d99b-267a-47b1-a9e6-170495b8a355",
+        "updated": "2023-08-28 10:23:00"
+      },
+      "url": "https://www.notion.so/2308-W4-cf75d99b267a47b1a9e6170495b8a355",
+      "public_url": "https://military-albatross-7a9.notion.site/2308-W4-cf75d99b267a47b1a9e6170495b8a355"
+    },
+    {
+      "object": "page",
+      "id": "b658d5ed-817b-44f3-9443-839161b38ad3",
+      "created_time": "2023-08-13T13:14:00.000Z",
+      "last_edited_time": "2023-08-27T18:11:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "cover": {
+        "type": "file",
+        "file": {
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=db3a8ff4f5298280bbe71bf94afef1ced4d179e68aab47df3b8648f713e3ba20&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-08-28T03:26:57.189Z"
+        }
+      },
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "ae3c8c9f-d2e7-490c-b298-0f96e33fe57e"
+      },
+      "archived": false,
+      "properties": {
         "date": "2023-08-13",
         "type": "Post",
         "category": "数字溪流",
-        "slug": "life-stream-2308-W2",
+        "slug": "life-stream-2308-w2",
         "tags": [],
         "summary": "周末和亲戚朋友们去了峨眉的七里坪禅道，也许正是成都最热的时候，普通的周末也有很多人，不过和亲近的人一起游玩下还是很愉悦的。这里离峨眉索道不远，不过知道的人应该还不多，想避开攀登峨眉的大部队在附近登山打卡一下的话可以在这里试试。",
         "title": "数字溪流2308-W2",
         "status": "Published",
         "urlname": "b658d5ed-817b-44f3-9443-839161b38ad3",
-        "updated": "2023-08-14 01:17:00"
+        "updated": "2023-08-28 02:11:00"
       },
       "url": "https://www.notion.so/2308-W2-b658d5ed817b44f39443839161b38ad3",
       "public_url": "https://military-albatross-7a9.notion.site/2308-W2-b658d5ed817b44f39443839161b38ad3"
@@ -2166,7 +2233,7 @@
       "object": "page",
       "id": "22562976-5d02-440f-bca6-042e5cb93a10",
       "created_time": "2023-08-03T15:24:00.000Z",
-      "last_edited_time": "2023-08-27T13:50:00.000Z",
+      "last_edited_time": "2023-08-27T13:57:00.000Z",
       "created_by": {
         "object": "user",
         "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
@@ -2194,7 +2261,7 @@
         "title": "备份 Notion 文档到 Github",
         "status": "Published",
         "urlname": "22562976-5d02-440f-bca6-042e5cb93a10",
-        "updated": "2023-08-27 21:50:00"
+        "updated": "2023-08-27 21:57:00"
       },
       "url": "https://www.notion.so/Notion-Github-225629765d02440fbca6042e5cb93a10",
       "public_url": "https://military-albatross-7a9.notion.site/Notion-Github-225629765d02440fbca6042e5cb93a10"
@@ -2215,8 +2282,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230827%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230827T135020Z&X-Amz-Expires=3600&X-Amz-Signature=eaf5f13354360b6959a08434ebe781b7d573620e49544248143dadb04c987ec7&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-08-27T14:50:20.842Z"
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=1b415d86e1db6087537046a03b43b9f4867962b94eb1305ec017a0861e5e4152&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-08-28T03:26:57.196Z"
         }
       },
       "icon": null,
@@ -4797,7 +4864,7 @@
       "object": "page",
       "id": "d8a704d7-d453-48c7-b249-a5e7ec0150b6",
       "created_time": "2023-07-04T08:26:00.000Z",
-      "last_edited_time": "2023-07-05T11:00:00.000Z",
+      "last_edited_time": "2023-08-27T18:11:00.000Z",
       "created_by": {
         "object": "user",
         "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
@@ -4819,12 +4886,10 @@
       },
       "archived": false,
       "properties": {
-        "password": "",
-        "icon": "",
         "date": "2023-05-22",
         "type": "Post",
         "category": "数字溪流",
-        "slug": "life-stream-2305-W1",
+        "slug": "life-stream-2305-w1",
         "tags": [
           "技术见闻",
           "效率提升"
@@ -4833,7 +4898,7 @@
         "title": "数字溪流2305-W1",
         "status": "Published",
         "urlname": "d8a704d7-d453-48c7-b249-a5e7ec0150b6",
-        "updated": "2023-07-05 19:00:00"
+        "updated": "2023-08-28 02:11:00"
       },
       "url": "https://www.notion.so/2305-W1-d8a704d7d45348c7b249a5e7ec0150b6",
       "public_url": "https://military-albatross-7a9.notion.site/2305-W1-d8a704d7d45348c7b249a5e7ec0150b6"
