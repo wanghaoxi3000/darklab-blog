@@ -60,13 +60,13 @@
       "id": "396270c6-a77e-4a97-992e-e273e0a24892",
       "doc_id": "396270c6-a77e-4a97-992e-e273e0a24892",
       "title": "396270c6-a77e-4a97-992e-e273e0a24892",
-      "updated": 1691749800000,
+      "updated": 1696759140000,
       "body_original": "\n曾经在 [一周随笔20230226](https://darkreunion.tech/article/one-week-essay-20230226) 这篇博文中描述了下我心目中理想的 Blog 系统，吐槽了下写博文时的一些很不爽的地方，也一直在寻找更好的 Blog 系统。直到无意间发现了 [NotionNext](https://github.com/tangly1024/NotionNext)，一下就有了哎哟不错喔，这应该就是我想要的博客系统这种感觉。甚至马上就想开始动手迁移我的博客，没有当初从 Hexo 迁移到 Hugo 的时那种纠结。\n\n\n在写下这篇文章时，这个博客站已经完成了从 Hugo 到 [NotionNext](https://github.com/tangly1024/NotionNext) 的迁移，更新好了各种配置，稳定运行了一段时间了，可以开始安心的写这篇文章啦。\n\n\n吸引我的几点：\n\n- 基于 notion，在 notion 中写作体验很好, 有效降低了写作的阻力\n- 主题漂亮，NotionNext 的几个主题风格不错, 颜值也是一种生产力\n- 定制化方便，菜单、网站公共这些直接在 notion 中即可编辑\n- 部署方便，通过 vercel 直接一件部署成本，没啥运维成本\n- 开源免费，而且作者更新的很勤快，之前也看过几款基于 notion 的建站产品不过都要付费\n\n当然，NotionNext 也还不算完美，我觉得还有几个痛点：\n\n\n迁移麻烦，如果之前有使用其他博客系统的话，要迁移到 NotionNext 得看 notion 是否支持。虽然 notion 也有了对应的 API，但是感觉支持的还不多，我是写了一个 Python 脚本来导入，通过 notion 的 token_v2 调用的 web api，但是 web api 经常在变化，Python 的库已经不能直接调用了，还有手动更改下库的代码才能成功导入，而且部分文章在导入后出现了问题，需要手动再调整。\n\n\n不能备份到 Git，虽然 notion 也是一个不小的平台了，数据应该还算有保障，但是毕竟数据没在自己手上，如果能支持自动备份文章到 Git 的话会安心不少，不过搜了下 Github 上已经有了不少备份 notion 的工具，应该有路径，需要后面再研究下。\n\n\n还有就是 NotionNext 还比较新，时不时有些小 bug，很多配置的更新还有靠修改源代码。目前看起来这个项目主要还是作者一个人在维护，贡献者不多，虽然作者很勤快，但是感觉开源软件要有长久的生命力的话还是需要一个活跃的社区。\n\n\n这里简单记录下我的迁移脚本，用于将我的 hugo 迁移到 NotionNext，hugo 中的文件结构可以很自由，主要记录下思路。\n\n\n用到的库：\n\n- pyyaml\n- python-dateutil\n- notion\n- md2notion\n\n```python\nimport glob\nimport io\nimport json\nimport os\n\nimport yaml\nfrom dateutil.parser import parse\nfrom md2notion.upload import upload\nfrom notion.client import NotionClient\nfrom notion.collection import NotionDate\n\n\ndef read_post_file(post_path):\n    pathname = os.path.join(post_path, \"**/*.md\")\n\n    index = 0\n    bloglist = []\n    for fp in glob.iglob(pathname, recursive=True):\n        with open(fp, \"r\", encoding=\"utf-8\") as mdFile:\n            mdStr = mdFile.read()\n            mdStr = mdStr.strip(\"-\").strip()\n            mdChunks = mdStr.split(\"---\", 1)\n            header = yaml.safe_load(mdChunks[0])\n\n            slug = header[\"slug\"].lower()\n            content = mdChunks[1].lstrip(\"\\n\")\n            summary = header.get(\"description\")\n            des_list = content.split(\"<!-- more -->\")\n            if len(des_list) > 1 and summary is None:\n                summary = des_list[0].strip(\"\\n\")\n\n            date = header.get(\"date\")\n            if isinstance(date, str):\n                date = parse(date)\n\n            content = content.replace(\"<!-- more -->\", \"\", 1)\n\n            page = {\n                \"filepath\": fp,\n                \"title\": header[\"title\"],\n                \"slug\": slug,\n                \"category\": header.get(\"categories\"),\n                \"tags\": header.get(\"tags\", []),\n                \"summary\": summary,\n                # \"date\": date.strftime(\"%Y-%m-%d %H:%M:%S\"),\n                \"date\": date.date(),\n                \"content\": content,\n            }\n\n        bloglist.append(page)\n        index += 1\n\n    bloglist.sort(key=lambda x: x[\"date\"], reverse=True)\n    return bloglist\n\n\ndef upload_notion(bloglist: list):\n    token_v2 = \"\"\n    collection_view_id = \"https://www.notion.so/xxxxx\"\n\n    client = NotionClient(\n        token_v2\n    )\n    cv = client.get_collection_view(\n        collection_view_id\n    )\n\n    with open('record.json', 'r') as f:\n        record = json.load(f)\n\n    index = 1\n    for page in bloglist:\n        if page[\"slug\"] in record[\"imported\"]:\n            print(\"skip article\", page.get(\"title\"))\n            index += 1\n            continue\n\n        print(f\"{index}/{len(bloglist)}:Uploading {page.get('filepath')}\")\n\n        row = cv.collection.add_row()\n        row.type = \"Post\"\n        row.date = NotionDate(page[\"date\"])\n        row.title = page[\"title\"]\n        row.slug = page[\"slug\"]\n        row.category = page[\"category\"][0]\n        if page[\"tags\"]:\n            row.tags = page[\"tags\"]\n        row.status = \"Draft\"\n        if page.get(\"summary\"):\n            row.summary = page[\"summary\"]\n\n        mdFile = io.StringIO(page.get(\"content\"))\n        mdFile.__dict__[\"name\"] = page[\"filepath\"]\n\n        try:\n            upload(mdFile, row)\n        except Exception as e:\n            print(e)\n            with open('record.json', 'w') as f:\n                json.dump(record, f, ensure_ascii=False, indent=4)\n            exit(1)\n\n        index += 1\n        record[\"imported\"].append(page[\"slug\"])\n\n\nif __name__ == \"__main__\":\n    bloglist = read_post_file(\"content/posts\")\n    upload_notion(bloglist)\n```\n\n\nnotion 库中代码存在问题需要手动改下：\n\n\nnotion/client.py 313 行和 notion/store.py 280 行的 limit 改为 100。\n\n\n相关 Issue：\n\n\n[https://github.com/NarekA/git-notion/issues/1](https://github.com/NarekA/git-notion/issues/1)\n\n\n[https://github.com/knightjoel/notion-py/commit/521013095e96a05b80edd3e007c931c78a55ce6b](https://github.com/knightjoel/notion-py/commit/521013095e96a05b80edd3e007c931c78a55ce6b)\n\n\n最后再碎碎念几下：\n\n\n有搜索到这篇日本一位作者的文章 [https://dev.classmethod.jp/articles/output-github-repos-release-note-to-notion-db/](https://dev.classmethod.jp/articles/output-github-repos-release-note-to-notion-db/)，有尝试通过 notion 的开放 API 来导入，不过一直没成功，放弃..\n\n\n也有考虑过使用 [思源笔记](https://github.com/siyuan-note/siyuan) 配合这个发布 [插件](https://github.com/terwer/sy-post-publisher) 来作为博客解决方案，感觉也是不错的选择，而且可以更方便，不过是思源笔记开源版本没有移动客户端，作为博客记录还没有付费的动力，看到了 NotionNext 后也放弃了，可以作为一个备选方案。\n\n",
       "properties": {
         "date": "2023-08-11",
         "type": "Post",
         "category": "博客记录",
-        "slug": " migrate-blog-to-notionnext-from-hugo",
+        "slug": "migrate-blog-to-notionnext-from-hugo",
         "tags": [
           "NotionNext",
           "hugo",
@@ -77,7 +77,7 @@
         "title": "从 Hugo 迁移到 NotionNext",
         "status": "Published",
         "urlname": "396270c6-a77e-4a97-992e-e273e0a24892",
-        "updated": "2023-08-11 18:30:00"
+        "updated": "2023-10-08 17:59:00"
       },
       "catalog": [
         {
@@ -2121,8 +2121,8 @@
       "id": "cf75d99b-267a-47b1-a9e6-170495b8a355",
       "doc_id": "cf75d99b-267a-47b1-a9e6-170495b8a355",
       "title": "cf75d99b-267a-47b1-a9e6-170495b8a355",
-      "updated": 1693189380000,
-      "body_original": "\n# 卡丁赛道\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=74b9227f08e5b90f853ca4c6dac3499a342839596074ed0acaa8eba690855da2&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n周末去附近的一个场地开了下卡丁车，这家公司最近应该是在抖音上打了不少广告，刷到了好几次，不过我本身还挺有兴趣，价格也不算贵，几十块钱可以跑四圈，跑道一圈有一公里多的样子，就来体验了一下。总体还算不错，赛道挺大，就是人有点多，排了一个多小时。卡丁车极速有个四五十码，安全防护措施挺到位的，可以小小的发泄一下速度与激情。\n\n\n# 技术见闻\n\n\n## 阮一峰的 TypeScript 教程\n\n\n> [http://www.ruanyifeng.com/blog/2023/08/typescript-tutorial.html](http://www.ruanyifeng.com/blog/2023/08/typescript-tutorial.html)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4dff8a9-b78e-48be-babc-94426f8aac85/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=eee97b6e8c73e2266b47d0e0ee385642a6e2b4e45aa64f080a0a1935a14cf9cc&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\nJavaScript 是一门很万能的语言，特别是在 web 前端开发和各种跨平台客户端开发中都有广泛的应用，之前入门时看过阮一峰的《JavaScript 教程》，质量还不错，一直也想继续进阶下 TypeScript来体验下带类型的 JavaScript，这次看到阮一峰老师新出了 TypeScript 教程，准备跟着学习一下。\n\n\n## **简洁的 TypeScript 之书**\n\n\n> [https://github.com/gibbok/typescript-book](https://github.com/gibbok/typescript-book)\n\n\n虽然标题是简洁的 TypeScript，不过内容很丰富，涵盖了最新版本中的方方面面。完全可以单独当一本 ts 的参考手册来用，可以配合上面教程来一起使用，查漏补缺。\n\n\n## **Nologin 提供保密的电子邮箱**\n\n\n> [https://nlogin.me/](https://nlogin.me/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0d93684d-ba0f-4299-be18-15e9b0bb8079/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=10835c35026e577cfcbb3e3456b72ddfe06ae1b6320b34b229085a7fe5f488cf&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\nNologin 使用专用中继电子邮件地址隐藏您的电子邮件地址。可以理解成是一个中继邮箱，当我们使用这个中继邮箱注册各种服务账号时，验证码会先发送到这个中继邮箱，中继邮箱再发给你，很好的避免了泄露我们的真实邮箱。\n\n\n来源：[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)\n\n\n## 神器集 发现最酷的互联网神器和工具\n\n\n> [https://hao.logosc.cn/](https://hao.logosc.cn/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/4917ecd3-faba-4889-aad4-df6681af538c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=40ecff575975fce099982d0b06ec01eea7f30e76751e2891e829a50e15faca1b&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个发现分享有趣在线工具的地方。我是一个挺喜欢关注各类互联网工具的人，在这个生产力大爆发的时代，一个好的互联网工具可以提升不少的效率。看了下这个网站的内容还是很对我的胃口，丰富了不少我的工具库，如果你和有我一样此类的关注点的话可以看看这个网站。\n\n\n[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)中介绍此网站时，也分析了下此类网站的痛点和国内环境面对此类需求时真正需要的解决方案，很在理，也推荐去原文看看。\n\n\n来源：[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)\n\n\n# 生活杂谈\n\n\n## 数字游民\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0d0b38a1-f3cc-4809-808a-d7f1ec752d3a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=648628236ed2f15e5fc33f86fc42b3ade3ad6340b88cbd61c34839f5eca998ce&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n这周看了自己关注的博主一篇有关他远程工作的体验：[https://catcoding.me/p/remote-work/](https://catcoding.me/p/remote-work/)，想起了数字游民这个概念。第一次听说到数字游民这个词，是在微信公众号中偶然看到了一个《[数字游民空间Dali Hub2.0 重新开业](https://mp.weixin.qq.com/s/I4CeWlWbsip_6RJViD8wWw)》的广告， 这个大理的办公空间聚集了一批可以一边远程工作赚钱一边周游旅行的人，在这个数字时代过着游牧搬的生活。可以一边旅行一边工作的生活真的是挺羡慕的，感觉这才是互联网工作者的理想形态，希望以后也能有这样的体验，姑且再给人生添加一个缥缈的小目标吧。\n\n\n有关数字游民的详细讲解，推荐看看这篇《[什么是数字游民? - DN终极扫盲贴](https://mp.weixin.qq.com/s?__biz=MzIyMjAwNzAzNg%3D%3D&mid=2650207755&idx=1&sn=2fc60aa69b13ae1b4d55fefbba72da75&chksm=f0364d98c741c48eff59cebdd9fcb1e416bea1369ca32191356413daf647e3ef39a0d8bcc670&scene=21#wechat_redirect)》文章，从概念到实现途径以及将要面临的困难都讲得很详细，感兴趣的小伙伴可以看看。\n\n",
+      "updated": 1696759080000,
+      "body_original": "\n# 卡丁赛道\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=5e3420be51f70b2210ecece0755ef54684cb28325114b11178c79560aa102f1d&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n周末去附近的一个场地开了下卡丁车，这家公司最近应该是在抖音上打了不少广告，刷到了好几次，不过我本身还挺有兴趣，价格也不算贵，几十块钱可以跑四圈，跑道一圈有一公里多的样子，就来体验了一下。总体还算不错，赛道挺大，就是人有点多，排了一个多小时。卡丁车极速有个四五十码，安全防护措施挺到位的，可以小小的发泄一下速度与激情。\n\n\n# 技术见闻\n\n\n## 阮一峰的 TypeScript 教程\n\n\n> [http://www.ruanyifeng.com/blog/2023/08/typescript-tutorial.html](http://www.ruanyifeng.com/blog/2023/08/typescript-tutorial.html)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f4dff8a9-b78e-48be-babc-94426f8aac85/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=88421d9ffc18ec6183488d00ddb5f21c93bca7be95e2547cfe5a9dd63574df3b&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\nJavaScript 是一门很万能的语言，特别是在 web 前端开发和各种跨平台客户端开发中都有广泛的应用，之前入门时看过阮一峰的《JavaScript 教程》，质量还不错，一直也想继续进阶下 TypeScript来体验下带类型的 JavaScript，这次看到阮一峰老师新出了 TypeScript 教程，准备跟着学习一下。\n\n\n## **简洁的 TypeScript 之书**\n\n\n> [https://github.com/gibbok/typescript-book](https://github.com/gibbok/typescript-book)\n\n\n虽然标题是简洁的 TypeScript，不过内容很丰富，涵盖了最新版本中的方方面面。完全可以单独当一本 ts 的参考手册来用，可以配合上面教程来一起使用，查漏补缺。\n\n\n## **Nologin 提供保密的电子邮箱**\n\n\n> [https://nlogin.me/](https://nlogin.me/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0d93684d-ba0f-4299-be18-15e9b0bb8079/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=6309a8a9f0be02c0259354ce806fc81a9f2cb5f48ffc9a71251ff728fda94761&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\nNologin 使用专用中继电子邮件地址隐藏您的电子邮件地址。可以理解成是一个中继邮箱，当我们使用这个中继邮箱注册各种服务账号时，验证码会先发送到这个中继邮箱，中继邮箱再发给你，很好的避免了泄露我们的真实邮箱。\n\n\n来源：[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)\n\n\n## 神器集 发现最酷的互联网神器和工具\n\n\n> [https://hao.logosc.cn/](https://hao.logosc.cn/)\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/4917ecd3-faba-4889-aad4-df6681af538c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=5e1b6d21bab0eb146467e5e2814761c1e9d6ff1d99ff523d607d761b071f0911&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一个发现分享有趣在线工具的地方。我是一个挺喜欢关注各类互联网工具的人，在这个生产力大爆发的时代，一个好的互联网工具可以提升不少的效率。看了下这个网站的内容还是很对我的胃口，丰富了不少我的工具库，如果你和有我一样此类的关注点的话可以看看这个网站。\n\n\n[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)中介绍此网站时，也分析了下此类网站的痛点和国内环境面对此类需求时真正需要的解决方案，很在理，也推荐去原文看看。\n\n\n来源：[产品鸭](https://produck.zhubai.love/posts/2302691740500840448)\n\n\n# 生活杂谈\n\n\n## 数字游民\n\n\n![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0d0b38a1-f3cc-4809-808a-d7f1ec752d3a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=cecf63cd9ef2563c240cae6a3b25a1b7a4420300d9ebe8b7a93c9795ab05cd69&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n这周看了自己关注的博主一篇有关他远程工作的体验：[https://catcoding.me/p/remote-work/](https://catcoding.me/p/remote-work/)，想起了数字游民这个概念。第一次听说到数字游民这个词，是在微信公众号中偶然看到了一个《[数字游民空间Dali Hub2.0 重新开业](https://mp.weixin.qq.com/s/I4CeWlWbsip_6RJViD8wWw)》的广告， 这个大理的办公空间聚集了一批可以一边远程工作赚钱一边周游旅行的人，在这个数字时代过着游牧搬的生活。可以一边旅行一边工作的生活真的是挺羡慕的，感觉这才是互联网工作者的理想形态，希望以后也能有这样的体验，姑且再给人生添加一个缥缈的小目标吧。\n\n\n有关数字游民的详细讲解，推荐看看这篇《[什么是数字游民? - DN终极扫盲贴](https://mp.weixin.qq.com/s?__biz=MzIyMjAwNzAzNg%3D%3D&mid=2650207755&idx=1&sn=2fc60aa69b13ae1b4d55fefbba72da75&chksm=f0364d98c741c48eff59cebdd9fcb1e416bea1369ca32191356413daf647e3ef39a0d8bcc670&scene=21#wechat_redirect)》文章，从概念到实现途径以及将要面临的困难都讲得很详细，感兴趣的小伙伴可以看看。\n\n",
       "properties": {
         "date": "2023-08-28",
         "type": "Post",
@@ -2133,7 +2133,7 @@
         "title": "数字溪流2308-W4",
         "status": "Published",
         "urlname": "cf75d99b-267a-47b1-a9e6-170495b8a355",
-        "updated": "2023-08-28 10:23:00"
+        "updated": "2023-10-08 17:58:00"
       },
       "catalog": [
         {
@@ -2144,14 +2144,75 @@
       "body": "",
       "realName": "数字溪流2308-W4",
       "relativePath": "/2023-08-28/数字溪流2308-W4.md"
+    },
+    {
+      "id": "a42357d4-f7fc-4031-a2ae-048dabd15c12",
+      "doc_id": "a42357d4-f7fc-4031-a2ae-048dabd15c12",
+      "title": "a42357d4-f7fc-4031-a2ae-048dabd15c12",
+      "updated": 1693809840000,
+      "body_original": "\n> 来源: [https://m.okjike.com/originalPosts/64afc09d16e5247502aa3e42](https://m.okjike.com/originalPosts/64afc09d16e5247502aa3e42)\n\n\n即刻上看到一篇分析自己要不要跳槽的动态, 感觉挺有用的, 转载记录一下.\n\n\n看似现在是传统的招聘淡季，但也有一些学员找我咨询要不要跳槽的话题。分析了一下大家的问题，基本是下面十个点，这里的每一个点都值得职场人认真思考，我知道会有人说大环境不好最好别跳槽，这个是大趋势，我们生活在商业职场的具体里，不做细节分析是不能发现问题解决问题的。\n\n\n1、在现有公司现有职位连续工作三年以上，工作内容没有任何变化，职级没有升迁的可能性，这个时候该考虑换地了。\n\n\n三年意味着什么？商业职场边际效应递减。大白话说就是该学的也学了，该了解的也了解了，人还是那波儿人，已经没有了新鲜的感觉。再呆下去，心气（成就动机）越呆越低，然后就是皱了皮了。这个时候就该做动作了。当然，我们还是要具体问题具体分析，如果你当下职位处在稳步上升阶段，还能不断接触新的领域和职能的，那就别按这个来。别太担心自己履历的连续和完整，在一家公司供职3年以上，已经充分证明了你的定力，在疫情这三年里，这已经算是稳定了。在一些互联网公司里，如果一个人待了五年都没有跳槽，很多面试官会怀疑他的激情和拥抱变化的能力，你自己理解是稳定其实是减分项。\n\n\n2、公司朝不保夕，尽早离开吧。覆巢之下，焉有完卵。\n\n\n3、公司管理极度混乱，相互pua，缺乏干事业的态度和氛围。CEO不像CEO，高管不像高管，员工不像员工，你不跳干嘛。\n\n\n4、你确定自己在收入上不是眼高手低的那一族，你又有切实的生活压力，比如供房，供车，养孩子，孝敬老人。现在的公司未来你可以一眼看到底，但却很难达到你对于收入的需求，那就到外面看看机会吧。\n\n\n5、每次同学朋友聚会，你都羞于启齿自己的收入、公司和职位，或者压根就不想参加，你应该想想是不是该换个平台了。\n\n\n6、直属领导很垮。各种不支持，总挑刺，穿小鞋，瞎指挥，没能力，只打压，不扛事，推责任，而且你感觉很长的一段时间里这个哥们都不会走，如果你不想过的拧巴，那就赶紧走吧。\n\n\n7、对现有工作完全没有兴趣，每天一想上班跟上坟一样（虽然钱还可以），赶紧换。职场人的职业生涯几十年，我是没办法想想一个人对一件事完全没有兴趣，然后就是在这熬，这个真的很难坚持。当然，所谓有兴趣，并不是指你就能很舒服地去做每一件事情。舒服这个事情，在工作中是不靠谱的，也肯定不是你该追求的目标。想挣钱，想成就某个目标，就没有舒服的。有兴趣是指你给自己做成一件事情一个充分的理由，你愿意为了某个目标去不断挑战自己，去克服工作中的种种不爽和困难，最后在登顶的那一刻，你可以享受完成这件事的成就感。所以有没有兴趣，压根儿就不靠直觉，而是要不断地磨练自己，在各种纠结、痛苦中要求自己去拿结果，如果发现还是不行，那就赶紧换。\n\n\n8、你原来在公司角色和职位挺重要的，有啥事都会叫你参与，突然从某个时间开始，你发现自己被边缘化了，开会也不叫你了，然后你的工作内容开始变得单一枯燥且工作范围也越来越窄，+1和+2也不经常和你沟通了，即使安排工作，也明显是在敷衍。这时你要小心了，很可能是被动离职的前兆。如果你供职时间不是很长，别太在意那点离职补偿，毕竟职场口碑比那重要。与其别人赶你走，不如主动出击看机会，自己体面离开。\n\n\n9、当你在一家公司觉得可学的东西不多了，上升空间也有限时，先客观评价一下自己的判断是否准确，是自己太心急，没有好好沉淀，还是确实机会成本逐步攀高了。如果是后者，那就可以考虑跳槽了。\n\n\n10、在外企工作很长时间的人，通常会不适应民营企业的管理风格；在高科技企业呆惯了的人，也很难适应传统行业；从市场化公司成长起来的经理人很少能够融入国企央企的氛围；遇见这种文化冲突，个人建议快速离开，过去我面试过的候选人中很少有人可以适应过来的。局与局之间的行为模式、管理机制、人际关系完全不同，如果你非问我哪些人适应过来拿到过结果，我只能告诉你，那和你再活一次是一样的！你有了这个决心，那是有戏的。\n\n",
+      "properties": {
+        "date": "2023-09-04",
+        "type": "Post",
+        "category": "打工人生",
+        "slug": "whether-to-change-a-job",
+        "tags": [
+          "转载",
+          "跳槽"
+        ],
+        "summary": "即刻上看到一篇分析自己要不要跳槽的动态, 感觉挺有用的, 转载记录一下.",
+        "title": "[转载] 要不要跳槽",
+        "status": "Published",
+        "urlname": "a42357d4-f7fc-4031-a2ae-048dabd15c12",
+        "updated": "2023-09-04 14:44:00"
+      },
+      "catalog": [
+        {
+          "title": "2023-09-04",
+          "doc_id": "a42357d4-f7fc-4031-a2ae-048dabd15c12"
+        }
+      ],
+      "body": "",
+      "realName": "[转载] 要不要跳槽",
+      "relativePath": "/2023-09-04/[转载] 要不要跳槽.md"
+    },
+    {
+      "id": "44e7d168-2e30-49a4-8cda-c925ceb1b134",
+      "doc_id": "44e7d168-2e30-49a4-8cda-c925ceb1b134",
+      "title": "44e7d168-2e30-49a4-8cda-c925ceb1b134",
+      "updated": 1697388780000,
+      "body_original": "\n国庆的前几周, 趁着女友的一个工作空档, 顺便也想着避开下国庆的出行高峰, 提前请了几天假去香港游玩了一圈. 本是一场规划了几周的旅行, 想去的地方也很多, 沿途还准备顺便逛逛深圳, 但我们的行程只有四天, 注定得是一场特种兵式的打卡游. 而且很不巧的是, 出行的日子正好赶上了 “海葵” 台风降临, 天天都是瓢泼大雨 ,深圳和香港都淹了不少地方, 新闻更是称之为百年不遇的大雨, 每天起床看着窗外的大雨都想从心底大喊一声家人们, 谁懂啊 ~\n\n\n\n大雨打乱了我们不少计划, 好在那几天充分发挥了特种兵精神, 用来都来了的口号坚定信心, 在凌乱中还是去了不少地方. 如今国庆也结束了, 生活逐渐回归日常, 也整理了下这场后劲挺大的打卡游.\n\n\n# 漫步香港\n\n\n一大早从深圳福田高铁到达香港的西九龙车站, 全程只要十几分钟, 我们订的酒店在红磡地铁站附近. 没办传说中在香港神通广大的八达通, 直接靠刷支付宝来到此地, 出地铁迎接的便是盛大的暴雨.\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/08804762-3d69-48e1-87b9-d9391624c1a1/IMG_5842.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=216ad705be03cd7500e74fe320d82012b24bccc36e42150400476396b90eeffe&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n拜此所赐, 到达酒店后整个上午我们也无法出门, 只能待在酒店大堂盯着原本的出行计划望雨兴叹.直到快到中午雨稍微小了一点, 我们终于决定从行程备忘中选取了一家叫华嫂冰室的网红店, 决定从这去吃个午餐顺便开始一天探索. \n\n\n当日的大雨让香港已经挂起了 ”黑旗” 的气象预警, 这是一种极端恶劣天气下的警告, 这也意味着香港当天将停工停课, 商场店铺虽然不受此限制, 但是大雨也淹了好几个地铁站, 交通受阻不少店员无法赶过来上班, 街边的商铺基本都关着门. \n\n\n先在地图搜索到会展的一家华嫂冰室, 然而在到达后, 无例外的也关着大门, 好在出师不利的我们发现原来尖沙咀那边附近还有一家分店, 抱着试试看的心态折返回去后, 看到这家店还开着大门, 心情终于是好了不少, 此时天气也好转了些, 雨小了很多, 在这家店外面排队的人还不少.\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/68988f52-f7ed-4604-a256-735fff6c763b/DSC02966.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=428f940e674447b554e9bf72844873bd23802319edecbef32a081a50c40dc28d&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n冰室这个词听起来像是专门的冷饮店, 不过实际上店里菜单上的各类品种很多, 也许这就是港式茶餐厅的传统意义上的叫法吧. 在这家店里点了两份面, 一个鸡蛋夹心汉堡, 两杯饮品, 一共消费了 160 港币, 首次体会到了传说中的香港高物价. 味道嘛, 似乎和住家附近的那家港九茶餐厅大差不差, 牛肉更厚实, 鸡蛋更新鲜, 充分的给予身体碳水的愉悦, 然后再来一杯正宗加冰港式奶茶, 入口的一瞬间顿时让人清爽了不少.\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/29c59af9-94d0-4d12-893a-40794713e79f/DSC02973.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=1fbec9c385ec68c56307b466aefe61efa5d62a3c6dd741169df9c634d52f7efe&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n \n\n\n顺带一提, 第二天寻找早餐时在酒店附近的商场发现了一家叫亚金南洋茶室的餐厅, 可以无门槛使用香港有礼消费券, 一顿丰盛的早餐只花了几块钱, 也许是这优惠从心理上提升了不少的体验, 吃起来口味感觉更好.\n\n\n酒饱饭足, 行程伊始, 以下便是香港各处的打卡记录:\n\n\n**维港伪成功人士来啦**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/7dd18dc3-d5b2-44e2-a481-5c5f440705ea/Untitled.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=4e5db4940641803ae7a4d3e6afd72a9db86201e3665be986c847fb6e36b724fe&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n**天星小轮来啦**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/2b2cf08b-018a-490f-8485-14411db32d1e/DSC03023.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=1b3ef4a7f773fcfd926afe173a3a1c64707ece4e89a6c53cc968ab08bf2a9fd0&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n**叮叮车来啦**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/84aca2ae-50fb-405f-a768-3ace413ef453/DSC03074.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=dbe918b0ee3a05ae9c04741753d80a356f9ffa39d95feca71edadaabd06edcdc&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n**中环来啦**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/5f56c764-2ed9-484d-ac3c-206b816cc9cc/DSC03670.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=28f4d7b05f7419d9c2d7dbb1a3ed7893b422f20e5edfac38333ce878c985fa84&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/a6c8f7a3-731c-418c-b10b-bb57616ae36a/DSC03741.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=6ec4e24eca7270a9c5516bc06fdb310271dcfdbbb8aee66eb9b7ce52302783cd&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n**铜锣湾来啦**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/94180b91-13bf-4910-bb0b-e06fe3fc6ec5/IMG_6137.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=d6c061827854299bedf1bd8e73663a4ae54ce0fc618307ca597d4c358282aea5&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/95bce80b-1b2b-4f56-bad7-a797b0e26fcf/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=15fd419660c8b970b649fe323668672c3673207f8a3d52452f9ee359fafd0a81&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n**坚尼地城来啦**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/f3684ea0-8cca-4e19-a904-2303e56e5265/1696267521012.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=67287dfa6eda5348c022d95044fcc5e018b0f9172bf444dd8c7889df79887756&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n**乘缆车上太平山看夜景来啦**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/341c2157-7de6-4ffd-8b85-37dbc7c703da/1696268437996.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=033c087790a83e27a59a2fa8e4861958535b753492c8ad7527aff8380c6d3885&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n# 奇妙迪士尼\n\n\n迪士尼也是此行很期待的一站, 童年便一直听闻的传说中的乐园终于有机会来一睹风采了, 伴随着港铁的迪士尼专线中”愿你有个奇妙的一天”的广播, 来到了这个乐园. 依然是飘雨的一天, 好在只是断断续续的在下,  上午的花车巡演也没有取消, 气氛很到位.\n\n\n**巡演中迪士尼的网红们**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/de2aa738-c91e-48ff-8985-17bb8aff41b6/DSC03422.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=3d90d6d5b37b79791b4d627e68686b9c8f55d59a30f379b7e1d9d67bed0684f8&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/c9b210cc-e575-4a16-af94-4ebacfb34bbe/DSC03432.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=2c436917f24454bcd4c5ccf9d2373559d6f49ad81e1821ad346bcf92c0649765&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/50348f3d-85d8-4aa6-95a5-44fea91ba548/DSC03437.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=b4eb4c95d36cd3bf2865b246502ffcfad0c20d35f81e25729e2c77bde1275770&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n迪士尼的游玩方式其实和我这直男想的很不一样, 我预想的应该是那种欢乐谷式的游玩方式, 主要打卡各种游乐设施, 顺便再观看下迪士尼的特色表演, 街边偶遇迪士尼角色玩偶的话再合个影, 就非常完美. 但也许是陪女友一起来的缘故, 这一天大部分时间实际上都是在排各种迪士尼网红的见面队伍, 从入园后便第一时间开始预约玲娜贝儿的见面会, 首先排的也是迪士尼角色见面项目 ”米奇会客厅” (第一批冲进园区, 也在这个项目排了接近一小时..), 下午在达菲的小屋前又是排了一个多小时才短短的见了一面这位人气网红时更是让我不得不有些怀疑人生.\n\n\n**达菲和他的朋友们**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/b1e1d9e2-93c0-4b0b-be4f-68c9926c9edf/1697222046356.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=640159829f8d81dbf8b6b3a8ce63feaa2696525ca57dcf2986dca274cbd276b0&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n但直到我也遇到我这位偶像的见面会时, 理解了这种感觉.\n\n\n**会晤钢铁侠**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/a23e3b52-ce8e-4e59-8d99-a7fc39ca8438/IMG_1261-0001.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=8cea42ca9f49c65f4f5ff898f56348082cd2c3d84d5364b22fb2c104f36398f3&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n钢铁侠的见面会也是排了很久的热门大项目, 入场时四五个人一起进入到小房间, 经过一个象征式的安全扫描仪式, 然后进入到会客厅, 会看到钢铁侠缓缓降落到门后, 像从电影中走出来一样和你打招呼, 整体非常有代入感, 顿时感觉排了这么久的还是值得的.\n\n\n**通过扫描后钢铁侠炫酷出场**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/0b030d94-ef2e-417e-8dcc-116830be325b/MAH03488_0.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=5937ac129d4621959ad8f2c6f1d18387c63398c719a1efbf29a0ea9550326088&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/773ee139-0af4-4fd7-8e90-5da20b74440f/IMG_1258.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100529Z&X-Amz-Expires=3600&X-Amz-Signature=c65d09e2bafc5a30fad68fd8ca92259522c4d38bf8aa96d5ab5ee885c9287326&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n讲真港迪中大部分的游乐设施刺激程度都比较温和, 大部分设施也就是合家欢的程度, 唯一的室外过山车灰熊矿车都不会出现翻滚的路段, 只是会有一段倒车的环节, 不知道的话第一次坐还挺容易吓一跳, 另外一个室内的星战过山车也只是胜在新奇, 论刺激程度的话相比成都欢乐谷那几个过山车应该都差远了. 来到这里沉浸式体验下各种迪士尼 IP 风格的场景, 和各路虚拟人物的近距离接触接触打个招呼, 有空再轻轻松松的玩个游乐设施, 其实才是正确的游玩方式吧.\n\n\n最后, 终于现场欣赏到了迪士尼的烟花表演, 绚烂的烟花和灯光中看着各种熟悉的人物投影随着迪士尼特色的歌曲依次出现, 还是一件挺感动的事.\n\n\n**迪士尼烟火收尾**\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/5f65b420-8e9d-48c2-b7c7-8758470e159a/DSC03643.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=7ce7de41b725240a435c6a6ce35f97ef181c16561fa0e6b2743e42bcfd5e2f25&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n# 小结\n\n\n通过深圳中转到达香港, 可以比直飞香港节省不少路费, 本来也想趁中转停留的机会好好看看这个传说中的卷城, 互联网从业者的圣地, 不过也是天气的原因, 只是短暂的瞥了几眼这里, 希望以后有机会再单独来这里逛逛.\n\n\n香港这里有着自己独特的法规制度, 交通方式以及生活习惯, 初次旅行到这里仿佛出国了一次, 但是熟悉的面庞, 基本无碍的沟通又可以有着畅通无阻的体验. 看到各种曾经在港片中出现的风景, 来到这个似乎熟悉的城市,  有太多想去打卡的地方了. 短短几天的走马观花, 还有很多, 期待再来探索下不同的路线. \n\n\n恶劣的天气对旅行影响的确很大, 但是也见识了很多不一样的风景, 同时压马路不会有大晴天那么累, 各处人流也没有平常那么多, 省了很多排队的时间, 这也是旅途中的独特的经历吧.\n\n\n制定旅行路线时可以在地图上标记好, 查看起来就会一目了然, 方便很多. 遇到意外情况, 想舍弃一些地点时, 看看地图也可以快速取舍, 不至于乱了手脚.\n\n\n保持在路上, 以上.\n\n",
+      "properties": {
+        "date": "2023-10-14",
+        "type": "Post",
+        "category": "旅行游记",
+        "slug": "travel-hongkong-with-storm",
+        "tags": [
+          "香港"
+        ],
+        "summary": "国庆的前几周, 趁着女友的一个工作空档, 顺便也想着避开下国庆的出行高峰, 提前请了几天假去香港游玩了一圈. 本是一场规划了几周的旅行, 想去的地方也很多, 沿途还准备顺便逛逛深圳, 但我们的行程只有四天, 注定得是一场特种兵式的打卡游. 而且很不巧的是, 出行的日子正好赶上了 “海葵” 台风降临, 天天都是瓢泼大雨 ,深圳和香港都淹了不少地方, 新闻更是称之为百年不遇的大雨, 每天起床看着窗外的大雨都想从心底大喊一声家人们, 谁懂啊 ~",
+        "title": "风雨中的香港打卡游",
+        "status": "Published",
+        "urlname": "44e7d168-2e30-49a4-8cda-c925ceb1b134",
+        "updated": "2023-10-16 00:53:00"
+      },
+      "catalog": [
+        {
+          "title": "2023-10-14",
+          "doc_id": "44e7d168-2e30-49a4-8cda-c925ceb1b134"
+        }
+      ],
+      "body": "",
+      "realName": "风雨中的香港打卡游",
+      "relativePath": "/2023-10-14/风雨中的香港打卡游.md"
     }
   ],
   "catalog": [
     {
       "object": "page",
-      "id": "cf75d99b-267a-47b1-a9e6-170495b8a355",
-      "created_time": "2023-08-27T15:11:00.000Z",
-      "last_edited_time": "2023-08-28T02:23:00.000Z",
+      "id": "44e7d168-2e30-49a4-8cda-c925ceb1b134",
+      "created_time": "2023-09-26T17:31:00.000Z",
+      "last_edited_time": "2023-10-15T16:53:00.000Z",
       "created_by": {
         "object": "user",
         "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
@@ -2163,8 +2224,89 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=74b9227f08e5b90f853ca4c6dac3499a342839596074ed0acaa8eba690855da2&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-08-28T03:26:57.199Z"
+          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/9ab6683d-d34f-4e16-881a-38933bd451a5/002.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=6db65d40efae4e4774310e3966d34a9b1f00acbd462b0ceb375f8a0d8a753ab4&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-10-16T11:05:28.048Z"
+        }
+      },
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "ae3c8c9f-d2e7-490c-b298-0f96e33fe57e"
+      },
+      "archived": false,
+      "properties": {
+        "date": "2023-10-14",
+        "type": "Post",
+        "category": "旅行游记",
+        "slug": "travel-hongkong-with-storm",
+        "tags": [
+          "香港"
+        ],
+        "summary": "国庆的前几周, 趁着女友的一个工作空档, 顺便也想着避开下国庆的出行高峰, 提前请了几天假去香港游玩了一圈. 本是一场规划了几周的旅行, 想去的地方也很多, 沿途还准备顺便逛逛深圳, 但我们的行程只有四天, 注定得是一场特种兵式的打卡游. 而且很不巧的是, 出行的日子正好赶上了 “海葵” 台风降临, 天天都是瓢泼大雨 ,深圳和香港都淹了不少地方, 新闻更是称之为百年不遇的大雨, 每天起床看着窗外的大雨都想从心底大喊一声家人们, 谁懂啊 ~",
+        "title": "风雨中的香港打卡游",
+        "status": "Published",
+        "urlname": "44e7d168-2e30-49a4-8cda-c925ceb1b134",
+        "updated": "2023-10-16 00:53:00"
+      },
+      "url": "https://www.notion.so/44e7d1682e3049a48cdac925ceb1b134",
+      "public_url": "https://military-albatross-7a9.notion.site/44e7d1682e3049a48cdac925ceb1b134"
+    },
+    {
+      "object": "page",
+      "id": "a42357d4-f7fc-4031-a2ae-048dabd15c12",
+      "created_time": "2023-09-04T06:36:00.000Z",
+      "last_edited_time": "2023-09-04T06:44:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "ae3c8c9f-d2e7-490c-b298-0f96e33fe57e"
+      },
+      "archived": false,
+      "properties": {
+        "date": "2023-09-04",
+        "type": "Post",
+        "category": "打工人生",
+        "slug": "whether-to-change-a-job",
+        "tags": [
+          "转载",
+          "跳槽"
+        ],
+        "summary": "即刻上看到一篇分析自己要不要跳槽的动态, 感觉挺有用的, 转载记录一下.",
+        "title": "[转载] 要不要跳槽",
+        "status": "Published",
+        "urlname": "a42357d4-f7fc-4031-a2ae-048dabd15c12",
+        "updated": "2023-09-04 14:44:00"
+      },
+      "url": "https://www.notion.so/a42357d4f7fc4031a2ae048dabd15c12",
+      "public_url": "https://military-albatross-7a9.notion.site/a42357d4f7fc4031a2ae048dabd15c12"
+    },
+    {
+      "object": "page",
+      "id": "cf75d99b-267a-47b1-a9e6-170495b8a355",
+      "created_time": "2023-08-27T15:11:00.000Z",
+      "last_edited_time": "2023-10-08T09:58:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "cover": {
+        "type": "file",
+        "file": {
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=5e3420be51f70b2210ecece0755ef54684cb28325114b11178c79560aa102f1d&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-10-16T11:05:28.039Z"
         }
       },
       "icon": null,
@@ -2183,7 +2325,7 @@
         "title": "数字溪流2308-W4",
         "status": "Published",
         "urlname": "cf75d99b-267a-47b1-a9e6-170495b8a355",
-        "updated": "2023-08-28 10:23:00"
+        "updated": "2023-10-08 17:58:00"
       },
       "url": "https://www.notion.so/2308-W4-cf75d99b267a47b1a9e6170495b8a355",
       "public_url": "https://military-albatross-7a9.notion.site/2308-W4-cf75d99b267a47b1a9e6170495b8a355"
@@ -2204,8 +2346,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=db3a8ff4f5298280bbe71bf94afef1ced4d179e68aab47df3b8648f713e3ba20&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-08-28T03:26:57.189Z"
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=496df0de6e8effe591837ba79ba6e5ddefbdcfc4ba8592a7a0dc54ccc692eb29&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-10-16T11:05:28.052Z"
         }
       },
       "icon": null,
@@ -2215,6 +2357,8 @@
       },
       "archived": false,
       "properties": {
+        "password": "",
+        "icon": "",
         "date": "2023-08-13",
         "type": "Post",
         "category": "数字溪流",
@@ -2250,6 +2394,8 @@
       },
       "archived": false,
       "properties": {
+        "password": "",
+        "icon": "",
         "date": "2023-08-27",
         "type": "Post",
         "category": "博客记录",
@@ -2282,8 +2428,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230828%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230828T022657Z&X-Amz-Expires=3600&X-Amz-Signature=1b415d86e1db6087537046a03b43b9f4867962b94eb1305ec017a0861e5e4152&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-08-28T03:26:57.196Z"
+          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=12f9d6a3774a90bcf39139fa273e382de31b917f4e02287a566384d94fd2aded&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-10-16T11:05:28.049Z"
         }
       },
       "icon": null,
@@ -2313,7 +2459,7 @@
       "object": "page",
       "id": "396270c6-a77e-4a97-992e-e273e0a24892",
       "created_time": "2023-07-25T09:12:00.000Z",
-      "last_edited_time": "2023-08-11T10:30:00.000Z",
+      "last_edited_time": "2023-10-08T09:59:00.000Z",
       "created_by": {
         "object": "user",
         "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
@@ -2330,12 +2476,10 @@
       },
       "archived": false,
       "properties": {
-        "password": "",
-        "icon": "",
         "date": "2023-08-11",
         "type": "Post",
         "category": "博客记录",
-        "slug": " migrate-blog-to-notionnext-from-hugo",
+        "slug": "migrate-blog-to-notionnext-from-hugo",
         "tags": [
           "NotionNext",
           "hugo",
@@ -2346,7 +2490,7 @@
         "title": "从 Hugo 迁移到 NotionNext",
         "status": "Published",
         "urlname": "396270c6-a77e-4a97-992e-e273e0a24892",
-        "updated": "2023-08-11 18:30:00"
+        "updated": "2023-10-08 17:59:00"
       },
       "url": "https://www.notion.so/Hugo-NotionNext-396270c6a77e4a97992ee273e0a24892",
       "public_url": "https://military-albatross-7a9.notion.site/Hugo-NotionNext-396270c6a77e4a97992ee273e0a24892"
@@ -4886,6 +5030,8 @@
       },
       "archived": false,
       "properties": {
+        "password": "",
+        "icon": "",
         "date": "2023-05-22",
         "type": "Post",
         "category": "数字溪流",

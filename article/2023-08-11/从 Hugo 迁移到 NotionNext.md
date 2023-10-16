@@ -2,7 +2,7 @@
 date: "2023-08-11"
 type: Post
 category: 博客记录
-slug: " migrate-blog-to-notionnext-from-hugo"
+slug: migrate-blog-to-notionnext-from-hugo
 tags:
   - NotionNext
   - hugo
@@ -12,7 +12,7 @@ summary: 曾经在 一周随笔20230226 这篇博文中描述了下我心目中�
 title: 从 Hugo 迁移到 NotionNext
 status: Published
 urlname: 396270c6-a77e-4a97-992e-e273e0a24892
-updated: "2023-08-11 18:30:00"
+updated: "2023-10-08 17:59:00"
 ---
 
 曾经在 [一周随笔 20230226](https://darkreunion.tech/article/one-week-essay-20230226) 这篇博文中描述了下我心目中理想的 Blog 系统，吐槽了下写博文时的一些很不爽的地方，也一直在寻找更好的 Blog 系统。直到无意间发现了 [NotionNext](https://github.com/tangly1024/NotionNext)，一下就有了哎哟不错喔，这应该就是我想要的博客系统这种感觉。甚至马上就想开始动手迁移我的博客，没有当初从 Hexo 迁移到 Hugo 的时那种纠结。
