@@ -5,7 +5,7 @@
     "clean": "elog clean"
   },
   "dependencies": {
-    "@elog/cli": "^0.7.1",
-    "@elog/plugin-adapter": "^0.7.1"
+    "@elog/cli": "latest",
+    "@elog/plugin-adapter": "latest"
   }
 }
