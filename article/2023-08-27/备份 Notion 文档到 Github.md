@@ -9,7 +9,7 @@ summary: 在开始使用 Notion 编写文档并通过 NextNotion 来发布博客
 title: 备份 Notion 文档到 Github
 status: Published
 urlname: 22562976-5d02-440f-bca6-042e5cb93a10
-updated: "2023-08-27 21:57:00"
+updated: "2023-11-15 17:47:00"
 ---
 
 在开始使用 Notion 编写文档并通过 [NextNotion](https://github.com/tangly1024/NotionNext) 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。
@@ -22,13 +22,14 @@ updated: "2023-08-27 21:57:00"
 
 在 Github 上搜索了一下，还行，已经有了不少的 Notion 备份方案。一些较早方案是需要手动 Notion 网页版 Cookie 中的 token_v2，调用 web 的导出接口来生成 Markdown。
 
-| 项目名         | 地址                                                                                       | star | 最后更新时间 |
-| -------------- | ------------------------------------------------------------------------------------------ | ---- | ------------ |
-| notion-down    | [https://github.com/kaedea/notion-down](https://github.com/kaedea/notion-down)             | 111  | 2021-11-17   |
-| notion-docsify | [https://github.com/qumuchegi/notion-docsify](https://github.com/qumuchegi/notion-docsify) | 32   | 2022-04-18   |
-| notion-up      | [https://github.com/kaedea/notion-up](https://github.com/kaedea/notion-up)                 | 108  | 2021-11-22   |
-| notion-backup  | [https://github.com/darobin/notion-backup](https://github.com/darobin/notion-backup)       | 312  | 2023-03-28   |
-|                | 数据记录时间：2023-08-26                                                                   |      |              |
+| 项目名         | 地址                                                                                         | star | 最后更新时间 |
+| -------------- | -------------------------------------------------------------------------------------------- | ---- | ------------ |
+| notion-down    | [https://github.com/kaedea/notion-down](https://github.com/kaedea/notion-down)               | 111  | 2021-11-17   |
+| notion-docsify | [https://github.com/qumuchegi/notion-docsify](https://github.com/qumuchegi/notion-docsify)   | 32   | 2022-04-18   |
+| notion-up      | [https://github.com/kaedea/notion-up](https://github.com/kaedea/notion-up)                   | 108  | 2021-11-22   |
+| notion-backup  | [https://github.com/darobin/notion-backup](https://github.com/darobin/notion-backup)         | 312  | 2023-03-28   |
+| notetrail      | [https://github.com/zxjlm/NoteTrail#notetrail](https://github.com/zxjlm/NoteTrail#notetrail) | 12   | 2022-06-04   |
+|                | 数据记录时间：2023-08-26                                                                     |      |              |
 
 这一类方案好处是使用官方的 markdown 导出接口，文档转换出来的效果很好，不过 token_v2 存在一年的有效期，过期后需要手动重新获取，而且使用 web 接口毕竟是未公开的接口，随时有变动的可能，不是很推荐了。
 

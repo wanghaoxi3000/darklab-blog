@@ -2091,8 +2091,8 @@
       "id": "22562976-5d02-440f-bca6-042e5cb93a10",
       "doc_id": "22562976-5d02-440f-bca6-042e5cb93a10",
       "title": "22562976-5d02-440f-bca6-042e5cb93a10",
-      "updated": 1693144620000,
-      "body_original": "\n在开始使用 Notion 编写文档并通过 [NextNotion](https://github.com/tangly1024/NotionNext) 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。\n\n\n抱着这样的想法，我开始寻找是否有解决方案，期望的需求：\n\n- 导出 Notion 中 Database 文档为 markdown\n- 可以同时备份图片，并且修改文档中的图片链接为备份链接\n- 能尽可能的自动化\n\n在 Github 上搜索了一下，还行，已经有了不少的 Notion 备份方案。一些较早方案是需要手动 Notion 网页版Cookie 中的 token_v2，调用 web 的导出接口来生成 Markdown。\n\n\n| 项目名            | 地址                                                                                         | star | 最后更新时间     |\n| -------------- | ------------------------------------------------------------------------------------------ | ---- | ---------- |\n| notion-down    | [https://github.com/kaedea/notion-down](https://github.com/kaedea/notion-down)             | 111  | 2021-11-17 |\n| notion-docsify | [https://github.com/qumuchegi/notion-docsify](https://github.com/qumuchegi/notion-docsify) | 32   | 2022-04-18 |\n| notion-up      | [https://github.com/kaedea/notion-up](https://github.com/kaedea/notion-up)                 | 108  | 2021-11-22 |\n| notion-backup  | [https://github.com/darobin/notion-backup](https://github.com/darobin/notion-backup)       | 312  | 2023-03-28 |\n|                | 数据记录时间：2023-08-26                                                                          |      |            |\n\n\n这一类方案好处是使用官方的 markdown 导出接口，文档转换出来的效果很好，不过 token_v2 存在一年的有效期，过期后需要手动重新获取，而且使用 web 接口毕竟是未公开的接口，随时有变动的可能，不是很推荐了。\n\n\nNotion 如今已经推出了官方的 API，能通过官方 API 来备份文档的话那是最好不过了，还好，找到了这两个方案：\n\n\n| 项目名           | 地址                                                                                       | star | 最后更新时间     |\n| ------------- | ---------------------------------------------------------------------------------------- | ---- | ---------- |\n| notion-md-gen | [https://github.com/bonaysoft/notion-md-gen](https://github.com/bonaysoft/notion-md-gen) | 79   | 2023-07-02 |\n| elog          | [https://github.com/LetTTGACO/elog](https://github.com/LetTTGACO/elog)                   | 114  | 2023-08-18 |\n|               | 数据记录时间：2023-08-26                                                                        |      |            |\n\n\n这两个方案中，elog 的生态更好，有专门的团队维护，并且支持更多的平台，完全可以使用这个工具在其支持的平台中写作，然后统一发布到各其他平台。用来备个份当然也是措措有余了，跟着文档进行了下配置：\n\n1. 为 Notion 建立一个 Integration Token，并连接到要备份的 Database，可以参见 elog 的[官网文档](https://elog.1874.cool/notion/gvnxobqogetukays#notion)\n2. 在 GitHub 中建立一个仓库，用于保存备份数据\n3. 新建一个 **elog.config.js，**用于配置导出数据所需的 token、ID，以及导出时是否过滤，保存方式、是否导出图片等选项\n4. 如有特殊需求，可以创建一个 **formatext.js** 来自定义处理数据，我使用这个文件来处理了下 front matter 信息\n5. 为了实现自动化，创建了 `.github/workflows/backup.yml` 方便此后通过 GitHub Action 来自动备份 Notion 数据\n\n具体可以参考我的仓库地址：[https://github.com/wanghaoxi3000/darklab-blog](https://github.com/wanghaoxi3000/darklab-blog)\n\n\n完成这些步骤后，我会在写完文章后，在终端调用下 GitHub Action 的触发接口：\n\n\n```bash\ncurl -L -X POST \\\n  -H \"Accept: application/vnd.github+json\" \\\n  -H \"Authorization: Bearer ${GITHUB_TOKEN}\" \\\n  -d '{\"event_type\": \"backup\"}' \\\n  https://api.github.com/repos/wanghaoxi3000/darklab-blog/dispatches\n```\n\n\nGitHub Action 便会开始下载 Notion 的数据，转换为 Markdown 格式，生成 front matter 信息，并按日期归档后推送到指定的仓库中了。\n\n",
+      "updated": 1700041620000,
+      "body_original": "\n在开始使用 Notion 编写文档并通过 [NextNotion](https://github.com/tangly1024/NotionNext) 来发布博客后，整个博客的管理和书写体验感觉流畅了不少，不过整个博客的数据放在 Notion 中，心里多少还是有些担忧，假如以后想再迁移到其他的平台岂不是很麻烦，最好有一种方法可以批量导出 Notion 中的文档为 markdown，这样就可以把数据掌握在自己手里，随时可以迁移，再通过 Git 来管理，每个文档还可以有变更的历史记录，再也没有后顾之忧。\n\n\n抱着这样的想法，我开始寻找是否有解决方案，期望的需求：\n\n- 导出 Notion 中 Database 文档为 markdown\n- 可以同时备份图片，并且修改文档中的图片链接为备份链接\n- 能尽可能的自动化\n\n在 Github 上搜索了一下，还行，已经有了不少的 Notion 备份方案。一些较早方案是需要手动 Notion 网页版Cookie 中的 token_v2，调用 web 的导出接口来生成 Markdown。\n\n\n| 项目名            | 地址                                                                                           | star | 最后更新时间     |\n| -------------- | -------------------------------------------------------------------------------------------- | ---- | ---------- |\n| notion-down    | [https://github.com/kaedea/notion-down](https://github.com/kaedea/notion-down)               | 111  | 2021-11-17 |\n| notion-docsify | [https://github.com/qumuchegi/notion-docsify](https://github.com/qumuchegi/notion-docsify)   | 32   | 2022-04-18 |\n| notion-up      | [https://github.com/kaedea/notion-up](https://github.com/kaedea/notion-up)                   | 108  | 2021-11-22 |\n| notion-backup  | [https://github.com/darobin/notion-backup](https://github.com/darobin/notion-backup)         | 312  | 2023-03-28 |\n| notetrail      | [https://github.com/zxjlm/NoteTrail#notetrail](https://github.com/zxjlm/NoteTrail#notetrail) | 12   | 2022-06-04 |\n|                | 数据记录时间：2023-08-26                                                                            |      |            |\n\n\n这一类方案好处是使用官方的 markdown 导出接口，文档转换出来的效果很好，不过 token_v2 存在一年的有效期，过期后需要手动重新获取，而且使用 web 接口毕竟是未公开的接口，随时有变动的可能，不是很推荐了。\n\n\nNotion 如今已经推出了官方的 API，能通过官方 API 来备份文档的话那是最好不过了，还好，找到了这两个方案：\n\n\n| 项目名           | 地址                                                                                       | star | 最后更新时间     |\n| ------------- | ---------------------------------------------------------------------------------------- | ---- | ---------- |\n| notion-md-gen | [https://github.com/bonaysoft/notion-md-gen](https://github.com/bonaysoft/notion-md-gen) | 79   | 2023-07-02 |\n| elog          | [https://github.com/LetTTGACO/elog](https://github.com/LetTTGACO/elog)                   | 114  | 2023-08-18 |\n|               | 数据记录时间：2023-08-26                                                                        |      |            |\n\n\n这两个方案中，elog 的生态更好，有专门的团队维护，并且支持更多的平台，完全可以使用这个工具在其支持的平台中写作，然后统一发布到各其他平台。用来备个份当然也是措措有余了，跟着文档进行了下配置：\n\n1. 为 Notion 建立一个 Integration Token，并连接到要备份的 Database，可以参见 elog 的[官网文档](https://elog.1874.cool/notion/gvnxobqogetukays#notion)\n2. 在 GitHub 中建立一个仓库，用于保存备份数据\n3. 新建一个 **elog.config.js，**用于配置导出数据所需的 token、ID，以及导出时是否过滤，保存方式、是否导出图片等选项\n4. 如有特殊需求，可以创建一个 **formatext.js** 来自定义处理数据，我使用这个文件来处理了下 front matter 信息\n5. 为了实现自动化，创建了 `.github/workflows/backup.yml` 方便此后通过 GitHub Action 来自动备份 Notion 数据\n\n具体可以参考我的仓库地址：[https://github.com/wanghaoxi3000/darklab-blog](https://github.com/wanghaoxi3000/darklab-blog)\n\n\n完成这些步骤后，我会在写完文章后，在终端调用下 GitHub Action 的触发接口：\n\n\n```bash\ncurl -L -X POST \\\n  -H \"Accept: application/vnd.github+json\" \\\n  -H \"Authorization: Bearer ${GITHUB_TOKEN}\" \\\n  -d '{\"event_type\": \"backup\"}' \\\n  https://api.github.com/repos/wanghaoxi3000/darklab-blog/dispatches\n```\n\n\nGitHub Action 便会开始下载 Notion 的数据，转换为 Markdown 格式，生成 front matter 信息，并按日期归档后推送到指定的仓库中了。\n\n",
       "properties": {
         "date": "2023-08-27",
         "type": "Post",
@@ -2105,7 +2105,7 @@
         "title": "备份 Notion 文档到 Github",
         "status": "Published",
         "urlname": "22562976-5d02-440f-bca6-042e5cb93a10",
-        "updated": "2023-08-27 21:57:00"
+        "updated": "2023-11-15 17:47:00"
       },
       "catalog": [
         {
@@ -2205,9 +2205,145 @@
       "body": "",
       "realName": "风雨中的香港打卡游",
       "relativePath": "/2023-10-14/风雨中的香港打卡游.md"
+    },
+    {
+      "id": "afdb2f97-8c68-471a-b29f-cc0924862d04",
+      "doc_id": "afdb2f97-8c68-471a-b29f-cc0924862d04",
+      "title": "afdb2f97-8c68-471a-b29f-cc0924862d04",
+      "updated": 1700042340000,
+      "body_original": "\n在很多开源库中, 可以看到这种方式来传递配置参数, 如: zap、GRPC等.\n\n\n它经常用在需要传递和初始化校验参数列表的时候使用，比如我们现在需要初始化一个 HTTP server，里面可能包含了 port、timeout 等等信息，但是参数列表很多，不能直接写在函数上，并且我们要满足灵活配置的要求，毕竟不是每个 server 都需要很多参数。那么我们可以：\n\n- 设置一个不导出的 struct 叫 options，用来存放配置参数；\n- 创建一个类型 `type Option func(options *options) error`，用这个类型来作为返回值；\n\n比如我们现在要给 HTTP server 里面设置一个 port 参数，那么我们可以这么声明一个 WithPort 函数，返回 Option 类型的闭包，当这个闭包执行的时候会将 options 的 port 填充进去：\n\n\n```go\ntype options struct {\n        port *int\n}\n\ntype Option func(options *options) error\n\nfunc WithPort(port int) Option {\n                // 所有的类型校验，赋值，初始化啥的都可以放到这个闭包里面做\n        return func(options *options) error {\n                if port < 0 {\n                        return errors.New(\"port should be positive\")\n                }\n                options.port = &port\n                return nil\n        }\n}\n```\n\n\n假如我们现在有一个这样的 Option 函数集，除了上面的 port 以外，还可以填充timeout等。然后我们可以利用 NewServer 创建我们的 server：\n\n\n```go\nfunc NewServer(addr string, opts ...Option) (*http.Server, error) {\n        var options options\n            // 遍历所有的 Option\n        for _, opt := range opts {\n                    // 执行闭包\n                err := opt(&options)\n                if err != nil {\n                        return nil, err\n                }\n        }\n\n        // 接下来可以填充我们的业务逻辑，比如这里设置默认的port 等等\n        var port int\n        if options.port == nil {\n                port = defaultHTTPPort\n        } else {\n                if *options.port == 0 {\n                        port = randomPort()\n                } else {\n                        port = *options.port\n                }\n        }\n\n        // ...\n}\n```\n\n\n初始化 server：\n\n\n```go\nserver, err := httplib.NewServer(\"localhost\",\n                httplib.WithPort(8080),\n                httplib.WithTimeout(time.Second))\n```\n\n\n这样写的话就比较灵活，如果只想生成一个简单的 server，我们的代码可以变得很简单：\n\n\n```go\nserver, err := httplib.NewServer(\"localhost\")\n```\n\n",
+      "properties": {
+        "date": "2023-11-15",
+        "type": "Post",
+        "category": "Golang",
+        "slug": "golang-use-functional-options-pattern-to-set-config",
+        "tags": [
+          "Golang 技法"
+        ],
+        "summary": "在需要传递和初始化校验参数列表的时候使用这种方式来传递配置参数.",
+        "title": "Golang 使用 Functional Options Pattern 传递参数",
+        "status": "Published",
+        "urlname": "afdb2f97-8c68-471a-b29f-cc0924862d04",
+        "updated": "2023-11-15 17:59:00"
+      },
+      "catalog": [
+        {
+          "title": "2023-11-15",
+          "doc_id": "afdb2f97-8c68-471a-b29f-cc0924862d04"
+        }
+      ],
+      "body": "",
+      "realName": "Golang 使用 Functional Options Pattern 传递参数",
+      "relativePath": "/2023-11-15/Golang 使用 Functional Options Pattern 传递参数.md"
+    },
+    {
+      "id": "fd8b9c85-f1c9-494b-8ce3-3932eeb4f429",
+      "doc_id": "fd8b9c85-f1c9-494b-8ce3-3932eeb4f429",
+      "title": "fd8b9c85-f1c9-494b-8ce3-3932eeb4f429",
+      "updated": 1699809840000,
+      "body_original": "\n# 大足石刻\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/f50d30d4-b6da-4091-a40c-d2aaae558b34/_cgi-bin_mmwebwx-bin_webwxgetmsgimg__MsgID6430506396690037757skeycrypt_24bd9668_650e8bf8ca91b8ecb3c3bd2a997780fdmmweb_appidwx_webfilehelper_%281%29.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100408Z&X-Amz-Expires=3600&X-Amz-Signature=1feae0b7a79db1a7eec51fd5aab0990b4f212b192eaf0b6cf98d03467443569c&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n同学结婚，去了一趟重庆大足，顺道看了下有名的大足石刻。这里有很多关于宗教的雕刻，图中便是一个六道轮回的刻画，感觉很有寓意，佩服古人那种条件下还能创作出这样的作品。景区的石刻范围其实没多大，最多半小时应该就能逛完，不过感觉蕴含了许多的故事，可以找个导游或者提前做好功课再去看看，应该可以看出更多的门道。\n\n\n# 技术见闻\n\n\n## 开源 WireGuard 组网工具 **netbird**\n\n\n> [https://github.com/netbirdio/netbird](https://github.com/netbirdio/netbird)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/b7bd09d7-f485-43e8-aec4-3e9471c96f51/759200-20230904003644044-681869870.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100408Z&X-Amz-Expires=3600&X-Amz-Signature=0f379cdedb6eec818d1d351310ea6f74882deb1b8cb56d2172a75466dbc4efe9&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n通过 SSO/MFA 和简单的访问控制，将设备连接到基于 WireGuard 的单一安全专用网状网络。又一款基于 WireGuard 的开源组网工具，与 Tailscale 很像，Tailscale 是在用户态实现了 WireGuard 协议，无法使用 WireGuard 原生的命令行工具来进行管理。而 NetBird 直接使用了内核态的 WireGuard，可以使用命令行工具 wg 来查看和管理。\n\n\n## 国产开源 Web 防火墙雷池 WAF\n\n\n> [https://github.com/chaitin/safeline](https://github.com/chaitin/safeline)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/40914f95-35fa-447a-bc29-d6a47098634b/68747470733a2f2f7761662d63652e6368616974696e2e636e2f696d616765732f616c62756d2f302e706e67.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100408Z&X-Amz-Expires=3600&X-Amz-Signature=327829753d65b8bfe1398b3b01b0ebe569b8a64a6d234ce8ead316d06a5ee403&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一款足够简单、足够好用、足够强的免费 WAF。基于业界领先的语义引擎检测技术，作为反向代理接入，保护你的网站不受黑客攻击。核心检测能力由智能语义分析算法驱动，专为社区而生，不让黑客越雷池半步。界面看起来不错，遇到此类需求时会考虑使用这个。\n\n\n## 证件照转换 Idify\n\n\n> [https://idify.netlify.app/](https://idify.netlify.app/)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/85344961-a460-4aa8-b032-4fef47c88024/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20231112194454.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100408Z&X-Amz-Expires=3600&X-Amz-Signature=f09b15b0c9e4b6efd2ad681219c2346dee8dd0c3443cfd6f0f31799fee686799&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n将用户上传的人像照，转成证件照，全部使用前端代码，数据不会上传，代码也是开源的，不过需要科学上网。\n\n\n## 浏览器切图\n\n\n> [https://github.com/imgly/background-removal-js](https://github.com/imgly/background-removal-js)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/a1a2c8a1-dead-4970-a63f-a61c3c87e1bc/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f696d676c792d7374617469632d6173736574732f7374617469632f626c6f672f6769746875622d72656c65617365732f6261636b67726f756e642d72656d6f76616c2d667265652d706c7567.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100408Z&X-Amz-Expires=3600&X-Amz-Signature=794b688f685b1d0efcc254b3084c3c0040642ed5a26c1c109695359b08881757&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n使用浏览器轻松进行切图，和上面一样，全部使用本地代码，不会有隐私问题。试用了一下项目中的 [demo](https://img.ly/showcases/cesdk/background-removal/web)，效果还可以，就是速度有点慢，两三分钟才切好一张图。\n\n\n## 将 SSH 保持连接\n\n\n> [https://linuxiac.com/how-to-keep-ssh-session-alive/](https://linuxiac.com/how-to-keep-ssh-session-alive/)\n\n\n```shell\n# Client-Side Configuration (Linux)\nnano ~/.ssh/config\n\nHost *\nServerAliveInterval 120\nServerAliveCountMax 30\n\n# Server-Side Configuration\nsudo nano /etc/ssh/sshd_config\n\nTCPKeepAlive yes\nClientAliveInterval 120 \nClientAliveCountMax 30\n```\n\n\n你的工作是否也会频繁使用 SSH 连接各个服务器呢，作为 SSH 的重度使用者，有些环境使用 SSH 连接上去后一会没操作后就会自己断开，这篇英文博客详细分析了 SSH 不活动导致自动断开的原因，并给出了保持连接的客户端和服务端设置方法，试了下还挺有效的。\n\n\n## 150+ 数字产品创意\n\n\n> [https://ignacio-velasquez.notion.site/150-Digital-Products-Ideas-0b90ffd6021e4d8cbde96a617cd72cf7](https://ignacio-velasquez.notion.site/150-Digital-Products-Ideas-0b90ffd6021e4d8cbde96a617cd72cf7)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/e20c93e1-9429-4368-82b4-c8c16ac773fe/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20231112222131.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100408Z&X-Amz-Expires=3600&X-Amz-Signature=400271edc4273e5b339fafc6fe98f3de1555a906faff1b28df8d3b9a30881fc7&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n一份 notion 公开笔记，记录了 150+ 数字产品创意，想折腾折腾什么产品的话可以来这里寻找一些灵感。\n\n\n# 生活杂谈\n\n\n## 《走出戈壁》读后感\n\n\n> [https://catcoding.me/p/out-of-the-gobi/](https://catcoding.me/p/out-of-the-gobi/)\n\n\n关注的博主写了一篇《走出戈壁》的读后感，虽然没有读过这本书，但是感觉得到这本书的质量不错，跟着学习一些人生经验。\n\n- 干什么事都要干好，否则闲着也是浪费时间，而且争强好胜，虽然身体瘦弱，但不甘人后，如此而已\n- 所以抗搓能力非常重要，即使非常难过也得在人面前保持平静\n- 在逆境中保持乐观、有所成长\n\n## 妙瓦底生死36小时\n\n\n> [https://weibo.com/ttarticle/p/show?id=2309404945990791856177](https://weibo.com/ttarticle/p/show?id=2309404945990791856177)\n\n\n![](https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/b9c6ae82-6b0c-427e-b98f-e60864cb0f89/8ee5b070gy1hhwb8cv9wcj20rs0fmq6l.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100408Z&X-Amz-Expires=3600&X-Amz-Signature=a09cc823257a8c42dd6599ae246c15bb1994164dda15c4f08c1ef7298aa1cebb&X-Amz-SignedHeaders=host&x-id=GetObject)\n\n\n著名二次元艺术家峰哥的探险妙瓦底经历，整个过程还是挺惊险的，即使是整活也佩服峰哥的勇气，可以搭配B站的视频一起食用：[https://www.bilibili.com/video/BV14P41187bJ/](https://www.bilibili.com/video/BV14P41187bJ/)\n\n",
+      "properties": {
+        "date": "2023-11-13",
+        "type": "Post",
+        "category": "数字溪流",
+        "slug": "life-stream-2311-w2",
+        "tags": [],
+        "summary": "同学结婚，去了一趟重庆大足，顺道看了下有名的大足石刻。这里有很多关于宗教的雕刻，图中便是一个六道轮回的刻画，感觉很有寓意，佩服古人那种条件下还能创作出这样的作品。景区的石刻范围其实没多大，最多半小时应该就能逛完，不过感觉蕴含了许多的故事，可以找个导游或者提前做好功课再去看看，应该可以看出更多的门道。",
+        "title": "数字溪流2311-W2",
+        "status": "Published",
+        "urlname": "fd8b9c85-f1c9-494b-8ce3-3932eeb4f429",
+        "updated": "2023-11-13 01:24:00"
+      },
+      "catalog": [
+        {
+          "title": "2023-11-13",
+          "doc_id": "fd8b9c85-f1c9-494b-8ce3-3932eeb4f429"
+        }
+      ],
+      "body": "",
+      "realName": "数字溪流2311-W2",
+      "relativePath": "/2023-11-13/数字溪流2311-W2.md"
     }
   ],
   "catalog": [
+    {
+      "object": "page",
+      "id": "afdb2f97-8c68-471a-b29f-cc0924862d04",
+      "created_time": "2023-11-15T09:48:00.000Z",
+      "last_edited_time": "2023-11-15T09:59:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "cover": null,
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "ae3c8c9f-d2e7-490c-b298-0f96e33fe57e"
+      },
+      "archived": false,
+      "properties": {
+        "date": "2023-11-15",
+        "type": "Post",
+        "category": "Golang",
+        "slug": "golang-use-functional-options-pattern-to-set-config",
+        "tags": [
+          "Golang 技法"
+        ],
+        "summary": "在需要传递和初始化校验参数列表的时候使用这种方式来传递配置参数.",
+        "title": "Golang 使用 Functional Options Pattern 传递参数",
+        "status": "Published",
+        "urlname": "afdb2f97-8c68-471a-b29f-cc0924862d04",
+        "updated": "2023-11-15 17:59:00"
+      },
+      "url": "https://www.notion.so/Golang-Functional-Options-Pattern-afdb2f978c68471ab29fcc0924862d04",
+      "public_url": "https://military-albatross-7a9.notion.site/Golang-Functional-Options-Pattern-afdb2f978c68471ab29fcc0924862d04"
+    },
+    {
+      "object": "page",
+      "id": "fd8b9c85-f1c9-494b-8ce3-3932eeb4f429",
+      "created_time": "2023-11-12T06:11:00.000Z",
+      "last_edited_time": "2023-11-12T17:24:00.000Z",
+      "created_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "last_edited_by": {
+        "object": "user",
+        "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
+      },
+      "cover": {
+        "type": "file",
+        "file": {
+          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/f50d30d4-b6da-4091-a40c-d2aaae558b34/_cgi-bin_mmwebwx-bin_webwxgetmsgimg__MsgID6430506396690037757skeycrypt_24bd9668_650e8bf8ca91b8ecb3c3bd2a997780fdmmweb_appidwx_webfilehelper_%281%29.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100407Z&X-Amz-Expires=3600&X-Amz-Signature=053f8c0caddfcd7023826358b1d17dcda001b6c3afc9be62fee548f38b4bbf93&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-11-15T11:04:07.830Z"
+        }
+      },
+      "icon": null,
+      "parent": {
+        "type": "database_id",
+        "database_id": "ae3c8c9f-d2e7-490c-b298-0f96e33fe57e"
+      },
+      "archived": false,
+      "properties": {
+        "date": "2023-11-13",
+        "type": "Post",
+        "category": "数字溪流",
+        "slug": "life-stream-2311-w2",
+        "tags": [],
+        "summary": "同学结婚，去了一趟重庆大足，顺道看了下有名的大足石刻。这里有很多关于宗教的雕刻，图中便是一个六道轮回的刻画，感觉很有寓意，佩服古人那种条件下还能创作出这样的作品。景区的石刻范围其实没多大，最多半小时应该就能逛完，不过感觉蕴含了许多的故事，可以找个导游或者提前做好功课再去看看，应该可以看出更多的门道。",
+        "title": "数字溪流2311-W2",
+        "status": "Published",
+        "urlname": "fd8b9c85-f1c9-494b-8ce3-3932eeb4f429",
+        "updated": "2023-11-13 01:24:00"
+      },
+      "url": "https://www.notion.so/2311-W2-fd8b9c85f1c9494b8ce33932eeb4f429",
+      "public_url": "https://military-albatross-7a9.notion.site/2311-W2-fd8b9c85f1c9494b8ce33932eeb4f429"
+    },
     {
       "object": "page",
       "id": "44e7d168-2e30-49a4-8cda-c925ceb1b134",
@@ -2224,8 +2360,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/9ab6683d-d34f-4e16-881a-38933bd451a5/002.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=6db65d40efae4e4774310e3966d34a9b1f00acbd462b0ceb375f8a0d8a753ab4&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-10-16T11:05:28.048Z"
+          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/9ab6683d-d34f-4e16-881a-38933bd451a5/002.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100407Z&X-Amz-Expires=3600&X-Amz-Signature=013f93c2d4f01926237f1ba12a1a172cf57ea6c67058614d9d5363c9ac19b53c&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-11-15T11:04:07.802Z"
         }
       },
       "icon": null,
@@ -2235,6 +2371,8 @@
       },
       "archived": false,
       "properties": {
+        "password": "",
+        "icon": "",
         "date": "2023-10-14",
         "type": "Post",
         "category": "旅行游记",
@@ -2272,6 +2410,8 @@
       },
       "archived": false,
       "properties": {
+        "password": "",
+        "icon": "",
         "date": "2023-09-04",
         "type": "Post",
         "category": "打工人生",
@@ -2305,8 +2445,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=5e3420be51f70b2210ecece0755ef54684cb28325114b11178c79560aa102f1d&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-10-16T11:05:28.039Z"
+          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/2a3d1a02-b06d-47ac-8d8c-023a502da971/Untitled.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100407Z&X-Amz-Expires=3600&X-Amz-Signature=294c161b2c61eb7c00a3410d0b1749c7b4668e5a437ad4bc8550e9f0afe9364d&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-11-15T11:04:07.802Z"
         }
       },
       "icon": null,
@@ -2316,6 +2456,8 @@
       },
       "archived": false,
       "properties": {
+        "password": "",
+        "icon": "",
         "date": "2023-08-28",
         "type": "Post",
         "category": "数字溪流",
@@ -2346,8 +2488,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=496df0de6e8effe591837ba79ba6e5ddefbdcfc4ba8592a7a0dc54ccc692eb29&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-10-16T11:05:28.052Z"
+          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/7912828d-2996-49e8-a0d1-d9d8110bc7bc/5dc29d8.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100407Z&X-Amz-Expires=3600&X-Amz-Signature=c39a3efbb3095027882be7b9eeb3545971e124fa5e8b9c20d6eb94a139d3daf2&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-11-15T11:04:07.803Z"
         }
       },
       "icon": null,
@@ -2377,7 +2519,7 @@
       "object": "page",
       "id": "22562976-5d02-440f-bca6-042e5cb93a10",
       "created_time": "2023-08-03T15:24:00.000Z",
-      "last_edited_time": "2023-08-27T13:57:00.000Z",
+      "last_edited_time": "2023-11-15T09:47:00.000Z",
       "created_by": {
         "object": "user",
         "id": "770a3cb9-0a43-4c92-9eff-fd44faf5a915"
@@ -2394,8 +2536,6 @@
       },
       "archived": false,
       "properties": {
-        "password": "",
-        "icon": "",
         "date": "2023-08-27",
         "type": "Post",
         "category": "博客记录",
@@ -2407,7 +2547,7 @@
         "title": "备份 Notion 文档到 Github",
         "status": "Published",
         "urlname": "22562976-5d02-440f-bca6-042e5cb93a10",
-        "updated": "2023-08-27 21:57:00"
+        "updated": "2023-11-15 17:47:00"
       },
       "url": "https://www.notion.so/Notion-Github-225629765d02440fbca6042e5cb93a10",
       "public_url": "https://military-albatross-7a9.notion.site/Notion-Github-225629765d02440fbca6042e5cb93a10"
@@ -2428,8 +2568,8 @@
       "cover": {
         "type": "file",
         "file": {
-          "url": "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231016%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231016T100528Z&X-Amz-Expires=3600&X-Amz-Signature=12f9d6a3774a90bcf39139fa273e382de31b917f4e02287a566384d94fd2aded&X-Amz-SignedHeaders=host&x-id=GetObject",
-          "expiry_time": "2023-10-16T11:05:28.049Z"
+          "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/81ca5a78-1f59-4d6b-852d-1453d30809f2/74718d04-0c1e-4e9f-abd0-eba81c5fd246/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230730224558.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20231115%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20231115T100407Z&X-Amz-Expires=3600&X-Amz-Signature=ed8fa7dd5e673c16d1e918a762ffdaaba5a6497a68b6d677fdc0904327cb3fcd&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "expiry_time": "2023-11-15T11:04:07.804Z"
         }
       },
       "icon": null,
@@ -2476,6 +2616,8 @@
       },
       "archived": false,
       "properties": {
+        "password": "",
+        "icon": "",
         "date": "2023-08-11",
         "type": "Post",
         "category": "博客记录",
